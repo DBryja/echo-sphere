@@ -9,16 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.8"
+    "@payloadcms/db-mongodb": "3.0.0-beta.98",
+    "@payloadcms/next": "3.0.0-beta.98",
+    "@payloadcms/plugin-cloud": "3.0.0-beta.98",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.98",
+    "graphql": "^16.8.1",
+    "next": "15.0.0-rc.0",
+    "payload": "3.0.0-beta.98",
+    "react": "19.0.0-rc-d1afcb43-20240903",
+    "react-dom": "19.0.0-rc-d1afcb43-20240903"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@payloadcms/eslint-config": "^1.1.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.8"
+    "eslint-config-next": "15.0.0-rc.0",
+    "typescript": "^5"
   }
 }
