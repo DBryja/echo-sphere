@@ -13,6 +13,12 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    artists: Artist;
+    releases: Release;
+    products: Product;
+    'product-tags': ProductTag;
+    'product-types': ProductType;
+    'product-categories': ProductCategory;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -78,6 +84,109 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists".
+ */
+export interface Artist {
+  id: string;
+  name: string;
+  teaser: string;
+  description: string;
+  'img-profile': string | Media;
+  'img-banner'?: (string | null) | Media;
+  socials?: {
+    youtube?: string | null;
+    instagram?: string | null;
+    spotify?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "releases".
+ */
+export interface Release {
+  id: string;
+  name: string;
+  type: 'album' | 'ep' | 'single';
+  'img-cover': string | Media;
+  'release-date': string;
+  artists: (string | Artist)[];
+  links?: {
+    spotify?: string | null;
+    'apple-music'?: string | null;
+    youtube?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  name: string;
+  category: string | ProductCategory;
+  type: string | ProductType;
+  description: string;
+  variants: {
+    color?: string | null;
+    images: {
+      img?: (string | null) | Media;
+      id?: string | null;
+    }[];
+    price: number;
+    'stock-details': {
+      stock: number;
+      size?: ('sm' | 'md' | 'lg' | 'xl' | 'one-size') | null;
+      sku: string;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  tags?: (string | ProductTag)[] | null;
+  published?: boolean | null;
+  relatedProducts?: (string | Product)[] | null;
+  stock?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: string;
+  name: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-types".
+ */
+export interface ProductType {
+  id: string;
+  name: string;
+  'related-categories'?: (string | ProductCategory)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-tags".
+ */
+export interface ProductTag {
+  id: string;
+  name: string;
+  importance?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
