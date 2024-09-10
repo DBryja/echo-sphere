@@ -13,4 +13,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: true,
+  admin: {
+    group: "Utility",
+  }
 }
