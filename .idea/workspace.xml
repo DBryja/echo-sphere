@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/collections/store/ShippingAddresses.ts" afterDir="false" />
+    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="Add e-commerce, structure data">
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/actions/stripe.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/api/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/CheckoutForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/config/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/lib/stripe.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/utils/get-stripejs.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/utils/stripe-helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/Media.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/Media.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/Users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/Users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/main/Events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/main/Events.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/store/Orders.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/store/Orders.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/payload-types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/payload-types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/payload.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/payload.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,13 +28,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Collections" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,8 +49,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="Stripe" />
+                    <option name="lastUsedInstant" value="1725967076" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="Collections" />
-                    <option name="lastUsedInstant" value="1725880180" />
+                    <option name="lastUsedInstant" value="1725964031" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
@@ -74,22 +84,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Collections&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\WEBDEV\\echo-studio\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Stripe",
+    "last_opened_file_path": "C:/WEBDEV/echo-studio",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editing.templates",
+    "ts.external.directory.path": "C:\\WEBDEV\\echo-studio\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -101,6 +112,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\WEBDEV\echo-studio\src\app\(app)" />
       <recent name="C:\WEBDEV\echo-studio\src\collections\main" />
       <recent name="C:\WEBDEV\echo-studio\src\app\(payload)\admin" />
       <recent name="C:\WEBDEV\echo-studio\src\app" />
@@ -120,6 +132,7 @@
       <workItem from="1725879402996" duration="17206000" />
       <workItem from="1725951102847" duration="2706000" />
       <workItem from="1725960927526" duration="1216000" />
+      <workItem from="1725980060225" duration="4663000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

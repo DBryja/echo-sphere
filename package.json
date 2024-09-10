@@ -13,6 +13,8 @@
     "@payloadcms/next": "3.0.0-beta.98",
     "@payloadcms/plugin-cloud": "3.0.0-beta.98",
     "@payloadcms/richtext-lexical": "3.0.0-beta.98",
+    "@stripe/react-stripe-js": "2.4.0",
+    "@stripe/stripe-js": "2.2.2",
     "@types/uuid": "^10.0.0",
     "bson-objectid": "^2.0.4",
     "graphql": "^16.8.1",
@@ -20,13 +22,14 @@
     "payload": "3.0.0-beta.98",
     "react": "19.0.0-rc-d1afcb43-20240903",
     "react-dom": "19.0.0-rc-d1afcb43-20240903",
+    "stripe": "14.8.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@payloadcms/eslint-config": "^1.1.1",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-rc.0",
     "typescript": "^5"
