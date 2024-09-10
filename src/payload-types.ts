@@ -11,14 +11,17 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
-    users: User;
-    media: Media;
     artists: Artist;
     releases: Release;
+    events: Event;
     products: Product;
+    orders: Order;
+    'shipping-addresses': ShippingAddress;
     'product-tags': ProductTag;
     'product-types': ProductType;
     'product-categories': ProductCategory;
+    media: Media;
+    users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -51,20 +54,22 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "artists".
  */
-export interface User {
+export interface Artist {
   id: string;
+  name: string;
+  teaser: string;
+  description: string;
+  'img-profile': string | Media;
+  'img-banner'?: (string | null) | Media;
+  socials?: {
+    youtube?: string | null;
+    instagram?: string | null;
+    spotify?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -87,25 +92,6 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "artists".
- */
-export interface Artist {
-  id: string;
-  name: string;
-  teaser: string;
-  description: string;
-  'img-profile': string | Media;
-  'img-banner'?: (string | null) | Media;
-  socials?: {
-    youtube?: string | null;
-    instagram?: string | null;
-    spotify?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "releases".
  */
 export interface Release {
@@ -119,6 +105,23 @@ export interface Release {
     spotify?: string | null;
     'apple-music'?: string | null;
     youtube?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  name: string;
+  date: string;
+  'img-poster': string | Media;
+  'related-artists'?: (string | Artist)[] | null;
+  links?: {
+    website?: string | null;
+    tickets?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -187,6 +190,70 @@ export interface ProductTag {
   importance?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: string;
+  date?: string | null;
+  status?: ('pending' | 'paid' | 'shipped' | 'completed' | 'cancelled') | null;
+  items: {
+    product: string | Product;
+    sku?: string | null;
+    quantity: number;
+    price: number;
+    id?: string | null;
+  }[];
+  total?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-addresses".
+ */
+export interface ShippingAddress {
+  id: string;
+  'first-name'?: string | null;
+  'last-name'?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  address?: {
+    address?: string | null;
+    city?: string | null;
+    state?: string | null;
+    zip?: string | null;
+    country?: string | null;
+  };
+  notes?: string | null;
+  'payment-status'?: ('unpaid' | 'paid' | 'refunded') | null;
+  'shipping-status'?: ('pending' | 'shipped' | 'delivered' | 'returned') | null;
+  stripe?: {
+    'payment-id'?: string | null;
+    'customer-id'?: string | null;
+    'payment-method'?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

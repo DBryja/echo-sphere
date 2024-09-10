@@ -43,7 +43,7 @@ export const Events: CollectionConfig = {
                 {
                     name: "tickets",
                     type: "text",
-                    defaultValue: "https://www.instagram.com/",
+                    defaultValue: "",
                 },
             ]
         }
