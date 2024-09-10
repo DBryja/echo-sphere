@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="Add e-commerce, structure data">
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/actions/stripe.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/api/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/CheckoutForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/config/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/lib/stripe.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/utils/get-stripejs.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/utils/stripe-helpers.ts" afterDir="false" />
+    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="Stripe handling init">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +122,7 @@
       <workItem from="1725879402996" duration="17206000" />
       <workItem from="1725951102847" duration="2706000" />
       <workItem from="1725960927526" duration="1216000" />
-      <workItem from="1725980060225" duration="4663000" />
+      <workItem from="1725980060225" duration="5633000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -142,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725546195133</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Stripe handling init">
+      <option name="closed" value="true" />
+      <created>1725985912390</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725985912390</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +153,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="Stripe handling init" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stripe handling init" />
   </component>
 </project>
