@@ -20,6 +20,7 @@ export interface Config {
     'product-tags': ProductTag;
     'product-types': ProductType;
     'product-categories': ProductCategory;
+    colors: Color;
     media: Media;
     users: User;
     'payload-preferences': PayloadPreference;
@@ -133,15 +134,15 @@ export interface Event {
 export interface Product {
   id: string;
   name: string;
-  category: string | ProductCategory;
+  categories: (string | ProductCategory)[];
   type: string | ProductType;
   description: string;
+  color?: (string | null) | Color;
+  images: {
+    img?: (string | null) | Media;
+    id?: string | null;
+  }[];
   variants: {
-    color?: string | null;
-    images: {
-      img?: (string | null) | Media;
-      id?: string | null;
-    }[];
     price: number;
     'stock-details': {
       stock: number;
@@ -151,9 +152,15 @@ export interface Product {
     }[];
     id?: string | null;
   }[];
+  relatedProducts?:
+    | {
+        relationType?: ('colorway' | 'recommended') | null;
+        items?: (string | null) | Product;
+        id?: string | null;
+      }[]
+    | null;
   tags?: (string | ProductTag)[] | null;
   published?: boolean | null;
-  relatedProducts?: (string | Product)[] | null;
   stock?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -177,6 +184,16 @@ export interface ProductType {
   id: string;
   name: string;
   'related-categories'?: (string | ProductCategory)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "colors".
+ */
+export interface Color {
+  id: string;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
 }
