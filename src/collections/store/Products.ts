@@ -8,7 +8,7 @@ export const Products: CollectionConfig = {
     admin: {
         group: "Store",
         useAsTitle: "name",
-        defaultColumns: ["name", "category", "type", "published"],
+        defaultColumns: ["name", "color", "stock", "published"],
     },
     hooks: {
         beforeChange: [
