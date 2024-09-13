@@ -99,10 +99,13 @@ export const Products: CollectionConfig = {
         },
         {
             name: "color",
-            type: "relationship",
-            relationTo: "colors",
+            type: "text",
         },
-        // SelectColors,
+        {
+            name: "price",
+            type: "number",
+            required: true,
+        },
         {
             name: "images",
             type: "array",
@@ -125,11 +128,6 @@ export const Products: CollectionConfig = {
                 plural: "Variants",
             },
             fields:[
-                {
-                    name: "price",
-                    type: "number",
-                    required: true,
-                },
                 {
                     name: "stock-details",
                     type: "array",

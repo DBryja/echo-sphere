@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
+import CartButton from "@/app/(app)/components/CartButton";
+import Cart from "@/app/(app)/providers/Cart";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -24,10 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
-    </html>
+        <html lang="en">
+          <body className={`${geistSans.variable} ${geistMono.variable}`}>
+            <Cart>
+              <header style={{position: "fixed", top: 0, left: "50%", marginBottom: "100px"}}><CartButton/></header>
+              {children}
+            </Cart>
+          </body>
+        </html>
   );
 }

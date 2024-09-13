@@ -137,13 +137,13 @@ export interface Product {
   categories: (string | ProductCategory)[];
   type: string | ProductType;
   description: string;
-  color?: (string | null) | Color;
+  color?: string | null;
+  price: number;
   images: {
     img?: (string | null) | Media;
     id?: string | null;
   }[];
   variants: {
-    price: number;
     'stock-details': {
       stock: number;
       size?: ('sm' | 'md' | 'lg' | 'xl' | 'one-size') | null;
@@ -184,16 +184,6 @@ export interface ProductType {
   id: string;
   name: string;
   'related-categories'?: (string | ProductCategory)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "colors".
- */
-export interface Color {
-  id: string;
-  name?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -252,6 +242,16 @@ export interface ShippingAddress {
     'customer-id'?: string | null;
     'payment-method'?: string | null;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "colors".
+ */
+export interface Color {
+  id: string;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
 }
