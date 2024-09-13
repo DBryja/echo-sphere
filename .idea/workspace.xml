@@ -4,23 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="Stripe handling init">
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/store/[slug]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/collections/tags&amp;types/Colors.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" afterDir="false" />
+    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="12-09-2024">
       <change afterPath="$PROJECT_DIR$/src/fields/SelectColors/field.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/main/Artists.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/main/Artists.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/main/Events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/main/Events.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/main/Releases.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/main/Releases.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/collections/store/Products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/store/Products.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/payload-types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/payload-types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/payload.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/payload.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,23 +84,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Store&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/WEBDEV/echo-studio&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\WEBDEV\\echo-studio\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Store",
+    "last_opened_file_path": "C:/WEBDEV/echo-studio",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editing.templates",
+    "ts.external.directory.path": "C:\\JetBrains\\WebStorm 2023.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -140,7 +133,8 @@
       <workItem from="1725951102847" duration="2706000" />
       <workItem from="1725960927526" duration="1216000" />
       <workItem from="1725980060225" duration="5633000" />
-      <workItem from="1726153152363" duration="11047000" />
+      <workItem from="1726153152363" duration="11314000" />
+      <workItem from="1726221969833" duration="8774000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -158,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725985912390</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="12-09-2024">
+      <option name="closed" value="true" />
+      <created>1726168122697</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726168122698</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,9 +171,22 @@
     <option featureType="dependencySupport" implementationName="javascript:npm:graphql" />
     <option featureType="dependencySupport" implementationName="javascript:npm:next" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="Stripe handling init" />
-    <option name="LAST_COMMIT_MESSAGE" value="Stripe handling init" />
+    <MESSAGE value="19-09-2024" />
+    <MESSAGE value="12-09-2024" />
+    <option name="LAST_COMMIT_MESSAGE" value="12-09-2024" />
   </component>
 </project>

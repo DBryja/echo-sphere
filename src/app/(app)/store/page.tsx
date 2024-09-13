@@ -3,6 +3,7 @@
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
 import type {Product, Config} from "@/payload-types";
+import ProductBox from "@/app/(app)/components/ProductBox";
 
 export default async function Page() {
     const payload = await getPayloadHMR({config});
@@ -19,24 +20,7 @@ export default async function Page() {
         <>
             <h1>Store Front</h1>
             <ul>
-                {products.map(product => (
-                    <li key={product.id}>
-                        <h2>{product.name} -- {product.id}</h2>
-                        <p>{product.description}</p>
-                        {/*<p>{product.color.id}</p>*/}
-                        <p>{product.stock}</p>
-                        {product.relatedProducts && product.relatedProducts?.length > 0 && (
-                            <div>
-                                Related Products:
-                                {product.relatedProducts.map((relatedProduct, key) => (
-                                    <span key={key}>{relatedProduct.id}</span>
-                                ))}
-                            </div>
-                        )}
-
-                        {/*<p>Price: ${product.type}</p>*/}
-                    </li>
-                ))}
+                {products.map(product => <ProductBox key={product.id} product={product}/>)}
             </ul>
         </>
     );
