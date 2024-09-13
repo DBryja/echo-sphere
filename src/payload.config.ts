@@ -13,6 +13,7 @@ import {Artists} from "./collections/main/Artists";
 import {Releases} from "./collections/main/Releases";
 import {Events} from "./collections/main/Events";
 
+import {Colors} from "@/collections/tags&types/Colors";
 import {ProductTags} from "@/collections/tags&types/ProductTags";
 import {ProductTypes} from "@/collections/tags&types/ProductTypes";
 import {ProductCategories} from "@/collections/tags&types/ProductCategories";
@@ -38,7 +39,7 @@ export default buildConfig({
       //store
     Products, Orders, ShippingAddresses,
       //tags&types
-     ProductTags, ProductTypes, ProductCategories,
+     ProductTags, ProductTypes, ProductCategories,Colors,
       // utils
     Media, Users
   ],

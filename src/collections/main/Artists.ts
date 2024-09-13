@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Artists: CollectionConfig = {
     slug: 'artists',
+    admin: {
+        group: "Main",
+    },
     fields: [
         {
             name: "id",
