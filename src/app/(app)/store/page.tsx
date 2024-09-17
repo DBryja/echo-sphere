@@ -11,6 +11,10 @@ export default async function Page() {
     const query = await payload.find(
         {
             collection: 'products',
+            where: {
+                stock: {$gt: 0},
+                published: true,
+            },
             pagination: false
         }
     );

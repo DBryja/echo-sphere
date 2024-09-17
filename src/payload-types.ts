@@ -134,22 +134,22 @@ export interface Event {
 export interface Product {
   id: string;
   name: string;
+  published?: boolean | null;
   categories: (string | ProductCategory)[];
   type: string | ProductType;
   description: string;
-  color?: string | null;
+  unique_name: string;
   price: number;
   images: {
     img?: (string | null) | Media;
     id?: string | null;
   }[];
   variants: {
-    'stock-details': {
-      stock: number;
-      size?: ('sm' | 'md' | 'lg' | 'xl' | 'one-size') | null;
-      sku: string;
-      id?: string | null;
-    }[];
+    stock: number;
+    size: 'sm' | 'md' | 'lg' | 'xl' | 'one-size';
+    sku: string;
+    sku_id: string;
+    price_id: string;
     id?: string | null;
   }[];
   relatedProducts?:
@@ -160,7 +160,6 @@ export interface Product {
       }[]
     | null;
   tags?: (string | ProductTag)[] | null;
-  published?: boolean | null;
   stock?: number | null;
   updatedAt: string;
   createdAt: string;
