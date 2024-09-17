@@ -6,10 +6,6 @@ import Link from "next/link";
 
 
 export default function ProductBox({product}: { product: ProductType }) {
-    console.log(product);
-    const relatedProducts = product.relatedProducts as Product[];
-    console.log(relatedProducts);
-
     return (
         <div>
             <div>
@@ -20,7 +16,7 @@ export default function ProductBox({product}: { product: ProductType }) {
                     return <Image key={img.id} src={img.url || ''} alt={img.alt} width={150} height={150}/>
                 })};
             </div>
-            <Link href={`store/${product.id}`}>Name:{product.name} -- ID:{product.id}</Link>
+            <Link href={`/store/${product.id}`}>Name:{product.name} -- ID:{product.id}</Link>
             <p>DESC:{product.description}</p>
             <p>STOCK:{product.stock}</p>
         </div>

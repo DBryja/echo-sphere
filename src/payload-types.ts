@@ -154,8 +154,9 @@ export interface Product {
   }[];
   relatedProducts?:
     | {
-        relationType?: ('colorway' | 'recommended') | null;
-        items?: (string | null) | Product;
+        relationType: 'colorway' | 'recommended';
+        item?: (string | null) | Product;
+        colorHEX?: string | null;
         id?: string | null;
       }[]
     | null;

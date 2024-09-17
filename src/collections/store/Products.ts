@@ -119,6 +119,7 @@ export const Products: CollectionConfig = {
             label: "Unique name",
             type: "text",
             required: true,
+            unique: true,
             admin: {
                 description: "A unique name used to distinguish items with the same base name in admin panel",
             },
@@ -197,6 +198,7 @@ export const Products: CollectionConfig = {
                     name: "sku",
                     type: "text",
                     required: true,
+                    unique: true,
                     admin: {
                         description: "NAME_COLOR_SIZE (s, m, l, xl, os)"
                         }
@@ -226,6 +228,7 @@ export const Products: CollectionConfig = {
                         {
                             name: "relationType",
                             type: "select",
+                            required: true,
                             options: [
                                 {
                                     label: "Colorway",
@@ -238,10 +241,21 @@ export const Products: CollectionConfig = {
                             ]
                         },
                         {
-                            name: "items",
+                            name: "item",
                             type: "relationship",
                             relationTo: "products",
-                            filterOptions: ({id})=>{return {id: {not_equals: id}}}
+                            hasMany: false,
+                            filterOptions: ({id})=>{return {id: {not_equals: id}}},
+                        },
+                        {
+                            name: "colorHEX",
+                            type: "text",
+                            admin: {
+                                condition: (data,siblingData, {user}) => {
+                                    return siblingData.relationType === "colorway"
+                                },
+                            },
+                            required: true,
                         }
                     ]
                 }
