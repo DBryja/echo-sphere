@@ -16,7 +16,6 @@ export default async function ProductPage({params: {slug}}) {
     const payload = await getPayloadHMR({config});
     //@ts-ignore
     const item:Product = await payload.findByID({id: slug, collection: 'products'});
-    const sku_id = "abcdefgh123"
 
     return (
         <div style={{width: "50%"}}>

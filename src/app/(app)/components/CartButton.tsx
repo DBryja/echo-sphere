@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useShoppingCart, DebugCart } from "use-shopping-cart";
 
+
+//TODO: Add items validation
 export default function CartButton() {
     const [status, setStatus] = useState('idle');
     const { cartDetails, cartCount, redirectToCheckout } = useShoppingCart();
@@ -26,7 +28,6 @@ export default function CartButton() {
 
                 const {sessionId} = await response.json();
                 // Redirect to Checkout
-                //@ts-ignore
                 const result = await redirectToCheckout(sessionId);
 
                 if (result?.error) {
@@ -47,7 +48,6 @@ export default function CartButton() {
             <button onClick={handleClick} disabled={status === 'loading'}>
                 {status === 'loading' ? 'Loading...' : 'Checkout'}
             </button>
-            <DebugCart />
         </>
     );
 }
