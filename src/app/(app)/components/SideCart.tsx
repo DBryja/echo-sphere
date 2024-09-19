@@ -29,8 +29,10 @@ export default function SideCart(){
 
     useEffect(() => {
         function handleClickOutisde(event:MouseEvent){
-            console.log(shouldDisplayCart);
-            if(cartRef.current && !cartRef.current.contains(event.target as Node) && shouldDisplayCart){
+            if(cartRef.current && shouldDisplayCart && event.target!==null){
+                // i think this is a bug in typescript
+                // @ts-ignore
+                if(cartRef.current?.contains(event.target as HTMLElement))
                 handleCloseCart();
             }
         }
@@ -43,44 +45,49 @@ export default function SideCart(){
 
     return <div style={{...styles.cart}} id={"cart"} ref={cartRef}>
         <h1>Cart</h1>
-        <ul>
-            {
-                Object.values(cartDetails).map((item, i) => (
-                    <li key={i} style={{display:"flex"}}>
-                        <Image src={item.product_data.image.url} alt={item.product_data.image.alt} width={150} height={150} objectFit={"cover"}/>
-                        <div>
-                            <h3>{item.name}</h3>
-                            <p>{item.sku}</p>
-                            <section
-                                style={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    justifyContent: 'space-evenly'
-                                }}
-                            >
-                                <button
-                                    onClick={() => decrementItem(item.id)}
-                                    aria-label={`Remove one ${item.name} to your cart`}
-                                    style={{height: 32, width: 32, marginBottom: 8}}
+        <section className={"items"}>
+            <ul>
+                {
+                    // if(!cartDetails) return null;
+                    Object.values(cartDetails).map((item, i) => (
+                        <li key={i} style={{display: "flex"}}>
+                            <Image src={item.product_data.image.url} alt={item.product_data.image.alt} width={150}
+                                   height={150} objectFit={"cover"}/>
+                            <div>
+                                <h3>{item.name}</h3>
+                                <p>{item.sku}</p>
+                                <section
+                                    style={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'space-evenly'
+                                    }}
                                 >
-                                    -
-                                </button>
-                                <span>{item.quantity}</span>
-                                <button
-                                    onClick={() => incrementItem(item.id)}
-                                    aria-label={`Add one ${item.name} to your cart`}
-                                    style={{height: 32, width: 32, marginBottom: 8}}
-                                >
-                                    +
-                                </button>
-                            </section>
-                            <p>{item.formattedValue}</p>
-                        </div>
-                    </li>
-                ))
-            }
-        </ul>
-        <p>Total: {formattedTotalPrice}</p>
+                                    <button
+                                        onClick={() => decrementItem(item.id)}
+                                        aria-label={`Remove one ${item.name} to your cart`}
+                                        style={{height: 32, width: 32, marginBottom: 8}}
+                                    >
+                                        -
+                                    </button>
+                                    <span>{item.quantity}</span>
+                                    <button
+                                        onClick={() => item.stock - (item.quantity+1) > 0 ? incrementItem(item.id) : null}
+                                        aria-label={`Add one ${item.name} to your cart`}
+                                        style={{height: 32, width: 32, marginBottom: 8}}
+                                    >
+                                        +
+                                    </button>
+                                </section>
+                                <p>{item.formattedValue}</p>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+            <p>Total: {formattedTotalPrice}</p>
+        </section>
         <CartButton/>
     </div>
 }
+

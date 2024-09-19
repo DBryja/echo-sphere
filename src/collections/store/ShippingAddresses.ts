@@ -4,17 +4,8 @@ export const ShippingAddresses: CollectionConfig = {
     slug: 'shipping-addresses',
     fields: [
         {
-            type: "row",
-            fields: [
-                {
-                    name: "first-name",
-                    type: "text"
-                },
-                {
-                    name: "last-name",
-                    type: "text"
-                },
-            ]
+            name: "name",
+            type: "text",
         },
         {
             type: "row",
@@ -30,30 +21,30 @@ export const ShippingAddresses: CollectionConfig = {
             ]
         },
         {
-            name: "address",
+            name: "customer_details",
             type: "group",
             fields: [
                 {
-                    name: "address",
+                    name: "line1",
+                    type: "text",
+                },
+                {
+                    name: "line2",
+                    type: "text",
+                },
+                {
+                    name: "city",
                     type: "text",
                 },
                 {
                     type: "row",
                     fields: [
                         {
-                            name: "city",
-                            type: "text"
-                        },
-                        {
                             name: "state",
                             type: "text"
                         },
                         {
-                            name: "zip",
-                            type: "text"
-                        },
-                        {
-                            name: "country",
+                            name: "postal_code",
                             type: "text"
                         },
                     ]
@@ -61,34 +52,20 @@ export const ShippingAddresses: CollectionConfig = {
             ]
         },
         {
-            name: "notes",
-            type: "textarea"
-        },
-        {
-            name: "payment-status",
-            type: "select",
-            options: [
-                {
-                    label: "Unpaid",
-                    value: "unpaid",
-                },
-                {
-                    label: "Paid",
-                    value: "paid",
-                },
-                {
-                    label: "Refunded",
-                    value: "refunded",
-                }
-            ]
-        },
-        {
-            name: "shipping-status",
+            name: "status",
             type: "select",
             options: [
                 {
                     label: "Pending",
                     value: "pending",
+                },
+                {
+                    label: "Cancelled",
+                    value: "cancelled",
+                },
+                {
+                    label: "Paid",
+                    value: "paid",
                 },
                 {
                     label: "Shipped",
@@ -97,6 +74,10 @@ export const ShippingAddresses: CollectionConfig = {
                 {
                     label: "Delivered",
                     value: "delivered",
+                },
+                {
+                    label: "Return Requested",
+                    value: "return-requested",
                 },
                 {
                     label: "Returned",

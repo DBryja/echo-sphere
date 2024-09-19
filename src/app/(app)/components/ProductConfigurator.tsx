@@ -4,11 +4,16 @@ import AddToCart from "@/app/(app)/components/AddToCart";
 import type { Product as CartItem } from "use-shopping-cart/core";
 import type { Product } from "@/payload-types";
 
+
 export default function ProductConfigurator({ product }: { product: Product }) {
     const [selectedSku, setSelectedSku] = useState<string>(() => {
         const inStockVariant = product.variants.find(v => v.stock > 0);
         return inStockVariant?.sku || product.variants[0].sku;
     });
+    const [originPath, setOriginPath] = useState<string>('');
+    useEffect(() => {
+        setOriginPath(window.location.origin);
+    }, []);
 
     const selectedVariant = product.variants.find(v => v.sku === selectedSku) || product.variants[0];
 
@@ -36,10 +41,16 @@ export default function ProductConfigurator({ product }: { product: Product }) {
                 product={{
                     ...selectedVariant,
                     name: product.name,
-                    price: Math.round(product.price * 100),
-                    currency: "USD",
+                    price: product.price,
+                    currency: "usd",
                     product_data: {
                         image: product.images[0].img,
+                        id: product.id,
+                    },
+                    price_data: {
+                        product_data: {
+                            images: [`${originPath+product.images[0].img.url}`],
+                        },
                     },
                 }}
             />

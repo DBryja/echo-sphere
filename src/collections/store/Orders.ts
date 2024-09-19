@@ -64,7 +64,11 @@ export const Orders: CollectionConfig = {
             name: "total",
             type: "number",
         },
-
+        {
+            name:"shippingAddress",
+            type: "relationship",
+            relationTo: "shipping-addresses",
+        }
     ],
     admin: {
         useAsTitle: 'date',

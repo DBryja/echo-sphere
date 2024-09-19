@@ -3,13 +3,11 @@ import {Metadata} from 'next'
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
 import Image from "next/image";
-import AddToCart from "@/app/(app)/components/AddToCart";
-import {formatCurrencyString} from "use-shopping-cart";
 import type {Product} from "@/payload-types"
 import ProductConfigurator from "@/app/(app)/components/ProductConfigurator";
-import {Media} from "@/payload-types";
 import Link from "next/link";
 import ProductBox from "@/app/(app)/components/ProductBox";
+import {formatCurrencyString} from "@/app/(app)/utils";
 
 
 export default async function ProductPage({params: {slug}}) {
@@ -38,7 +36,7 @@ export default async function ProductPage({params: {slug}}) {
                 })}
             </div>
             <div>
-                {item.price}
+                {formatCurrencyString({value: item.price})}
             </div>
             <ProductConfigurator product={item}/>
 

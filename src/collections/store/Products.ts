@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 import {v7} from 'uuid';
 import {relationship} from "payload/dist/fields/validations";
 import {SelectColors} from "../../fields/SelectColors/field";
+const currencyRegex = /^\d+(\.\d{1,2})?$/;
 
 export const Products: CollectionConfig = {
     slug: 'products',
@@ -12,11 +13,15 @@ export const Products: CollectionConfig = {
     },
     hooks: {
         beforeChange: [
-            ({data}) => {
-                if(data.variants && Array.isArray(data.variants)){
+            ({data, originalDoc}) => {
+                if (data.variants && Array.isArray(data.variants)) {
                     data.stock = data.variants.reduce((sum, variant) => {
                         return sum + variant.stock;
                     }, 0);
+                }
+
+                if (originalDoc.price !== data.price) {
+                    data.price = Math.round(data.price * 100);
                 }
             }
         ]
@@ -131,6 +136,17 @@ export const Products: CollectionConfig = {
             name: "price",
             type: "number",
             required: true,
+            validate: (value) => {
+                if(value < 0) return "Price must be a positive number."
+                if(typeof(value)==="string")
+                    if (!currencyRegex.test(value.toString())) {
+                        return "Price must be a valid currency format with up to 2 decimal places.";
+                    }
+                return true;
+            },
+            admin: {
+                description: "The price of the product in USD (automatically converted to cents).",
+            }
         },
         {
             name: "images",

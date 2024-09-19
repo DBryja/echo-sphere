@@ -214,6 +214,7 @@ export interface Order {
     id?: string | null;
   }[];
   total?: number | null;
+  shippingAddress?: (string | null) | ShippingAddress;
   updatedAt: string;
   createdAt: string;
 }
@@ -223,20 +224,17 @@ export interface Order {
  */
 export interface ShippingAddress {
   id: string;
-  'first-name'?: string | null;
-  'last-name'?: string | null;
+  name?: string | null;
   email?: string | null;
   phone?: string | null;
-  address?: {
-    address?: string | null;
+  customer_details?: {
+    line1?: string | null;
+    line2?: string | null;
     city?: string | null;
     state?: string | null;
-    zip?: string | null;
-    country?: string | null;
+    postal_code?: string | null;
   };
-  notes?: string | null;
-  'payment-status'?: ('unpaid' | 'paid' | 'refunded') | null;
-  'shipping-status'?: ('pending' | 'shipped' | 'delivered' | 'returned') | null;
+  status?: ('pending' | 'cancelled' | 'paid' | 'shipped' | 'delivered' | 'return-requested' | 'returned') | null;
   stripe?: {
     'payment-id'?: string | null;
     'customer-id'?: string | null;
