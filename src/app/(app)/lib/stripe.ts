@@ -1,11 +1,19 @@
 import "server-only";
 
 import Stripe from "stripe";
-// TODO: Update url to production url
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: "2023-10-16",
-    appInfo: {
-        name: "Echo-Sphere",
-        url: "http://localhost:3000/",
+
+let stripeInstance: Stripe | null = null;
+export function getStripe() {
+    if(!stripeInstance){
+       stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+            apiVersion: process.env.STRIPE_API_VERSION,
+            appInfo: {
+                name: "Echo-Sphere",
+                url: process.env.NODE_ENV === "production"
+                    ? process.env.LIVE_URL
+                    : "http://localhost:3000",
+            }
+        });
     }
-});
+    return stripeInstance;
+}

@@ -31,7 +31,7 @@ export default function CartButton() {
                     throw new Error('Network response was not ok');
                 }
 
-                const {sessionId} = await response.json();
+                const {sessionId, orderId} = await response.json();
                 // Redirect to Checkout
                 const result = await redirectToCheckout(sessionId);
 

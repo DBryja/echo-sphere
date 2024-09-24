@@ -165,6 +165,7 @@ export const Products: CollectionConfig = {
             type: "array",
             minRows: 1,
             required: true,
+            // TODO: Add a before duplicate hook to ensure that the sku is unique
             labels: {
                 singular: "Variant",
                 plural: "Variants",

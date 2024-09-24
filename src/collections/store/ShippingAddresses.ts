@@ -33,8 +33,17 @@ export const ShippingAddresses: CollectionConfig = {
                     type: "text",
                 },
                 {
-                    name: "city",
-                    type: "text",
+                    type: "row",
+                    fields: [
+                        {
+                            name: "city",
+                            type: "text",
+                        },
+                        {
+                            name: "country",
+                            type: "text"
+                        }
+                    ]
                 },
                 {
                     type: "row",
@@ -51,62 +60,10 @@ export const ShippingAddresses: CollectionConfig = {
                 }
             ]
         },
-        {
-            name: "status",
-            type: "select",
-            options: [
-                {
-                    label: "Pending",
-                    value: "pending",
-                },
-                {
-                    label: "Cancelled",
-                    value: "cancelled",
-                },
-                {
-                    label: "Paid",
-                    value: "paid",
-                },
-                {
-                    label: "Shipped",
-                    value: "shipped",
-                },
-                {
-                    label: "Delivered",
-                    value: "delivered",
-                },
-                {
-                    label: "Return Requested",
-                    value: "return-requested",
-                },
-                {
-                    label: "Returned",
-                    value: "returned",
-                }
-            ]
-        },
-        {
-            name: "stripe",
-            type: "group",
-            fields: [
-                {
-                    name: "payment-id",
-                    type: "text"
-                },
-                {
-                    name: "customer-id",
-                    type: "text"
-                },
-                {
-                    name: "payment-method",
-                    type: "text"
-                },
-            ]
-        }
     ],
     admin: {
         useAsTitle: 'email',
-        defaultColumns: ['date', 'status'],
+        defaultColumns: ['email','name', 'phone'],
         group: 'Store',
         readOnly: true
     }

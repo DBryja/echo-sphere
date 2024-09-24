@@ -2,7 +2,10 @@
 import React, {useEffect} from 'react';
 import {useShoppingCart} from "use-shopping-cart";
 
-export default function SuccessPage() {
+//TODO: Retrieve the order id from the query params and 
+export default function SuccessPage(params) {
+    console.log(params);
+
     const {clearCart} = useShoppingCart();
     useEffect(() => {
         clearCart();

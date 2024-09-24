@@ -3,9 +3,10 @@ import Stripe from 'stripe';
 import {validateCartItems} from "use-shopping-cart/utilities";
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
+import {validateItem} from "../../utils";
+import {getStripe} from "../../lib/stripe"; //stripe singleton
 
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = getStripe();
 const formatSize = (size) => {
     switch (size) {
         case "sm":
@@ -27,9 +28,6 @@ const formatSize = (size) => {
 export async function POST(req) {
     try {
         const { cartDetails } = await req.json();
-        // console.log(cartDetails);
-        //TODO: Validate if the cartDetails are correct
-
         // <<< get product variants from database
         const payload = await getPayloadHMR({config});
         const payloadItems = await payload.find({
@@ -51,36 +49,7 @@ export async function POST(req) {
             }))
         );
         // get product variants from database >>>
-        //TODO: Move to utils
-        const validateItem = (cartItem, templateItem) => {
-            if (cartItem.id !== templateItem.id) {
-                throw new Error(`Invalid cart item: ID mismatch (expected ${templateItem.id}, got ${cartItem.id})`);
-            }
-            if (cartItem.product_data.id !== templateItem.product_id) {
-                throw new Error(`Invalid cart item: Product ID mismatch (expected ${templateItem.product_id}, got ${cartItem.product_data.id})`);
-            }
-            if (cartItem.price !== templateItem.price) {
-                throw new Error(`Invalid cart item: Price mismatch (expected ${templateItem.price}, got ${cartItem.price})`);
-            }
-            if (cartItem.size !== templateItem.size) {
-                throw new Error(`Invalid cart item: Size mismatch (expected ${templateItem.size}, got ${cartItem.size})`);
-            }
-            if (cartItem.quantity > templateItem.stock || cartItem.quantity < 1) {
-                throw new Error(`Invalid cart item: Quantity out of range (stock ${templateItem.stock}, got ${cartItem.quantity})`);
-            }
-            if (cartItem.sku !== templateItem.sku) {
-                throw new Error(`Invalid cart item: SKU mismatch (expected ${templateItem.sku}, got ${cartItem.sku})`);
-            }
-            if (cartItem.sku_id !== templateItem.sku_id) {
-                throw new Error(`Invalid cart item: SKU ID mismatch (expected ${templateItem.sku_id}, got ${cartItem.sku_id})`);
-            }
-            if (cartItem.currency !== 'usd') {
-                throw new Error(`Invalid cart item: Currency mismatch (expected 'usd', got ${cartItem.currency})`);
-            }
-            return true;
-        }
-
-// Convert cart items to Stripe line items
+        // <<< Convert cart items to Stripe line items
         const lineItems = Object.values(cartDetails).map((item) => {
             const templateItem = variants.find((variant) => variant.id === item.id);
             if (!validateItem(item, templateItem)) {
@@ -102,11 +71,6 @@ export async function POST(req) {
             quantity: item.quantity,
         }});
         const totalAmount = lineItems.reduce((total, item) => total + item.price_data.unit_amount * item.quantity, 0);
-        //TODO: Here i can validate the lineItems to make sure they are correct
-
-        // --- validate line items ---
-
-        // --- create order in database ---
 
         // Create Checkout Sessions from body params
         const session = await stripe.checkout.sessions.create({
@@ -144,10 +108,34 @@ export async function POST(req) {
                     },
                 },
             ],
-            locale: "en"
+            locale: "en",
+            expires_at: (Math.floor(Date.now()/1000) + 1800)
         });
 
-        return NextResponse.json({ sessionId: session.id });
+        const order = await payload.create({
+            collection: "orders",
+            data: {
+                date: new Date().toISOString(),
+                session_id: session.id,
+                items: Object.values(cartDetails).map((item)=>({
+                    product: item.product_data.id,
+                    sku: item.sku,
+                    sku_id: item.sku_id,
+                    quantity: item.quantity,
+                    price: item.price,
+                    value: item.value,
+                    size: item.size,
+                })),
+                total: totalAmount,
+                status: "pending",
+            }
+        });
+
+        // setTimeout(async () => {
+        //     await stripe.checkout.sessions.expire(session.id);
+        // }, 15*1000);
+
+        return NextResponse.json({ sessionId: session.id, orderId: order.id });
     } catch (err) {
         console.log(err);
         return NextResponse.json({ statusCode: 500, message: err.message }, { status: 500 });

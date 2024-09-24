@@ -205,15 +205,18 @@ export interface ProductTag {
 export interface Order {
   id: string;
   date?: string | null;
-  status?: ('pending' | 'paid' | 'shipped' | 'completed' | 'cancelled') | null;
+  status?: ('pending' | 'cancelled' | 'paid' | 'shipped' | 'delivered' | 'return-requested' | 'returned') | null;
   items: {
     product: string | Product;
-    sku?: string | null;
+    sku: string;
     quantity: number;
     price: number;
+    value: number;
+    size?: string | null;
     id?: string | null;
   }[];
   total?: number | null;
+  session_id?: string | null;
   shippingAddress?: (string | null) | ShippingAddress;
   updatedAt: string;
   createdAt: string;
@@ -231,14 +234,9 @@ export interface ShippingAddress {
     line1?: string | null;
     line2?: string | null;
     city?: string | null;
+    country?: string | null;
     state?: string | null;
     postal_code?: string | null;
-  };
-  status?: ('pending' | 'cancelled' | 'paid' | 'shipped' | 'delivered' | 'return-requested' | 'returned') | null;
-  stripe?: {
-    'payment-id'?: string | null;
-    'customer-id'?: string | null;
-    'payment-method'?: string | null;
   };
   updatedAt: string;
   createdAt: string;
