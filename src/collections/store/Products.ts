@@ -1,8 +1,31 @@
 import type { CollectionConfig } from 'payload'
 import {v7} from 'uuid';
-import {relationship} from "payload/dist/fields/validations";
-import {SelectColors} from "../../fields/SelectColors/field";
 const currencyRegex = /^\d+(\.\d{1,2})?$/;
+const colorHexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+import colorField from "@/fields/ColorPickerInput/field";
+import ColorPickerInput from "@/fields/ColorPickerInput/component";
+
+// TODO: Replace this with a color picker component
+// const colorField = {
+//     name: "colorHEX",
+//     type: "text",
+//     admin: {
+//         width: "50%",
+//         placeholder: "#FF00FF"
+//     },
+//     validate: (value) => {
+//         if(!colorHexRegex.test(value)) return "Color must be a valid HEX value.";
+//         return true;
+//     },
+//     hooks: {
+//         beforeChange: [
+//             ({value}) => {
+//                 return value.replace("#",'').trim();
+//             }
+//         ]
+//     }
+// }
+
 
 export const Products: CollectionConfig = {
     slug: 'products',
@@ -28,6 +51,20 @@ export const Products: CollectionConfig = {
     },
     fields: [
         {
+            name: "published",
+            type: "checkbox",
+            defaultValue: true,
+            admin: {
+                description: "If unchecked, the product will not be visible on the front end.",
+                style: {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    alignItems: "flex-start",
+                }
+            }
+        },
+        {
             type: "row",
             fields: [
                 {
@@ -36,23 +73,9 @@ export const Products: CollectionConfig = {
                     required: true,
                     admin: {
                         width: "50%",
-                    }
+                    },
                 },
-                {
-                    name: "published",
-                    type: "checkbox",
-                    defaultValue: true,
-                    admin: {
-                        description: "If unchecked, the product will not be visible on the front end.",
-                        width: "20%",
-                        style: {
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-start",
-                        }
-                    }
-                },
+                colorField,
             ]
         },
         {
@@ -167,8 +190,8 @@ export const Products: CollectionConfig = {
             required: true,
             // TODO: Add a before duplicate hook to ensure that the sku is unique
             labels: {
-                singular: "Variant",
-                plural: "Variants",
+                singular: "Size",
+                plural: "Sizes",
             },
             fields:[
                 {
@@ -188,15 +211,15 @@ export const Products: CollectionConfig = {
                             options: [
                                 {
                                     label: "Small",
-                                    value: "sm",
+                                    value: "s",
                                 },
                                 {
                                     label: "Medium",
-                                    value: "md",
+                                    value: "m",
                                 },
                                 {
                                     label: "Large",
-                                    value: "lg",
+                                    value: "l",
                                 },
                                 {
                                     label: "Extra Large",
@@ -204,9 +227,20 @@ export const Products: CollectionConfig = {
                                 },
                                 {
                                     label: "One Size",
-                                    value: "one-size",
+                                    value: "os",
                                 }
                             ],
+                            hooks: {
+                                beforeChange: [
+                                    ({ value, data, siblingData }) => {
+                                        const parts = siblingData.sku.split('_');
+                                        parts.pop();
+                                        const baseSkuPart = siblingData.sku ? parts.join("_") : 'PRODUCT';
+                                        siblingData.sku = `${baseSkuPart}_${value}`.toUpperCase();
+                                        return value;
+                                    },
+                                ],
+                            },
                             required: true
                         },
                     ]
@@ -232,7 +266,26 @@ export const Products: CollectionConfig = {
                     required: true,
                     defaultValue: () => v7(),
                 }
-                    ]
+                ],
+            hooks: {
+                beforeDuplicate: [
+                    ({data}) => {
+                    return {
+                        ...data,
+                        sku: `${data.sku}_copy`,
+                        sku_id: v7(),
+                        price_id: v7(),
+                    }
+                    }
+                ],
+            },
+            // admin: {
+            //     components: {
+            //         RowLabel: ({ data, index }) => {
+            //             return data?.sku || `Slide ${String(index).padStart(2, '0')}`
+            //         },
+            //     },
+            // },
         },
         {
             name: "relatedProducts",
@@ -265,14 +318,13 @@ export const Products: CollectionConfig = {
                             filterOptions: ({id})=>{return {id: {not_equals: id}}},
                         },
                         {
-                            name: "colorHEX",
-                            type: "text",
-                            admin: {
-                                condition: (data,siblingData, {user}) => {
-                                    return siblingData.relationType === "colorway"
-                                },
-                            },
+                            ...colorField,
                             required: true,
+                            admin: {
+                                ...colorField.admin,
+                                width: "100%",
+                                condition: (data, siblingData) => siblingData.relationType === "colorway"
+                            }
                         }
                     ]
                 }

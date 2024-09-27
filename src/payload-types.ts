@@ -133,8 +133,9 @@ export interface Event {
  */
 export interface Product {
   id: string;
-  name: string;
   published?: boolean | null;
+  name: string;
+  colorHEX?: string | null;
   categories: (string | ProductCategory)[];
   type: string | ProductType;
   description: string;
@@ -146,7 +147,7 @@ export interface Product {
   }[];
   variants: {
     stock: number;
-    size: 'sm' | 'md' | 'lg' | 'xl' | 'one-size';
+    size: 's' | 'm' | 'l' | 'xl' | 'os';
     sku: string;
     sku_id: string;
     price_id: string;
