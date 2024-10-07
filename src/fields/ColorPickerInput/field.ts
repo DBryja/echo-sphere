@@ -1,13 +1,17 @@
-import ColorPickerInput from './component';
+import { Field } from "payload";
 
 const colorHexRegex = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
-const colorField = {
+const colorField: Field = {
     name: "colorHEX",
     type: "text",
     admin: {
         components: {
-            Field: ColorPickerInput,
+            Field: {
+                path: '/fields/ColorPickerInput/component',
+                label: "Color HEX",
+                required: true
+            }
         },
     },
     validate: (value) => {
