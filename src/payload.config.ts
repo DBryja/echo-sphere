@@ -31,7 +31,7 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    avatar: "gravatar"
+    avatar: "gravatar",
   },
   collections: [
       //main

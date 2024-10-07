@@ -1,57 +1,57 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import {Text} from '@payloadcms/ui/dist/fields/Text';
-import {useField} from "@payloadcms/ui/dist/forms/useField";
+import React, {useState, useEffect, useCallback} from 'react';
+import {TextInput} from '@payloadcms/ui';
+import { useField } from "@payloadcms/ui";
+
+const debounce = (func, delay) => {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func(...args);
+        }, delay);
+    };
+};
 
 const ColorPickerInput = ({ path, label, required }) => {
     const { value = '', setValue } = useField({ path });
     const [color, setColor] = useState(value);
 
     useEffect(() => {
-        setColor(value);
-    }, [value]);
+        if(value !== color)
+            setColor(value);
+    }, [value, color]);
 
     const handleInputChange = (e) => {
         const newValue = e.target.value;
         setColor(newValue);
-        setValue(newValue.replace("#", '').trim());
+        debouncedSetValue(newValue);
     };
 
-    const handleColorChange = (e) => {
-        const newValue = e.target.value;
-        setColor(newValue);
-        setValue(newValue.replace("#", '').trim());
-    };
+    // Create a debounced version of setValue using useCallback to preserve reference
+    const debouncedSetValue = useCallback(debounce(setValue, 300), []);
 
     return (
         <div className="field-type text">
             <label htmlFor={path} className="field-label">
-                {label}
+                {label ? label : "Color Hex"}
                 {required && <span className="required">*</span>}
             </label>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Text
+                <TextInput
                     path={path}
                     name={path}
-                    value={color}
-                    onChange={handleInputChange}
+                    value={color.startsWith('#') ? color : `#${color}`}
+                    onChange={setValue}
                     placeholder="#FF00FF"
                     style={{ width: '120px' }}
+                    label={label}
                 />
                 <input
                     type="color"
                     value={color.startsWith('#') ? color : `#${color}`}
-                    onChange={handleColorChange}
-                    style={{ width: '40px', height: '40px', padding: 0, border: 'none' }}
-                />
-                <div
-                    style={{
-                        width: '40px',
-                        height: '40px',
-                        backgroundColor: color.startsWith('#') ? color : `#${color}`,
-                        border: '1px solid #ccc',
-                        borderRadius: '4px',
-                    }}
+                    onChange={handleInputChange}
+                    style={{ width: '40px', height: '40px', padding: 0, border: 'none', alignSelf: "end" }}
                 />
             </div>
         </div>

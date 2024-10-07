@@ -1,25 +1,27 @@
 {
-  "name": "echo-studio",
+  "name": "echo-sphere",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": " next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "importmap": "payload generate:importmap"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.0.0-beta.98",
     "@payloadcms/next": "3.0.0-beta.98",
     "@payloadcms/plugin-cloud": "3.0.0-beta.98",
     "@payloadcms/richtext-lexical": "3.0.0-beta.98",
-    "@payloadcms/ui": "3.0.0-beta.29",
+    "@payloadcms/ui": "3.0.0-beta.98",
     "@stripe/react-stripe-js": "2.4.0",
     "@stripe/stripe-js": "2.2.2",
     "@types/uuid": "^10.0.0",
     "bson-objectid": "^2.0.4",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
+    "lodash": "^4.17.21",
     "next": "15.0.0-canary.146",
     "payload": "3.0.0-beta.98",
     "react": "19.0.0-rc-d1afcb43-20240903",
@@ -37,10 +39,5 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.0-rc.0",
     "typescript": "^5"
-  },
-  "compilerOptions": {
-    "paths": {
-      "@payloadcms/ui/*": ["node_modules/@payloadcms/ui/*"]
-    }
   }
 }
