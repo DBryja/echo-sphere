@@ -15,6 +15,15 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const natsRegular = localFont({
+  src: '../fonts/NATS-Regular.woff',
+  variable: '--font-nats'
+})
+const kokoroRegular = localFont({
+  src: '../fonts/Kokoro-Regular.ttf',
+  variable: '--font-kokoro'
+})
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
         <html lang="en">
-          <body className={`${geistSans.variable} ${geistMono.variable}`}>
+          <body className={`${geistSans.variable} ${geistMono.variable} ${natsRegular.variable} ${kokoroRegular.variable}`}>
             <Cart>
               <header style={{position: "fixed", top: 0, left: "50%", marginBottom: "100px"}}>
                 {/*<CartButton/>*/}
