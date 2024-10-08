@@ -2,15 +2,19 @@
 
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
-import type {Product, Config} from "@/payload-types";
+import type {Product} from "@/payload-types";
 import ProductBox from "@/app/(app)/components/ProductBox";
-
+import CartButton from "@/app/(app)/components/CartButton";
 export default async function Page() {
     const payload = await getPayloadHMR({config});
     // noinspection TypeScriptValidateTypes
     const query = await payload.find(
         {
             collection: 'products',
+            where: {
+                stock: {$gt: 0},
+                published: true,
+            },
             pagination: false
         }
     );

@@ -133,34 +133,35 @@ export interface Event {
  */
 export interface Product {
   id: string;
+  published?: boolean | null;
   name: string;
+  colorHEX?: string | null;
   categories: (string | ProductCategory)[];
   type: string | ProductType;
   description: string;
-  color?: (string | null) | Color;
+  unique_name: string;
+  price: number;
   images: {
     img?: (string | null) | Media;
     id?: string | null;
   }[];
   variants: {
-    price: number;
-    'stock-details': {
-      stock: number;
-      size?: ('sm' | 'md' | 'lg' | 'xl' | 'one-size') | null;
-      sku: string;
-      id?: string | null;
-    }[];
+    stock: number;
+    size: 's' | 'm' | 'l' | 'xl' | 'os';
+    sku: string;
+    sku_id: string;
+    price_id: string;
     id?: string | null;
   }[];
   relatedProducts?:
     | {
-        relationType?: ('colorway' | 'recommended') | null;
-        items?: (string | null) | Product;
+        relationType: 'colorway' | 'recommended';
+        item?: (string | null) | Product;
+        colorHEX?: string | null;
         id?: string | null;
       }[]
     | null;
   tags?: (string | ProductTag)[] | null;
-  published?: boolean | null;
   stock?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -189,16 +190,6 @@ export interface ProductType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "colors".
- */
-export interface Color {
-  id: string;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product-tags".
  */
 export interface ProductTag {
@@ -215,15 +206,19 @@ export interface ProductTag {
 export interface Order {
   id: string;
   date?: string | null;
-  status?: ('pending' | 'paid' | 'shipped' | 'completed' | 'cancelled') | null;
+  status?: ('pending' | 'cancelled' | 'paid' | 'shipped' | 'delivered' | 'return-requested' | 'returned') | null;
   items: {
     product: string | Product;
-    sku?: string | null;
+    sku: string;
     quantity: number;
     price: number;
+    value: number;
+    size?: string | null;
     id?: string | null;
   }[];
   total?: number | null;
+  session_id?: string | null;
+  shippingAddress?: (string | null) | ShippingAddress;
   updatedAt: string;
   createdAt: string;
 }
@@ -233,25 +228,27 @@ export interface Order {
  */
 export interface ShippingAddress {
   id: string;
-  'first-name'?: string | null;
-  'last-name'?: string | null;
+  name?: string | null;
   email?: string | null;
   phone?: string | null;
-  address?: {
-    address?: string | null;
+  customer_details?: {
+    line1?: string | null;
+    line2?: string | null;
     city?: string | null;
-    state?: string | null;
-    zip?: string | null;
     country?: string | null;
+    state?: string | null;
+    postal_code?: string | null;
   };
-  notes?: string | null;
-  'payment-status'?: ('unpaid' | 'paid' | 'refunded') | null;
-  'shipping-status'?: ('pending' | 'shipped' | 'delivered' | 'returned') | null;
-  stripe?: {
-    'payment-id'?: string | null;
-    'customer-id'?: string | null;
-    'payment-method'?: string | null;
-  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "colors".
+ */
+export interface Color {
+  id: string;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
 }

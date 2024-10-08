@@ -4,17 +4,8 @@ export const ShippingAddresses: CollectionConfig = {
     slug: 'shipping-addresses',
     fields: [
         {
-            type: "row",
-            fields: [
-                {
-                    name: "first-name",
-                    type: "text"
-                },
-                {
-                    name: "last-name",
-                    type: "text"
-                },
-            ]
+            name: "name",
+            type: "text",
         },
         {
             type: "row",
@@ -30,11 +21,15 @@ export const ShippingAddresses: CollectionConfig = {
             ]
         },
         {
-            name: "address",
+            name: "customer_details",
             type: "group",
             fields: [
                 {
-                    name: "address",
+                    name: "line1",
+                    type: "text",
+                },
+                {
+                    name: "line2",
                     type: "text",
                 },
                 {
@@ -42,90 +37,33 @@ export const ShippingAddresses: CollectionConfig = {
                     fields: [
                         {
                             name: "city",
-                            type: "text"
+                            type: "text",
                         },
+                        {
+                            name: "country",
+                            type: "text"
+                        }
+                    ]
+                },
+                {
+                    type: "row",
+                    fields: [
                         {
                             name: "state",
                             type: "text"
                         },
                         {
-                            name: "zip",
-                            type: "text"
-                        },
-                        {
-                            name: "country",
+                            name: "postal_code",
                             type: "text"
                         },
                     ]
                 }
             ]
         },
-        {
-            name: "notes",
-            type: "textarea"
-        },
-        {
-            name: "payment-status",
-            type: "select",
-            options: [
-                {
-                    label: "Unpaid",
-                    value: "unpaid",
-                },
-                {
-                    label: "Paid",
-                    value: "paid",
-                },
-                {
-                    label: "Refunded",
-                    value: "refunded",
-                }
-            ]
-        },
-        {
-            name: "shipping-status",
-            type: "select",
-            options: [
-                {
-                    label: "Pending",
-                    value: "pending",
-                },
-                {
-                    label: "Shipped",
-                    value: "shipped",
-                },
-                {
-                    label: "Delivered",
-                    value: "delivered",
-                },
-                {
-                    label: "Returned",
-                    value: "returned",
-                }
-            ]
-        },
-        {
-            name: "stripe",
-            type: "group",
-            fields: [
-                {
-                    name: "payment-id",
-                    type: "text"
-                },
-                {
-                    name: "customer-id",
-                    type: "text"
-                },
-                {
-                    name: "payment-method",
-                    type: "text"
-                },
-            ]
-        }
     ],
     admin: {
         useAsTitle: 'email',
-        defaultColumns: ['date', 'status'],
+        defaultColumns: ['email','name', 'phone'],
         group: 'Store',
         readOnly: true
     }
