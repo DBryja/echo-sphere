@@ -1,0 +1,17 @@
+$red: #FF4820;
+
+$white: #F2F2F2;
+$black: #040404;
+
+$gray-200: #CACACA;
+$gray-400: #8E8E8E;
+$gray-600: #5E5A56;
+
+:export{
+    red: $red;
+    white: $white;
+    black: $black;
+    gray200: $gray-200;
+    gray400: $gray-400;
+    gray600: $gray-600;
+}

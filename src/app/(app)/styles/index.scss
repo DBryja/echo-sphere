@@ -1,5 +1,33 @@
-@import "reset";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//@import "reset";
 @import "variables";
-@import "colors";
+@import "colors.module";
 @import "typography";
 @import "mixins";
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto 1fr auto;
+  column-gap: 24px;
+  padding: 0 $space-4;
+  width: 100dvw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+main{
+    grid-column: 1/-1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: subgrid;
+}

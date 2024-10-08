@@ -26,6 +26,8 @@
       "@/*": [
         "./src/*"
       ],
+      "@globals/*": ["src/app/(app)/styles/*"],
+      "@components/*": ["src/app/(app)/components/*"],
       "/src/*": [
         "/src/*"
       ],

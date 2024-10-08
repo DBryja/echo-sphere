@@ -1,0 +1,25 @@
+@import "@globals/variables";
+@import "@globals/colors.module";
+
+.header{
+  grid-column: 1/-1;
+  grid-row: 1;
+
+  margin-top: $space-6;
+  display: flex;
+  justify-content: space-between;
+  height: min-content;
+  grid-template-rows: auto;
+
+  &__nav{
+    width: fit-content;
+    display: flex;
+    align-self: end;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: $space-3;
+  }
+
+
+}

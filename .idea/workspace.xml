@@ -4,16 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="12-09-2024">
-      <change afterPath="$PROJECT_DIR$/src/fields/SelectColors/field.ts" afterDir="false" />
+    <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="Setup styling variables">
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/buttons/menu/button-menu.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/buttons/menu/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/shared/header/header.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/shared/header/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/shared/logo/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/shared/nav/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/components/shared/nav/nav.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(app)/styles/_colors.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/store/Products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/store/Products.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/page.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/styles/_colors.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/styles/_typography.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/styles/_typography.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/styles/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(app)/styles/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/styles/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,15 +35,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Stripe" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,20 +58,24 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="Store" />
-                    <option name="lastUsedInstant" value="1726037895" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="Stripe" />
-                    <option name="lastUsedInstant" value="1725967076" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="Collections" />
-                    <option name="lastUsedInstant" value="1725964031" />
+                    <option name="branchName" value="add-menu" />
+                    <option name="lastUsedInstant" value="1728375951" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1725880179" />
+                    <option name="lastUsedInstant" value="1728375886" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="setup-styling" />
+                    <option name="lastUsedInstant" value="1728371669" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="useShoppingCart" />
+                    <option name="lastUsedInstant" value="1726239114" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="Store" />
+                    <option name="lastUsedInstant" value="1726037895" />
                   </RecentBranch>
                 </list>
               </option>
@@ -89,15 +106,18 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Store",
+    "git-widget-placeholder": "add-menu",
     "last_opened_file_path": "C:/WEBDEV/echo-studio",
+    "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editing.templates",
-    "ts.external.directory.path": "C:\\JetBrains\\WebStorm 2023.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
+    "ts.external.directory.path": "C:\\WEBDEV\\echo-studio\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -112,11 +132,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\WEBDEV\echo-studio\src\fields\SelectColors" />
-      <recent name="C:\WEBDEV\echo-studio\src" />
-      <recent name="C:\WEBDEV\echo-studio\src\app\(app)\lib" />
+      <recent name="C:\WEBDEV\echo-studio\src\app\(app)\components\shared\nav" />
       <recent name="C:\WEBDEV\echo-studio\src\app\(app)" />
-      <recent name="C:\WEBDEV\echo-studio\src\collections\main" />
+      <recent name="C:\WEBDEV\echo-studio\src\app" />
+      <recent name="C:\WEBDEV\echo-studio\src\app\(app)\api\create-checkout-session" />
+      <recent name="C:\WEBDEV\echo-studio\src\fields\SelectColors" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -134,7 +154,20 @@
       <workItem from="1725960927526" duration="1216000" />
       <workItem from="1725980060225" duration="5633000" />
       <workItem from="1726153152363" duration="11314000" />
-      <workItem from="1726221969833" duration="8774000" />
+      <workItem from="1726221969833" duration="21916000" />
+      <workItem from="1726555661079" duration="6763000" />
+      <workItem from="1726575376693" duration="9812000" />
+      <workItem from="1726644508135" duration="14355000" />
+      <workItem from="1726670066089" duration="923000" />
+      <workItem from="1726731539174" duration="16949000" />
+      <workItem from="1726816526283" duration="4705000" />
+      <workItem from="1726821800756" duration="12955000" />
+      <workItem from="1727167931263" duration="9238000" />
+      <workItem from="1727243353647" duration="438000" />
+      <workItem from="1727246738594" duration="184000" />
+      <workItem from="1727431526610" duration="11206000" />
+      <workItem from="1728303908721" duration="7788000" />
+      <workItem from="1728371168792" duration="16058000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -160,7 +193,103 @@
       <option name="project" value="LOCAL" />
       <updated>1726168122698</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update shop">
+      <option name="closed" value="true" />
+      <created>1726237719581</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726237719581</updated>
+    </task>
+    <task id="LOCAL-00005" summary="13-09-2024">
+      <option name="closed" value="true" />
+      <created>1726238241720</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1726238241722</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add checkout functionality">
+      <option name="closed" value="true" />
+      <created>1726248540856</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726248540856</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add configurator">
+      <option name="closed" value="true" />
+      <created>1726564313528</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1726564313529</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update addToCart flow">
+      <option name="closed" value="true" />
+      <created>1726585256324</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1726585256324</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add sidebar-cart component">
+      <option name="closed" value="true" />
+      <created>1726651975506</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1726651975506</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update checkout">
+      <option name="closed" value="true" />
+      <created>1726746282707</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1726746282707</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Complete checkout handling">
+      <option name="closed" value="true" />
+      <created>1727175546830</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1727175546830</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update adminPanel">
+      <option name="closed" value="true" />
+      <created>1727440536552</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1727440536552</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add color picker">
+      <option name="closed" value="true" />
+      <created>1728314808517</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1728314808517</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add color picker">
+      <option name="closed" value="true" />
+      <created>1728314824939</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1728314824939</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Setup styling variables">
+      <option name="closed" value="true" />
+      <created>1728375786484</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728375786484</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +316,17 @@
     <MESSAGE value="Stripe handling init" />
     <MESSAGE value="19-09-2024" />
     <MESSAGE value="12-09-2024" />
-    <option name="LAST_COMMIT_MESSAGE" value="12-09-2024" />
+    <MESSAGE value="update shop" />
+    <MESSAGE value="13-09-2024" />
+    <MESSAGE value="Add checkout functionality" />
+    <MESSAGE value="Add configurator" />
+    <MESSAGE value="Update addToCart flow" />
+    <MESSAGE value="Add sidebar-cart component" />
+    <MESSAGE value="Update checkout" />
+    <MESSAGE value="Complete checkout handling" />
+    <MESSAGE value="Update adminPanel" />
+    <MESSAGE value="Add color picker" />
+    <MESSAGE value="Setup styling variables" />
+    <option name="LAST_COMMIT_MESSAGE" value="Setup styling variables" />
   </component>
 </project>
