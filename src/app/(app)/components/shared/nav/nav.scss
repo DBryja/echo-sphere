@@ -1,0 +1,9 @@
+@import "@globals/variables";
+.nav{
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: $space-3;
+}

@@ -32,12 +32,13 @@ export default function RootLayout({
             <Cart>
                 <Header/>
                 <main>
+                <div className={"emptyRow"} style={{gridColumn: 1/-1, height: "100px"}}></div>
                   {children}
                 </main>
             </Cart>
-          <footer>
-            <p>Footer</p>
-          </footer>
+          {/*<footer>*/}
+          {/*  <p>Footer</p>*/}
+          {/*</footer>*/}
           </body>
         </html>
   );
