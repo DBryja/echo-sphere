@@ -16,11 +16,11 @@ const geistMono = localFont({
   weight: "100 900",
 });
 const natsRegular = localFont({
-  src: '../fonts/NATS-Regular.woff',
+  src: './fonts/NATS-Regular.woff',
   variable: '--font-nats'
 })
 const kokoroRegular = localFont({
-  src: '../fonts/Kokoro-Regular.ttf',
+  src: './fonts/Kokoro-Regular.ttf',
   variable: '--font-kokoro'
 })
 
