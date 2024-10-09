@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff0b4834-b327-435f-b4be-1c004dc49cbc" name="Changes" comment="12-09-2024">
-      <change afterPath="$PROJECT_DIR$/src/fields/SelectColors/field.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/components/ProductBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(app)/store/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/collections/store/Products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/collections/store/Products.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/fields/SelectColors/component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/payload-types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/payload-types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Stripe" />
+        <entry key="$PROJECT_DIR$" value="useShoppingCart" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,6 +39,14 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="DataArchitecture" />
+                    <option name="lastUsedInstant" value="1728477682" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="useShoppingCart" />
+                    <option name="lastUsedInstant" value="1728477673" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="Store" />
                     <option name="lastUsedInstant" value="1726037895" />
                   </RecentBranch>
@@ -55,10 +57,6 @@
                   <RecentBranch>
                     <option name="branchName" value="Collections" />
                     <option name="lastUsedInstant" value="1725964031" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="master" />
-                    <option name="lastUsedInstant" value="1725880179" />
                   </RecentBranch>
                 </list>
               </option>
@@ -89,7 +87,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Store",
+    "git-widget-placeholder": "DataArchitecture",
     "last_opened_file_path": "C:/WEBDEV/echo-studio",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -97,7 +95,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "editing.templates",
-    "ts.external.directory.path": "C:\\JetBrains\\WebStorm 2023.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\WEBDEV\\echo-studio\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
