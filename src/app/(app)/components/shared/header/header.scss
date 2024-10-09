@@ -1,0 +1,21 @@
+@import "@globals/variables";
+@import "@globals/colors.module";
+
+.header{
+  position: fixed;
+  grid-column: 1/-1;
+  grid-row: 1;
+  width: calc(100% - 2*$margin);
+  height: $space-6;
+
+  margin-top: $space-6;
+  display: flex;
+  justify-content: space-between;
+  grid-template-rows: auto;
+
+  &__nav, &__menu{
+    width: max-content;
+    position: absolute;
+    right: 0;
+  }
+}

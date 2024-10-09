@@ -10,6 +10,7 @@
     "importmap": "payload generate:importmap"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.1",
     "@payloadcms/db-mongodb": "3.0.0-beta.98",
     "@payloadcms/next": "3.0.0-beta.98",
     "@payloadcms/plugin-cloud": "3.0.0-beta.98",
@@ -21,7 +22,9 @@
     "bson-objectid": "^2.0.4",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
+    "gsap": "^3.12.5",
     "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "next": "15.0.0-canary.146",
     "payload": "3.0.0-beta.98",
     "react": "19.0.0-rc-d1afcb43-20240903",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@payloadcms/eslint-config": "^1.1.1",
+    "@types/lodash": "^4.17.10",
     "@types/node": "^20",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

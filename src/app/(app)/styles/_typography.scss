@@ -1,7 +1,14 @@
+@import "colors.module";
+
 $nats: var(--font-nats);
 $kokoro: var(--font-kokoro);
-body{
+html{
   font-size: 10px;
+  color: black;
+}
+a{
+    text-decoration: none;
+    color: inherit;
 }
 
 h1{
@@ -66,15 +73,22 @@ body, p{
     }
 }
 
-button{
-    font-family: $nats;
-    font-size: 2.8rem;
-    line-height: 120%;
-
-  .small{
+button, .btn{
+  font-family: $nats;
+  font-size: 2.8rem;
+  line-height: 120%;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+button.small, .btn--small{
     font-size: 2.4rem;
+
+  &:hover{
+    color: $gray-400;
   }
 }
+
 
 span{
   .label{
