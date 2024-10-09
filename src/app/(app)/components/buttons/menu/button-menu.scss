@@ -1,5 +1,6 @@
 @import "@globals/colors.module";
 @import "@globals/variables";
+$smoothEase: cubic-bezier(.79,-0.01,.13,1);
 
 .menu-button{
   display: flex;
@@ -13,7 +14,42 @@
   color: $white;
   position: relative;
   overflow: hidden;
+  z-index: 99;
   //transition: background-color 0.15s ease, color 0.1s ease !important;
+
+  &.active {
+    background-color: transparent;
+    span {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .menu-button__dot {
+      animation: dot__red-to-black 0.3s $smoothEase both;
+      transform-origin: center;
+      &:hover{
+        .menu-button__dot__item{
+          &:nth-child(1) {
+            transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg + 180deg));
+          }
+          &:nth-child(3) {
+            transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg + 180deg));
+          }
+        }
+      }
+
+      &__item {
+        &:nth-child(1) {
+          transform: scale(1.25) translateY(calc(6px/1.25)) rotate(45deg);
+        }
+        &:nth-child(2) {
+          transform: scale(0) translateY(-50%) rotate(45deg);
+        }
+        &:nth-child(3) {
+          transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(-45deg);
+        }
+      }
+    }
+  }
 
   span{
     position: absolute;
@@ -21,13 +57,12 @@
     left: 35px;
     z-index: 1;
   }
-
   &__dot{
     width: $space-2;
     height: $space-2;
     border-radius: 50%;
     background-color: $red;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transition: width 0.4s $smoothEase, height 0.4s $smoothEase;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,18 +83,36 @@
       justify-content: center;
     }
   }
-  &:hover{
+  &:not(.active):hover{
     color: $white !important;
     //background-color: $gray-600;
     .menu-button__dot{
       //width: $space-5;
       //height: $space-5;
-      width: 400px;
-      height: 400px;
+      width: 280px;
+      height: 280px;
       //height: (same as width);
       &__item{
         transform: scaleX(1);
       }
     }
+  }
+}
+
+@keyframes dot__red-to-black {
+  0% {
+    width:0;
+    height:0;
+    background-color: $red;
+  }
+  50%{
+    width: $space-6;
+    height: $space-6;
+    background-color: $black;
+  }
+  100% {
+    width: $space-6;
+    height: $space-6;
+    background-color: $black;
   }
 }

@@ -1,0 +1,44 @@
+@import "@globals/variables";
+@import "@globals/colors.module";
+
+body:has(.menu.active){
+    overflow: hidden;
+}
+.menu {
+  inset: 0;
+  position: fixed;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0s 0.5s, visibility 0s 0.5s;
+
+  div {
+    z-index: 1;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 40px 40px calc(100% - 64px - 40px) calc(100% - 168px - 40px);
+    border-radius: $radius-1;
+    background-color: $red;
+    transition: inset 0.5s cubic-bezier(.89,0,.35,1);
+    z-index: 0;
+  }
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transition: opacity 0s, visibility 0s;
+
+    &:before {
+      //border-radius: 50%;
+      inset: -25%;
+    }
+  }
+}

@@ -7,11 +7,13 @@ import debounce from 'lodash/debounce';
 
 import Nav from "@components/shared/nav";
 import HeaderMenuButton from "@components/buttons/menu";
+import Menu from "@components/menu";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function NavButtonContainer() {
     const container = useRef<HTMLDivElement | null>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false);
     const xOffset = 5;
@@ -32,25 +34,17 @@ export default function NavButtonContainer() {
         [updateNavVisibility]
     );
 
-    const checkScrollPosition = useCallback(() => {
-        if (scrollTriggerInstance.current) {
-            const currentProgress = scrollTriggerInstance.current.progress;
-            updateNavVisibility(currentProgress);
-        }
-    }, [updateNavVisibility]);
-
-    useEffect(() => {
-        const intervalId = setInterval(checkScrollPosition, 1000);
-        return () => clearInterval(intervalId);
-    }, [checkScrollPosition]);
+    const toggleMenu=()=>{
+        setIsMenuOpen((prev)=>!prev);
+    }
 
     useGSAP(() => {
         if (!container.current) return;
 
         scrollTriggerInstance.current = ScrollTrigger.create({
-            trigger: container.current,
-            start: "top top",
-            end: "bottom top",
+            trigger: "body",
+            start: "150px 100px",
+            end: "+=0",
             onUpdate: (self) => {
                 debouncedSetShowNav(self.progress);
             },
@@ -65,13 +59,10 @@ export default function NavButtonContainer() {
     }, [debouncedSetShowNav]);
 
     useGSAP(() => {
-        console.info("useGSAP", showNav);
-
         // Kill the previous timeline if it exists
         if (currentTimeline.current) {
             currentTimeline.current.kill();
         }
-
         // Create a new timeline
         let tl = gsap.timeline();
         currentTimeline.current = tl;
@@ -130,7 +121,8 @@ export default function NavButtonContainer() {
     return (
         <div ref={container} style={{ display: "flex", alignItems: "center", justifyContent: "end", position: "relative", width: "fit-content" }}>
             <Nav />
-            <HeaderMenuButton isLoaded={isLoaded} />
+            <Menu isOpen={isMenuOpen}/>
+            <HeaderMenuButton isLoaded={isLoaded} onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
         </div>
     );
 }

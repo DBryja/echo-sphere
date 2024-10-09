@@ -3,8 +3,13 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./styles/index.scss";
 
+import {MenuProvider} from "@context/MenuContext";
+
 import Cart from "@/app/(app)/providers/Cart";
 import Header from "@/app/(app)/components/shared/header";
+import Logo from "@components/shared/logo";
+import NavButtonContainer from "@components/shared/nav-button-container";
+import SideCart from "@components/SideCart";
 
 const natsRegular = localFont({
   src: './fonts/NATS-Regular.woff',
@@ -30,7 +35,11 @@ export default function RootLayout({
         <html lang="en">
           <body className={`${natsRegular.variable} ${kokoroRegular.variable} bg-gray-300`}>
             <Cart>
-                <Header/>
+                <Header>
+                    <Logo/>
+                    <NavButtonContainer/>
+                    <SideCart/>
+                </Header>
                 <main>
                 <div className={"emptyRow"} style={{gridColumn: 1/-1, height: "100px"}}></div>
                   {children}
