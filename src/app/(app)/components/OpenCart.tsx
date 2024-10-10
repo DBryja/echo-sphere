@@ -1,11 +1,17 @@
 "use client";
+import {useEffect, useRef} from "react";
 import { useShoppingCart } from "use-shopping-cart";
 
-export default function OpenCart({hidden}:{hidden?:boolean}) {
-    const {handleCartClick, shouldDisplayCart} = useShoppingCart();
+export default function OpenCart({isStore}: {isStore: boolean}) {
+    const {handleCartClick, shouldDisplayCart, cartDetails} = useShoppingCart();
+    const qty = useRef<number>(0);
+    qty.current = Object.values(cartDetails).reduce((total, item) => total + item.quantity, 0);
+
+    const hidden = (!isStore && qty.current === 0);
 
     return <button
         className={"open-cart"}
+        data-qty={qty.current>0?qty.current:""}
         style={{border: "none",
             background: "none",
             cursor: "pointer",
@@ -23,3 +29,5 @@ export default function OpenCart({hidden}:{hidden?:boolean}) {
         </svg>
     </button>
 }
+
+//TODO: change menu to square

@@ -23,20 +23,49 @@
     position: absolute;
     right: 0;
   }
+
+  &[data-state="button"]{
+    .open-cart{
+      right: 24px;
+    }
+  }
+  &[data-state="nav"]{
+    .open-cart{
+      position: absolute;
+      right: 4px;
+      top: 56px;
+    }
+  }
 }
 
 .open-cart{
-  position: absolute;
-  top: calc($buttonHeight);
-  margin-top: $space-2;
-
+  position: relative;
   border: none;
   background-color: transparent;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   cursor: pointer;
+  transition: inset 0.3s ease-in-out 0.1s;
   svg{
     height: 100%;
     width: 100%;
+  }
+  &:after{
+    content: attr(data-qty);
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    bottom: 6px;
+    left: 60%;
+    background-color: $red;
+    color: $white;
+    @include breakpoint("md"){
+      line-height: 75%;
+    }
+  }
+  &[data-qty=""]::after {
+    display: none;
   }
 }

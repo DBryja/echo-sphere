@@ -8,9 +8,10 @@ import {MenuProvider} from "@/app/(app)/hooks/MenuContext";
 import Cart from "@/app/(app)/providers/Cart";
 import Header from "@/app/(app)/components/shared/header";
 import Logo from "@components/shared/logo";
-import NavButtonContainer from "@components/shared/nav-button-container";
+import NavContainer from "@components/shared/nav-container";
 import SideCart from "@components/SideCart";
 import OpenCart from "@components/OpenCart";
+import Link from "next/link";
 
 const natsRegular = localFont({
   src: './fonts/NATS-Regular.woff',
@@ -37,8 +38,8 @@ export default function RootLayout({
           <body className={`${natsRegular.variable} ${kokoroRegular.variable} bg-gray-300`}>
             <Cart>
                 <Header>
-                    <Logo/>
-                    <NavButtonContainer/>
+                    <Link href={"/"}><Logo/></Link>
+                    <NavContainer/>
                     <SideCart/>
                 </Header>
                 <main>

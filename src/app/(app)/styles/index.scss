@@ -35,7 +35,7 @@ main{
 :root {
   --gutter: 8px;
   --margin: 16px;
-  --button-width: 128px;
+  --button-width: 48px;
   --button-height: 48px;
   --header-top: 32px;
   @include breakpoint("md") {
