@@ -10,6 +10,7 @@ import Header from "@/app/(app)/components/shared/header";
 import Logo from "@components/shared/logo";
 import NavButtonContainer from "@components/shared/nav-button-container";
 import SideCart from "@components/SideCart";
+import OpenCart from "@components/OpenCart";
 
 const natsRegular = localFont({
   src: './fonts/NATS-Regular.woff',

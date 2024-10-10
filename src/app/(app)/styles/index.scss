@@ -36,7 +36,7 @@ main{
   --gutter: 8px;
   --margin: 16px;
   --button-width: 128px;
-  --button-height: 44px;
+  --button-height: 48px;
   --header-top: 32px;
   @include breakpoint("md") {
     --gutter: 16px;

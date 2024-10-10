@@ -24,3 +24,19 @@
     right: 0;
   }
 }
+
+.open-cart{
+  position: absolute;
+  top: calc($buttonHeight);
+  margin-top: $space-2;
+
+  border: none;
+  background-color: transparent;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  svg{
+    height: 100%;
+    width: 100%;
+  }
+}

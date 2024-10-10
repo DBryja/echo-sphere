@@ -11,6 +11,7 @@ import Nav from "@components/shared/nav";
 import HeaderMenuButton from "@components/buttons/menu";
 import Menu from "@components/menu";
 import {useWindowWidth} from "@hooks/useWindowWidth";
+import OpenCart from "@components/OpenCart";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,7 +22,7 @@ export default function NavButtonContainer() {
     const container = useRef<HTMLDivElement | null>(null);
     const currentTimeline = useRef<gsap.core.Timeline | null>(null);
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
-    const breakpoint = variables["bpLg"].replace("px", "");
+    const breakpoint = parseInt(variables["bpLg"].replace("px", ""), 10);
 
     const windowWidth = useWindowWidth();
 
@@ -148,8 +149,9 @@ export default function NavButtonContainer() {
     return (
         <div ref={container} style={{ display: "flex", alignItems: "center", justifyContent: "end", position: "relative", width: "fit-content" }}>
             {windowWidth >= breakpoint && <Nav />}
+            <OpenCart/>
             <Menu isOpen={isMenuOpen}/>
-            <HeaderMenuButton isLoaded={isLoaded} onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
+            <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
         </div>
     );
 }
