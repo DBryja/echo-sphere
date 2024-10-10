@@ -1,36 +1,94 @@
 "use client";
 import { useRef, useState, useEffect, useCallback } from "react";
+import {usePathname} from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import debounce from 'lodash/debounce';
+import {useWindowWidth} from "@hooks/useWindowWidth";
 
 import variables from "@globals/_variables.module.scss";
 
 import Nav from "@components/shared/nav";
 import HeaderMenuButton from "@components/buttons/menu";
 import Menu from "@components/menu";
-import {useWindowWidth} from "@hooks/useWindowWidth";
+import OpenCart from "@components/OpenCart";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function NavButtonContainer() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
-    const [isLoaded, setIsLoaded] = useState(false);
     const container = useRef<HTMLDivElement | null>(null);
     const currentTimeline = useRef<gsap.core.Timeline | null>(null);
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
-    const breakpoint = variables["bpLg"].replace("px", "");
+    const basketTimeline =useRef<gsap.core.Timeline | null>(null);
+    const breakpoint = parseInt(variables["bpLg"].replace("px", ""), 10);
+    const pathname = usePathname();
+    const isStore = pathname?.startsWith("/store");
+
+
+    const headerElement = useRef<HTMLElement|null>(null);
+    const [headerState, setHeaderState] = useState<"nav"|"button">("nav");
 
     const windowWidth = useWindowWidth();
 
     const xOffset = 5;
     const stagger = 0.05;
 
+    // Set the header element reference
     useEffect(() => {
-        setIsLoaded(true);
-    }, [windowWidth]);
+        headerElement.current = document.querySelector(".header");
+    }, []);
+    // Update the header state based on the window width
+    useEffect(() => {
+        if (!headerElement.current) return;
+        const newState = (showNav && windowWidth >= breakpoint && !isStore) ? "nav" : "button";
+        if (headerState !== newState) {
+            headerElement.current.dataset.state = newState;
+            setHeaderState(newState);
+        }
+    }, [showNav, windowWidth, headerState, isStore, breakpoint]);
+    // Update the header state to button if on store path
+    useEffect(() => {
+        const newState = (showNav && windowWidth >= breakpoint && !isStore) ? "nav" : "button";
+        setHeaderState(newState);
+    }, [pathname, showNav, windowWidth, isStore, breakpoint]);
+
+    //Cart change position animation
+    useGSAP(()=>{
+        if (basketTimeline.current)
+            basketTimeline.current.kill();
+
+        let tl = gsap.timeline();
+        basketTimeline.current = tl;
+
+        tl.set(".open-cart", {
+            opacity: 0,
+            right: headerState === "button" ? 24 : 4,
+            top: headerState === "button" ? "auto" : 56,
+            position: headerState === "button" ? "relative" : "absolute"
+        });
+        // Animate opacity
+        tl.to(".open-cart", {
+            opacity: 1,
+            duration: 0.2,
+            ease: "power2.out"
+        }, ">0.3");
+        // Update position based on headerState
+        tl.to(".open-cart", {
+            right: headerState === "button" ? 24 : 4,
+            top: headerState === "button" ? "auto" : 56,
+            position: headerState === "button" ? "relative" : "absolute",
+            duration: 0.3,
+            ease: "power2.inOut"
+        }, "<");
+
+        return () => {
+            if (basketTimeline.current)
+                basketTimeline.current.kill();
+        }
+    }, {dependencies: [headerState], scope: container})
 
     const updateNavVisibility = useCallback((progress: number) => {
         setShowNav(progress <= 0.5);
@@ -45,6 +103,7 @@ export default function NavButtonContainer() {
         setIsMenuOpen((prev)=>!prev);
     }
 
+    // Create the scroll trigger for the header
     useGSAP(() => {
         if (!container.current) return;
         if(windowWidth < breakpoint) return;
@@ -64,8 +123,9 @@ export default function NavButtonContainer() {
             }
             debouncedSetShowNav.cancel();
         };
-    }, [debouncedSetShowNav, windowWidth]);
+    }, {dependencies:[debouncedSetShowNav, windowWidth, headerState]});
 
+    // Create the animation for the header
     useGSAP(() => {
         // Kill the previous timeline if it exists
         if (currentTimeline.current) {
@@ -76,7 +136,7 @@ export default function NavButtonContainer() {
         currentTimeline.current = tl;
 
         // Ensure the menu button is always visible for small screens
-        if(windowWidth <= breakpoint){
+        if(windowWidth <= breakpoint || isStore){
             if(document.querySelector(".header__nav")){
                 tl.to(".header__nav", {
                     visibility: "hidden",
@@ -143,13 +203,14 @@ export default function NavButtonContainer() {
                 currentTimeline.current.kill();
             }
         };
-    }, [showNav, windowWidth]);
+    }, {dependencies:[showNav, windowWidth, headerState]});
 
     return (
         <div ref={container} style={{ display: "flex", alignItems: "center", justifyContent: "end", position: "relative", width: "fit-content" }}>
-            {windowWidth >= breakpoint && <Nav />}
+            {windowWidth >= breakpoint && !isStore && <Nav />}
+            <OpenCart isStore={isStore}/>
             <Menu isOpen={isMenuOpen}/>
-            <HeaderMenuButton isLoaded={isLoaded} onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
+            <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
         </div>
     );
 }

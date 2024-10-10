@@ -24,28 +24,32 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       pointer-events: none;
     }
     .menu-button__dot {
-      animation: dot__red-to-black 0.3s $smoothEase both;
       @include breakpoint("lg"){
         animation: dot__red-to-black-lg 0.3s $smoothEase both;
       }
       transform-origin: center;
+      // <---BURGER CROSS ROTATE
       &:hover{
         .menu-button__dot__item{
-          &:nth-child(1) {
-            transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg + 180deg));
-            @include breakpoint("lg"){
-              transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg + 180deg));
+          @media (hover: hover) and (pointer: fine){
+            &:nth-child(1) {
+              transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg + 180deg));
+              @include breakpoint("lg"){
+                transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg + 180deg));
+              }
             }
-          }
-          &:nth-child(3) {
-            transform: scale(1) translateY(calc(-6px/1)) rotate(calc(-45deg + 180deg));
-            @include breakpoint("lg"){
-              transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg + 180deg));
+            &:nth-child(3) {
+              transform: scale(1) translateY(calc(-6px/1)) rotate(calc(-45deg + 180deg));
+              @include breakpoint("lg"){
+                transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg + 180deg));
+              }
             }
           }
         }
       }
+      // BURGER CROSS ROTATE --->
 
+      // <--- BURGER CROSS DEFAULT
       &__item {
         &:nth-child(1) {
           transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg ));
@@ -63,23 +67,25 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
           }
         }
       }
+      // BURGER CROSS DEFAULT --->
     }
   }
 
   span{
-    position: absolute;
-    color: inherit;
-    z-index: 1;
-    left:20px;
+    display: none;
     @include breakpoint("lg"){
+      display: inline;
       left: $margin;
+      position: absolute;
+      color: inherit;
+      z-index: 1;
     }
   }
   &__dot{
-    width: $space-2;
-    height: $space-2;
-    border-radius: 50%;
-    background-color: $red;
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-1;
+    background-color: $black;
     transition: width 0.4s $smoothEase, height 0.4s $smoothEase;
     display: flex;
     flex-direction: column;
@@ -88,9 +94,13 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     justify-content: center;
     position: absolute;
     transform: translateX(50%);
-    right:calc(12px + $space-2/2);
+    right: 50%;
     @include breakpoint("lg"){
+      background-color: $red;
+      border-radius: 50%;
       right: $margin;
+      width: $space-2;
+      height: $space-2;
     }
 
     &__item{
@@ -98,10 +108,13 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       height: 2px;
       background-color: $white;
       content: "";
-      transform: scale(0);
+      transform: scale(1);
       transition: transform 0.3s ease;
       transform-origin: center;
       justify-content: center;
+      @include breakpoint("lg") {
+        transform: scale(0);
+      }
     }
   }
   &:not(.active):hover{
@@ -116,26 +129,8 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       }
     }
   }
-}
 
-@keyframes dot__red-to-black {
-  0% {
-    width: 0;
-    height: 0;
-    background-color: $red;
-  }
-  50% {
-    width: $space-4;
-    height: $space-4;
-    background-color: $black;
-  }
-  100% {
-    width: $space-4;
-    height: $space-4;
-    background-color: $black;
-  }
 }
-
 @keyframes dot__red-to-black-lg {
   0% {
     width: 0;
@@ -152,4 +147,8 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     height: $space-6;
     background-color: $black;
   }
+}
+
+@mixin burger-active{
+
 }
