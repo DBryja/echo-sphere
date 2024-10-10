@@ -8,8 +8,8 @@ body:has(.menu.active){
   inset: 0;
   position: fixed;
   display: flex;
-  opacity: 0;
-  visibility: hidden;
+  //opacity: 0;
+  //visibility: hidden;
   pointer-events: none;
   flex-direction: column;
   justify-content: center;
@@ -23,11 +23,13 @@ body:has(.menu.active){
   &:before {
     content: "";
     position: absolute;
-    inset: 40px 40px calc(100% - 64px - 40px) calc(100% - 168px - 40px);
+    inset: calc($headerTop + 2px) $margin calc(100% - $buttonHeight - $headerTop - 2px) calc(100% - $buttonWidth - $margin);
     border-radius: $radius-1;
     background-color: $red;
     transition: inset 0.5s cubic-bezier(.89,0,.35,1);
-    z-index: 0;
+    @include breakpoint("lg"){
+      inset: calc($headerTop - 12px) $margin calc(100% - $buttonHeight - $headerTop + 12px) calc(100% - $buttonWidth - $margin);
+    }
   }
 
   &.active {

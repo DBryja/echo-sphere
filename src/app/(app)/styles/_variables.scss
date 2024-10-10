@@ -1,5 +1,10 @@
-$gutter: 24px;
-$margin: 36px;
+@import "mixins";
+
+$gutter: var(--gutter);
+$margin: var(--margin);
+$buttonWidth: var(--button-width);
+$buttonHeight: var(--button-height);
+$headerTop: var(--header-top);
 
 $space-8: 64px;
 $space-7: 56px;
@@ -12,3 +17,13 @@ $space-1: 8px;
 
 $radius-1: 4px;
 $radius-2: 8px;
+
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px,
+    2xl: 1536px,
+    3xl: 1920px
+);
+

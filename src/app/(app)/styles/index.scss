@@ -18,8 +18,8 @@ body{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto 1fr auto;
-  column-gap: 24px;
-  padding: 0 $space-4;
+  column-gap: $gutter;
+  padding: 0 $margin;
   width: 100dvw;
   min-height: 100vh;
   overflow-x: hidden;
@@ -30,4 +30,23 @@ main{
     grid-row: 2;
     display: grid;
     grid-template-columns: subgrid;
+}
+
+:root {
+  --gutter: 8px;
+  --margin: 16px;
+  --button-width: 128px;
+  --button-height: 44px;
+  --header-top: 32px;
+  @include breakpoint("md") {
+    --gutter: 16px;
+    --margin: 24px;
+    --header-top: 64px;
+  }
+  @include breakpoint("lg") {
+    --gutter: 24px;
+    --margin: 36px;
+    --button-width: 168px;
+    --button-height: 56px;
+  }
 }

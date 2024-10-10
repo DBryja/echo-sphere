@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./styles/index.scss";
 
-import {MenuProvider} from "@context/MenuContext";
+import {MenuProvider} from "@/app/(app)/hooks/MenuContext";
 
 import Cart from "@/app/(app)/providers/Cart";
 import Header from "@/app/(app)/components/shared/header";
