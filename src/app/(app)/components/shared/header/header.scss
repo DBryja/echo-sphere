@@ -8,10 +8,15 @@
   width: calc(100% - 2*$margin);
   height: $space-6;
 
-  margin-top: $space-6;
+  margin-top: $space-4;
   display: flex;
   justify-content: space-between;
   grid-template-rows: auto;
+
+  @include breakpoint("lg"){
+    height: $space-8;
+    margin-top: $space-6;
+  }
 
   &__nav, &__menu{
     width: max-content;

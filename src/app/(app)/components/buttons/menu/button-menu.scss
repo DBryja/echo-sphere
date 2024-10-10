@@ -1,5 +1,6 @@
 @import "@globals/colors.module";
 @import "@globals/variables";
+@import "@globals/mixins";
 $smoothEase: cubic-bezier(.79,-0.01,.13,1);
 
 .menu-button{
@@ -7,15 +8,14 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 168px;
-  height: 64px;
+  width: $buttonWidth;
+  height: $buttonHeight;
   background-color: $black;
   border-radius: $radius-1;
   color: $white;
   position: relative;
   overflow: hidden;
   z-index: 99;
-  //transition: background-color 0.15s ease, color 0.1s ease !important;
 
   &.active {
     background-color: transparent;
@@ -25,27 +25,42 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     }
     .menu-button__dot {
       animation: dot__red-to-black 0.3s $smoothEase both;
+      @include breakpoint("lg"){
+        animation: dot__red-to-black-lg 0.3s $smoothEase both;
+      }
       transform-origin: center;
       &:hover{
         .menu-button__dot__item{
           &:nth-child(1) {
-            transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg + 180deg));
+            transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg + 180deg));
+            @include breakpoint("lg"){
+              transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg + 180deg));
+            }
           }
           &:nth-child(3) {
-            transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg + 180deg));
+            transform: scale(1) translateY(calc(-6px/1)) rotate(calc(-45deg + 180deg));
+            @include breakpoint("lg"){
+              transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg + 180deg));
+            }
           }
         }
       }
 
       &__item {
         &:nth-child(1) {
-          transform: scale(1.25) translateY(calc(6px/1.25)) rotate(45deg);
+          transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg ));
+          @include breakpoint("lg"){
+            transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg ));
+          }
         }
         &:nth-child(2) {
           transform: scale(0) translateY(-50%) rotate(45deg);
         }
         &:nth-child(3) {
-          transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(-45deg);
+          transform: scale(1) translateY(calc(-6px/1)) rotate(calc(-45deg ));
+          @include breakpoint("lg"){
+            transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg));
+          }
         }
       }
     }
@@ -54,8 +69,11 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
   span{
     position: absolute;
     color: inherit;
-    left: 35px;
     z-index: 1;
+    left:20px;
+    @include breakpoint("lg"){
+      left: $margin;
+    }
   }
   &__dot{
     width: $space-2;
@@ -69,8 +87,11 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     row-gap: 4px;
     justify-content: center;
     position: absolute;
-    right: 35px;
     transform: translateX(50%);
+    right:calc(12px + $space-2/2);
+    @include breakpoint("lg"){
+      right: $margin;
+    }
 
     &__item{
       width: 18px;
@@ -84,16 +105,14 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     }
   }
   &:not(.active):hover{
-    color: $white !important;
-    //background-color: $gray-600;
-    .menu-button__dot{
-      //width: $space-5;
-      //height: $space-5;
-      width: 280px;
-      height: 280px;
-      //height: (same as width);
-      &__item{
-        transform: scaleX(1);
+    @media (hover: hover) and (pointer: fine){
+      color: $white !important;
+      .menu-button__dot{
+        width: 280px;
+        height: 280px;
+        &__item{
+          transform: scaleX(1);
+        }
       }
     }
   }
@@ -101,11 +120,29 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
 
 @keyframes dot__red-to-black {
   0% {
-    width:0;
-    height:0;
+    width: 0;
+    height: 0;
     background-color: $red;
   }
-  50%{
+  50% {
+    width: $space-4;
+    height: $space-4;
+    background-color: $black;
+  }
+  100% {
+    width: $space-4;
+    height: $space-4;
+    background-color: $black;
+  }
+}
+
+@keyframes dot__red-to-black-lg {
+  0% {
+    width: 0;
+    height: 0;
+    background-color: $red;
+  }
+  50% {
     width: $space-6;
     height: $space-6;
     background-color: $black;

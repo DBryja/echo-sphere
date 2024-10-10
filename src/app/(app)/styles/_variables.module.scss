@@ -1,0 +1,10 @@
+@import "./variables";
+
+:export {
+  bpSm: map-get($breakpoints, sm);
+  bpMd: map-get($breakpoints, md);
+  bpLg: map-get($breakpoints, lg);
+  bpXl: map-get($breakpoints, xl);
+  bp2xl: map-get($breakpoints, 2xl);
+  bp3xl: map-get($breakpoints, 3xl);
+}
