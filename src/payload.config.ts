@@ -21,6 +21,9 @@ import {Products} from "@/collections/store/Products"
 import {ShippingAddresses} from "@/collections/store/ShippingAddresses";
 import {Orders} from "@/collections/store/Orders";
 
+import {ContactData} from "@/collections/siteData/ContactData";
+import {MenuItems} from "@/collections/siteData/MenuItems";
+
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,7 +44,9 @@ export default buildConfig({
       //tags&types
      ProductTags, ProductTypes, ProductCategories,Colors,
       // utils
-    Media, Users
+      Media, Users,
+      //site data
+      ContactData, MenuItems
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

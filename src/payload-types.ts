@@ -23,6 +23,8 @@ export interface Config {
     colors: Color;
     media: Media;
     users: User;
+    'contact-data': ContactDatum;
+    'menu-items': MenuItem;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -268,6 +270,35 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-data".
+ */
+export interface ContactDatum {
+  id: string;
+  email: string;
+  'phone-number': string;
+  address: string;
+  socials?: {
+    facebook?: string | null;
+    instagram?: string | null;
+    youtube?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu-items".
+ */
+export interface MenuItem {
+  id: string;
+  name: string;
+  path: string;
+  img: string | Media;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
