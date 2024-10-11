@@ -28,7 +28,7 @@ export const ContactData: CollectionConfig = {
                 {
                     name: "facebook",
                     type: "text",
-                    defaultValue: "https://www.spotify.com/",
+                    defaultValue: "https://www.facebook.com/",
                 },
                 {
                     name: "instagram",

@@ -143,10 +143,12 @@ export interface Product {
   description: string;
   unique_name: string;
   price: number;
-  images: {
-    img?: (string | null) | Media;
-    id?: string | null;
-  }[];
+  images?:
+    | {
+        img?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   variants: {
     stock: number;
     size: 's' | 'm' | 'l' | 'xl' | 'os';
@@ -295,6 +297,8 @@ export interface ContactDatum {
 export interface MenuItem {
   id: string;
   name: string;
+  order: number;
+  showInNav?: boolean | null;
   path: string;
   img: string | Media;
   updatedAt: string;

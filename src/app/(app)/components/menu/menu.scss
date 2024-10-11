@@ -16,7 +16,7 @@ body:has(.menu.active){
   align-items: center;
   transition: opacity 0s 0.5s, visibility 0s 0.5s;
 
-  div {
+  div, p{
     z-index: 1;
   }
 
