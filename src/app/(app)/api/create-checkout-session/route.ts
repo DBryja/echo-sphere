@@ -55,6 +55,7 @@ export async function POST(req) {
             if (!validateItem(item, templateItem)) {
                 throw new Error("Invalid cart item");
             }
+            console.log(item.price_data.product_data.images);
 
             return {
             price_data: {
