@@ -21,8 +21,8 @@ dependencies:
     specifier: 3.0.0-beta.98
     version: 3.0.0-beta.98(@faceless-ui/modal@3.0.0-beta.2)(@faceless-ui/scroll-info@2.0.0-beta.0)(@lexical/headless@0.17.0)(@lexical/link@0.17.0)(@lexical/list@0.17.0)(@lexical/mark@0.17.0)(@lexical/markdown@0.17.0)(@lexical/react@0.17.0)(@lexical/rich-text@0.17.0)(@lexical/selection@0.17.0)(@lexical/table@0.17.0)(@lexical/utils@0.17.0)(@payloadcms/next@3.0.0-beta.98)(@types/react@18.3.11)(lexical@0.17.0)(monaco-editor@0.52.0)(next@15.0.0-canary.146)(payload@3.0.0-beta.98)(react-dom@19.0.0-rc-d1afcb43-20240903)(react@19.0.0-rc-d1afcb43-20240903)(typescript@5.6.3)
   '@payloadcms/storage-vercel-blob':
-    specifier: 3.0.0-beta.29
-    version: 3.0.0-beta.29(@aws-sdk/client-s3@3.667.0)(payload@3.0.0-beta.98)
+    specifier: 3.0.0-beta.98
+    version: 3.0.0-beta.98(@aws-sdk/client-s3@3.667.0)(payload@3.0.0-beta.98)
   '@payloadcms/ui':
     specifier: 3.0.0-beta.98
     version: 3.0.0-beta.98(@types/react@18.3.11)(monaco-editor@0.52.0)(next@15.0.0-canary.146)(payload@3.0.0-beta.98)(react-dom@19.0.0-rc-d1afcb43-20240903)(react@19.0.0-rc-d1afcb43-20240903)(typescript@5.6.3)
@@ -2212,16 +2212,16 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@payloadcms/plugin-cloud-storage@3.0.0-beta.29(@aws-sdk/client-s3@3.667.0)(@vercel/blob@0.22.3)(payload@3.0.0-beta.98):
-    resolution: {integrity: sha512-3Wo1B7xdt4LwxWjOtDV+yp66Y6yb54lYP6l3rbbqkYUKQkqCqhm9AhOHilafO98rrfQxA2V/n7BE4KnQkJBUTA==}
+  /@payloadcms/plugin-cloud-storage@3.0.0-beta.98(@aws-sdk/client-s3@3.667.0)(@vercel/blob@0.22.3)(payload@3.0.0-beta.98):
+    resolution: {integrity: sha512-WupOkpDbKpL0DsQUe9J2G/p0ofqTum7d9HFlaidCPeMNeTNQWpB25RB1d6iinuSkSvhLzV31nf+Z3DL9MXYQsg==}
     peerDependencies:
-      '@aws-sdk/client-s3': ^3.525.0
-      '@aws-sdk/lib-storage': ^3.525.0
+      '@aws-sdk/client-s3': ^3.614.0
+      '@aws-sdk/lib-storage': ^3.614.0
       '@azure/abort-controller': ^1.0.0
       '@azure/storage-blob': ^12.11.0
       '@google-cloud/storage': ^7.7.0
       '@vercel/blob': ^0.22.3
-      payload: 3.0.0-beta.29
+      payload: 3.0.0-beta.98
     peerDependenciesMeta:
       '@aws-sdk/client-s3':
         optional: true
@@ -2319,13 +2319,13 @@ packages:
       - typescript
     dev: false
 
-  /@payloadcms/storage-vercel-blob@3.0.0-beta.29(@aws-sdk/client-s3@3.667.0)(payload@3.0.0-beta.98):
-    resolution: {integrity: sha512-m4gt/t88CtjyghNO6vUpqmtvEQel0e+qfMIePTEV6aSlJAfpKkniUzThXIBzQYkN1T1CqKRUGa2sgB52YVvhFg==}
-    engines: {node: '>=18.20.2'}
+  /@payloadcms/storage-vercel-blob@3.0.0-beta.98(@aws-sdk/client-s3@3.667.0)(payload@3.0.0-beta.98):
+    resolution: {integrity: sha512-Yt0MbQJIYUTR57AGA6JLGnEzUSAPQXk3l4k4OYD2Y+6a87eo/qOeREI/pIzvvpR4Ya07495Ta4xDf9b5KVZCXg==}
+    engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
-      payload: 3.0.0-beta.29
+      payload: 3.0.0-beta.98
     dependencies:
-      '@payloadcms/plugin-cloud-storage': 3.0.0-beta.29(@aws-sdk/client-s3@3.667.0)(@vercel/blob@0.22.3)(payload@3.0.0-beta.98)
+      '@payloadcms/plugin-cloud-storage': 3.0.0-beta.98(@aws-sdk/client-s3@3.667.0)(@vercel/blob@0.22.3)(payload@3.0.0-beta.98)
       '@vercel/blob': 0.22.3
       payload: 3.0.0-beta.98(graphql@16.9.0)(monaco-editor@0.52.0)(react-dom@19.0.0-rc-d1afcb43-20240903)(react@19.0.0-rc-d1afcb43-20240903)(typescript@5.6.3)
     transitivePeerDependencies:

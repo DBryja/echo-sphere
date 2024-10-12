@@ -15,7 +15,7 @@
     "@payloadcms/next": "3.0.0-beta.98",
     "@payloadcms/plugin-cloud": "3.0.0-beta.98",
     "@payloadcms/richtext-lexical": "3.0.0-beta.98",
-    "@payloadcms/storage-vercel-blob": "3.0.0-beta.29",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.98",
     "@payloadcms/ui": "3.0.0-beta.98",
     "@stripe/react-stripe-js": "2.4.0",
     "@stripe/stripe-js": "2.2.2",
