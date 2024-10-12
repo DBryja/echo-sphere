@@ -4,6 +4,13 @@ import AddToCart from "@/app/(app)/components/AddToCart";
 import type { Product as CartItem } from "use-shopping-cart/core";
 import type { Product } from "@/payload-types";
 
+interface ImageObject {
+    img: {
+        url: string;
+        alt: string;
+    };
+    id: string;
+}
 
 export default function ProductConfigurator({ product }: { product: Product }) {
     const [selectedSku, setSelectedSku] = useState<string>(() => {
@@ -14,6 +21,19 @@ export default function ProductConfigurator({ product }: { product: Product }) {
     useEffect(() => {
         setOriginPath(window.location.origin);
     }, []);
+
+    const getImageUrl = (images: ImageObject[]) => {
+        if (images && images.length > 0 && images[0].img && images[0].img.url) {
+            const imageUrl = images[0].img.url;
+            // If the URL is already absolute, return it as is
+            if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+                return imageUrl;
+            }
+            // Otherwise, prepend the origin
+            return `${originPath}${imageUrl}`;
+        }
+        return '';// Return an empty string or a default image URL if no valid image is found
+    };
 
     const selectedVariant = product.variants.find(v => v.sku === selectedSku) || product.variants[0];
 
@@ -49,7 +69,7 @@ export default function ProductConfigurator({ product }: { product: Product }) {
                     },
                     price_data: {
                         product_data: {
-                            images: [`${originPath+product.images[0].img.url}`],
+                            images: [getImageUrl(product.images)],
                         },
                     },
                 }}

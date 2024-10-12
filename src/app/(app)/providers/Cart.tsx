@@ -1,6 +1,10 @@
 "use client";
 import { CartProvider } from "use-shopping-cart";
 
+const path = process.env.NODE_ENV === "production"
+        ? process.env.LIVE_URL
+        : "http://localhost:3000";
+
 export default function Cart({ children }) {
     return (
         <CartProvider
@@ -10,8 +14,8 @@ export default function Cart({ children }) {
             currency="USD"
             language="en"
             shouldPersist={true}
-            successUrl={`${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`}
-            cancelUrl={`${process.env.NEXT_PUBLIC_URL}/cart`}
+            successUrl={`${path}/success?session_id={CHECKOUT_SESSION_ID}`}
+            cancelUrl={`${path}/cart`}
         >
             {children}
         </CartProvider>

@@ -44,7 +44,7 @@ const updateStock = async (payload, items: Array<{ product: { id: string }, sku:
             });
 
             console.info(`${increment ? 'Restored' : 'Reserved'} stock for product ${productId}`);
-            console.info('Updated product:', JSON.stringify(result, null, 2));
+            // console.info('Updated product:', JSON.stringify(result, null, 2));
             return result;
         } catch (error) {
             console.error(`Error updating stock for product ${productId}:`, error);

@@ -22,7 +22,7 @@ export default async function ProductPage({params: {slug}}) {
             <p>{item.description}</p>
             {/*<p>{item.color}</p>*/}
             <div>
-                {item.images.map((image, i) => {
+                {item.images?.map((image, i) => {
                     if (!image) return null;
                     if (typeof image.img === 'string') return <Image key={i} src={image.img} alt={item.name} width={300} height={300}/>
                     return <Image key={i}  src={image.img?.url!} alt={image.img?.alt!} width={300} height={300}/>

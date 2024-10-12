@@ -63,9 +63,8 @@ export async function POST(req) {
                 product_data: {
                     name: item.name,
                     description: `Size: ${formatSize(item.size)}`,
-                    // images: item.price_data.product_data.images,
-                    // TODO: Change this after uploading on vercel
-                    images: [`https://picsum.photos/seed/${item.id}/100/100`]
+                    images: item.price_data.product_data.images,
+                    // images: [`https://picsum.photos/seed/${item.id}/100/100`] // temporary image
                 },
             },
             quantity: item.quantity,
@@ -110,7 +109,8 @@ export async function POST(req) {
             ],
             locale: "en",
             expires_at: (Math.floor(Date.now()/1000) + 1800)
-        });
+        })
+            // .then((session) => {console.log(session)});
 
         const order = await payload.create({
             collection: "orders",
@@ -134,8 +134,7 @@ export async function POST(req) {
         // setTimeout(async () => {
         //     await stripe.checkout.sessions.expire(session.id);
         // }, 15*1000);
-
-        return NextResponse.json({ sessionId: session.id, orderId: order.id });
+        return NextResponse.json({ sessionId: session["id"], orderId: order.id });
     } catch (err) {
         console.log(err);
         return NextResponse.json({ statusCode: 500, message: err.message }, { status: 500 });
