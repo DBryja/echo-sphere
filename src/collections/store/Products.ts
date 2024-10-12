@@ -1,31 +1,9 @@
-import type { CollectionConfig } from 'payload'
+import type {CollectionConfig, Field} from 'payload'
 import {v7} from 'uuid';
 const currencyRegex = /^\d+(\.\d{1,2})?$/;
 const colorHexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 import colorField from "@/fields/ColorPickerInput/field";
 import ColorPickerInput from "@/fields/ColorPickerInput/component";
-
-// TODO: Replace this with a color picker component
-// const colorField = {
-//     name: "colorHEX",
-//     type: "text",
-//     admin: {
-//         width: "50%",
-//         placeholder: "#FF00FF"
-//     },
-//     validate: (value) => {
-//         if(!colorHexRegex.test(value)) return "Color must be a valid HEX value.";
-//         return true;
-//     },
-//     hooks: {
-//         beforeChange: [
-//             ({value}) => {
-//                 return value.replace("#",'').trim();
-//             }
-//         ]
-//     }
-// }
-
 
 export const Products: CollectionConfig = {
     slug: 'products',
@@ -174,7 +152,7 @@ export const Products: CollectionConfig = {
         {
             name: "images",
             type: "array",
-            required: true,
+            // required: true,
             minRows: 1,
             fields: [
                 {
@@ -319,16 +297,16 @@ export const Products: CollectionConfig = {
                         },
                         {
                             ...colorField,
-                            required: true,
-                            admin: {
+                            admin:{
                                 ...colorField.admin,
-                                width: "100%",
-                                condition: (data, siblingData) => siblingData.relationType === "colorway"
+                                condition: (data, siblingData)=>{
+                                    return siblingData.relationType === "colorway";
+                                }
                             }
                         }
-                    ]
+                    ],
                 }
-            ]
+            ],
         },
         {
             name: "tags",

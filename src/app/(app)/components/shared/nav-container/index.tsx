@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect, useCallback } from "react";
+import {useRef, useState, useEffect, useCallback, Suspense} from "react";
 import {usePathname} from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -13,10 +13,11 @@ import Nav from "@components/shared/nav";
 import HeaderMenuButton from "@components/buttons/menu";
 import Menu from "@components/menu";
 import OpenCart from "@components/OpenCart";
+import {ContactDatum, MenuItem} from "@/payload-types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function NavButtonContainer() {
+export default function NavButtonContainer({navItems, contactData}: {navItems: MenuItem[], contactData: ContactDatum}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
     const container = useRef<HTMLDivElement | null>(null);
@@ -207,9 +208,9 @@ export default function NavButtonContainer() {
 
     return (
         <div ref={container} style={{ display: "flex", alignItems: "center", justifyContent: "end", position: "relative", width: "fit-content" }}>
-            {windowWidth >= breakpoint && !isStore && <Nav />}
+            {windowWidth >= breakpoint && !isStore && <Nav navItems={navItems}/>}
             <OpenCart isStore={isStore}/>
-            <Menu isOpen={isMenuOpen}/>
+            <Menu isOpen={isMenuOpen} navItems={navItems} contactData={contactData}/>
             <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
         </div>
     );

@@ -21,6 +21,7 @@ const colorField: Field = {
     hooks: {
         beforeChange: [
             ({ value }) => {
+                if (!value) return value;
                 return value.replace("#", '').trim();
             }
         ]
