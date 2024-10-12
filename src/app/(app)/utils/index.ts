@@ -1,4 +1,5 @@
 import type {Product} from "use-shopping-cart/core"
+import type {Media, MenuItem} from "@/payload-types";
 export type CartItem = {
   size: string;
     quantity: number;
@@ -53,4 +54,13 @@ export const validateItem = (cartItem:CartItem, templateItem:TemplateItem) => {
     throw new Error(`Invalid cart item: Currency mismatch (expected 'usd', got ${cartItem.currency})`);
   }
   return true;
+}
+
+export const getImageUrl = (img: string | Media) => {
+  if(typeof img === "string") return img;
+  return img.url;
+}
+export const getAlt = (item:MenuItem) => {
+  if(typeof item.img === "string") return item.name;
+  return item.img.alt;
 }
