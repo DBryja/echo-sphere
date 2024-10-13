@@ -157,7 +157,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                         </div>
                 }
                 <div className={"menu__logo"}>
-                    <Image src={"/img/logo-full-dot.svg"} alt={"Logo"} width={600} height={300}/>
+                    <Image src={"/img/logo-full-dot.svg"} alt={"Logo"} width={600} height={300} loading={"eager"} priority={true}/>
                 </div>
             </div>
 

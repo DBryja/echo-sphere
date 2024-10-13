@@ -8,7 +8,7 @@ export default function Nav({navItems}:{navItems: MenuItem[]}) {
             {navItems.map((item, i) => {
                 if (!item.showInNav) return null;
                 return (
-                    <Link key={i} className={"btn btn--small"}
+                    <Link key={i} className={"nav__item"}
                           href={item.path.startsWith("/") ? item.path : "/"+item.path}>
                         {item.name}
                     </Link>

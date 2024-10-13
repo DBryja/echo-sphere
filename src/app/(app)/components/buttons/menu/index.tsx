@@ -8,10 +8,9 @@ interface MenuButtonProps {
 
 export default function MenuButton({onClick, isMenuOpen}: MenuButtonProps) {
     return (
-        <>
             <div
                 onClick={onClick}
-                className={`header__menu menu-button btn btn--small ${isMenuOpen?"active":""}`} aria-roledescription={"button"} tabIndex={0}>
+                className={`header__menu menu-button ${isMenuOpen?"active":""}`} aria-roledescription={"button"} tabIndex={0}>
                 <span className={""}>menu</span>
                 <div className={"menu-button__dot "}>
                     <div className={"menu-button__dot__item"}></div>
@@ -19,6 +18,5 @@ export default function MenuButton({onClick, isMenuOpen}: MenuButtonProps) {
                     <div className={"menu-button__dot__item"}></div>
                 </div>
             </div>
-        </>
     )
 }
