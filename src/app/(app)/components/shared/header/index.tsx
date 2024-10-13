@@ -14,7 +14,7 @@ export default async function Header() {
     const contactData = await getContactData();
 
     return <header className={"header"} data-state={"nav"}>
-        <Link href={"/"}><Logo/></Link>
+        <Link href={"/"}><Logo iconColor={"red"} textColor={"black"}/></Link>
         <NavContainer navItems={navItems} contactData={contactData}/>
         <SideCart/>
     </header>

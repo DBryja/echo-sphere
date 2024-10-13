@@ -1,6 +1,7 @@
 @import "@globals/colors.module";
 @import "@globals/variables";
 @import "@globals/mixins";
+@import "@globals/typography";
 $smoothEase: cubic-bezier(.79,-0.01,.13,1);
 
 .menu-button{
@@ -16,6 +17,8 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
   position: relative;
   overflow: hidden;
   z-index: 99;
+  @include typo-btn-small;
+  cursor:pointer;
 
   &.active {
     background-color: transparent;
