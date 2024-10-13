@@ -1,6 +1,6 @@
 import "./header.scss";
 import Link from "next/link";
-import Logo from "@components/shared/logo";
+import Logo from "@components/shared/logo/logo-css";
 import NavContainer from "@components/shared/nav-container";
 import SideCart from "@components/SideCart";
 import {ContactDatum, MenuItem} from "@/payload-types";
