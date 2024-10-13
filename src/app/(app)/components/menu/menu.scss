@@ -11,11 +11,13 @@ body:has(.menu.active){
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0s 0.5s, visibility 0s 0.5s;
   margin: 0 $margin;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  clip-path: inset(calc($headerTop + 2px) 0 calc(100% - $buttonHeight - $headerTop - 2px) calc(100% - $buttonWidth));
+  transition: opacity 0s 0.5s, visibility 0s 0.5s, clip-path 0.5s ease-in-out 0.1s;
+
   @include breakpoint("md"){
     flex-grow: 0;
   }
@@ -25,6 +27,35 @@ body:has(.menu.active){
     grid-template-columns: repeat(6, 1fr);
     margin-top: $headerTop;
     margin-bottom: $headerTop;
+    clip-path: inset(calc(4px) 0 calc(100% - $buttonHeight - 4px) calc(100% - $buttonWidth));
+    transition: opacity 0s 0.5s, visibility 0s 0.5s, clip-path 0.5s cubic-bezier(.89,0,.35,1);
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: calc($headerTop + 2px) 0 calc(100% - $buttonHeight - $headerTop - 2px) calc(100% - $buttonWidth);
+    border-radius: $radius-1;
+    background-color: $red;
+    transition: inset 0.5s ease-in-out 0.1s;
+    @include breakpoint("lg"){
+      inset: 4px
+      0
+      calc(100% - $buttonHeight - 4px)
+      calc(100% - $buttonWidth);
+      transition: inset 0.5s cubic-bezier(.89,0,.35,1);
+    }
+  }
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transition: opacity 0s, visibility 0s;
+    clip-path: inset(-25%);
+
+    &:before {
+      inset: -25%;
+    }
   }
 
   div, p{
@@ -154,34 +185,8 @@ body:has(.menu.active){
     left: 0;
     height: $buttonHeight;
     @include breakpoint("lg"){
+      height: 64px;
       top: 0;
-    }
-    //margin-top: calc($headerTop + $buttonHeight*2);
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    inset: calc($headerTop + 2px) 0 calc(100% - $buttonHeight - $headerTop - 2px) calc(100% - $buttonWidth);
-    border-radius: $radius-1;
-    background-color: $red;
-    transition: inset 0.5s cubic-bezier(.89,0,.35,1);
-    @include breakpoint("lg"){
-      inset: calc(4px)
-      0
-      calc(100% - $buttonHeight - 4px)
-      calc(100% - $buttonWidth);
-    }
-  }
-  &.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
-    transition: opacity 0s, visibility 0s;
-
-    &:before {
-      //border-radius: 50%;
-      inset: -25%;
     }
   }
 }
