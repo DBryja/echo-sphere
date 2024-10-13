@@ -26,3 +26,9 @@ $breakpoints: (
     }
   }
 }
+
+@mixin hoverable {
+  @media (hover: hover) and (pointer: fine){
+    @content;
+  }
+}

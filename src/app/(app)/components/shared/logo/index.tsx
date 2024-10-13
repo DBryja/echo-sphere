@@ -1,12 +1,12 @@
 import colors from "@globals/_colors.module.scss";
+interface LogoProps{
+    textColor: "black" | "white" | "red";
+    iconColor: "red" | "black" | "white";
+}
 
-export default function Logo({mode="light"}:{mode?: "dark" | "light"}){
-    let textColor = colors["black"];
-    let iconColor = colors["red"];
-    if(mode === "dark"){
-        textColor = colors["white"];
-        iconColor = colors["black"];
-    }
+export default function Logo({textColor, iconColor}: LogoProps) {
+    textColor = colors[textColor];
+    iconColor = colors[iconColor];
 
     return (
         <svg style={{height: "100%"}}
