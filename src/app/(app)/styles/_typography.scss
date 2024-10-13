@@ -13,95 +13,173 @@ a{
     color: inherit;
 }
 
-h1{
-  font-family: $nats;
-  font-size: 20rem;
-  letter-spacing: -6%;
-  line-height: 140%;
-  .display{
+//h1{
+//  font-family: $nats;
+//  font-size: 20rem;
+//  letter-spacing: -6%;
+//  line-height: 140%;
+//  .display{
+//    font-size: 25rem;
+//  }
+//}
+@mixin typo-display{
+    font-family: $nats;
     font-size: 25rem;
-  }
+    letter-spacing: -6%;
+    line-height: 140%;
 }
-
-h2{
-  font-family: $nats;
-  font-size: 12rem;
-  letter-spacing: -6%;
-  line-height: 140%;
+@mixin typo-h1{
+    font-family: $nats;
+    font-size: 20rem;
+    letter-spacing: -6%;
+    line-height: 140%;
 }
-
-h3{
-  font-family: $nats;
-  font-size: 8rem;
-  line-height: 100%;
-  letter-spacing: -2%;
+@mixin typo-h2{
+    font-family: $nats;
+    font-size: 12rem;
+    letter-spacing: -6%;
+    line-height: 140%;
 }
-
-//subtitle 1
-h4, .subtitle-1{
-  font-family: $nats;
-  font-size: 6rem;
-  line-height: 100%;
-  letter-spacing: -2%;
+@mixin typo-h3{
+    font-family: $nats;
+    font-size: 8rem;
+    line-height: 100%;
+    letter-spacing: -2%;
 }
-//subtitle 2
-h5{
-  font-family: $nats;
-  font-size: 4.2rem;
-  line-height: 100%;
-  letter-spacing: -1%;
+@mixin typo-sub1{
+    font-family: $nats;
+    font-size: 6rem;
+    line-height: 100%;
+    letter-spacing: -2%;
 }
-//subtitle 3,4
-h6{
+@mixin typo-sub2{
+    font-family: $nats;
+    font-size: 4.2rem;
+    line-height: 100%;
+    letter-spacing: -1%;
+}
+@mixin typo-sub3{
     font-family: $nats;
     font-size: 3rem;
     line-height: 100%;
     letter-spacing: -2%;
-
-  .small{
-    letter-spacing: -1%;
-    font-size: 2.4rem;
-  }
 }
-
-body, p{
+@mixin typo-sub4{
+    font-family: $nats;
+    font-size: 2.4rem;
+    line-height: 100%;
+    letter-spacing: -2%;
+}
+@mixin typo-btn{
+    font-family: $nats;
+    font-size: 2.8rem;
+    line-height: 120%;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.1s ease;
+}
+@mixin typo-btn-small{
+  font-family: $nats;
+  font-size: 2.4rem;
+  line-height: 120%;
+  text-transform: uppercase;
+}
+@mixin typo-body{
     font-family: $kokoro;
     font-size: 1.8rem;
     line-height: 150%;
-
-    .small{
-        font-size: 1.6rem;
-      line-height: 160%;
-    }
 }
-
-button, .btn{
-  font-family: $nats;
-  font-size: 2rem;
-  line-height: 120%;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color 0.1s ease;
-
-  @include breakpoint("md"){
-    font-size: 2.8rem;
-  }
+@mixin typo-body-small{
+    font-family: $kokoro;
+    font-size: 1.6rem;
+    line-height: 160%;
 }
-button.small, .btn--small{
-    font-size: 2.4rem;
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      color: $gray-400;
-    }
-  }
-}
-
-
-span{
-  .label{
+@mixin typo-label{
     font-family: $nats;
     font-size: 2.4rem;
     line-height: 120%;
-  }
 }
+
+//
+//h2{
+//  font-family: $nats;
+//  font-size: 12rem;
+//  letter-spacing: -6%;
+//  line-height: 140%;
+//}
+//
+//h3{
+//  font-family: $nats;
+//  font-size: 8rem;
+//  line-height: 100%;
+//  letter-spacing: -2%;
+//}
+//
+////subtitle 1
+//h4, .subtitle-1{
+//  font-family: $nats;
+//  font-size: 6rem;
+//  line-height: 100%;
+//  letter-spacing: -2%;
+//}
+////subtitle 2
+//h5{
+//  font-family: $nats;
+//  font-size: 4.2rem;
+//  line-height: 100%;
+//  letter-spacing: -1%;
+//}
+////subtitle 3,4
+//h6{
+//    font-family: $nats;
+//    font-size: 3rem;
+//    line-height: 100%;
+//    letter-spacing: -2%;
+//
+//  .small{
+//    letter-spacing: -1%;
+//    font-size: 2.4rem;
+//  }
+//}
+//
+//body, p{
+//    font-family: $kokoro;
+//    font-size: 1.8rem;
+//    line-height: 150%;
+//
+//    .small{
+//        font-size: 1.6rem;
+//      line-height: 160%;
+//    }
+//}
+//
+//button, .btn{
+//  font-family: $nats;
+//  font-size: 2rem;
+//  line-height: 120%;
+//  text-transform: uppercase;
+//  cursor: pointer;
+//  transition: color 0.1s ease;
+//
+//  @include breakpoint("md"){
+//    font-size: 2.8rem;
+//  }
+//}
+//button.small, .btn--small{
+//    font-size: 2.4rem;
+//
+//  @media (hover: hover) and (pointer: fine) {
+//    &:hover {
+//      color: $gray-400;
+//    }
+//  }
+//}
+//
+//
+//span{
+//  .label{
+//    font-family: $nats;
+//    font-size: 2.4rem;
+//    line-height: 120%;
+//  }
+//}

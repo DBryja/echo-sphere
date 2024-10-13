@@ -6,6 +6,10 @@ import type {ContactDatum, MenuItem} from "@/payload-types";
 import {getImageUrl, getAlt} from "@/app/(app)/utils";
 import gsap from "gsap";
 import {useEffect, useRef, useState} from "react";
+import {useWindowWidth} from "@hooks/useWindowWidth";
+
+import variables from "@globals/_variables.module.scss"
+import Logo from "@components/shared/logo";
 
 // Create a map to store individual timelines for each item
 const itemTimelines: Map<string, gsap.core.Timeline> = new Map();
@@ -44,6 +48,9 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
     const containerRef = useRef<HTMLElement|null>(null);
     const [itemZIndices, setItemZIndices] = useState<{[key: string]: number}>({});
     const [lastHoveredItem, setLastHoveredItem] = useState<string | null>(null);
+    const windowWidth = useWindowWidth();
+    const isTablet = windowWidth >= parseInt(variables["bpMd"].replace("px", ""));
+    const isDesktop = windowWidth >= parseInt(variables["bpLg"].replace("px", ""));
 
     const grantHighestZIndex = (itemName: string) => {
         setLastHoveredItem(itemName);
@@ -54,6 +61,8 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
     };
 
     useEffect(() => {
+        if(!isDesktop) return;
+
         if (lastHoveredItem) {
             setItemZIndices(prevIndices => {
                 const newIndices = {...prevIndices};
@@ -65,11 +74,12 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                 return newIndices;
             });
         }
-    }, [lastHoveredItem]);
+    }, [lastHoveredItem, isDesktop]);
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
+        if(!isDesktop) return;
 
         const handleMouseEnter = (e: MouseEvent) => {
             const target = e.currentTarget as HTMLElement;
@@ -107,44 +117,53 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                 }
             });
         };
-    }, [navItems]);
+    }, [navItems, isDesktop]);
 
     return (
-        <section className={`menu ${isOpen?"active":""}`} ref={containerRef}>
-            <div className={"menu__decor"}>
-                {navItems.map((item, index) => (
-                    <Image
-                        className="menu__decor__item"
-                        key={index}
-                        data-item={item.name}
-                        src={getImageUrl(item.img)}
-                        alt={getAlt(item)}
-                        width={600}
-                        height={300}
-                        style={{zIndex: itemZIndices[item.name] || 1}}
-                    />
-                ))}
-            </div>
+        <section className={`menu ${isOpen ? "active" : ""}`} ref={containerRef}>
+            {isDesktop &&
+                <div className={"menu__decor"}>
+                    {navItems.map((item, index) => (
+                        <Image
+                            className="menu__decor__item"
+                            key={index}
+                            data-item={item.name}
+                            src={getImageUrl(item.img)}
+                            alt={getAlt(item)}
+                            width={600}
+                            height={300}
+                            style={{zIndex: itemZIndices[item.name] || 1}}
+                        />
+                    ))}
+                </div>
+            }
             <div className={"menu__links"}>
                 {navItems.map((item, index) => (
-                    <a className={"subtitle-1"} data-name={item.name} key={index} href={item.path}>{item.name}</a>
+                    <a data-name={item.name} key={index} href={item.path}>{item.name}</a>
                 ))}
             </div>
             <div className="menu__contact-wrapper">
-                <div className={"menu__contact contact"}>
-                    <p>{email}</p>
-                    <p>{phoneNumber}</p>
-                    <p>{address}</p>
-                    <p>
-                        {socials?.facebook && <a href={socials.facebook}>Facebook</a>}
-                        {socials?.instagram && <a href={socials.instagram}>Instagram</a>}
-                        {socials?.youtube && <a href={socials.youtube}>Youtube</a>}
-                    </p>
-                </div>
+                {isTablet &&
+                    <div className={"menu__contact contact"}>
+                        <h3>Contact</h3>
+                        <p>{email}</p>
+                        <p>{phoneNumber}</p>
+                        <p>{address}</p>
+                            {/*<p className={"contact__icons"}>*/}
+                            {/*    {socials?.facebook && <a href={socials.facebook}>Fb</a>}*/}
+                            {/*    {socials?.instagram && <a href={socials.instagram}>Ig</a>}*/}
+                            {/*    {socials?.youtube && <a href={socials.youtube}>Yt</a>}*/}
+                            {/*</p>*/}
+                        </div>
+                }
                 <div className={"menu__logo"}>
                     <Image src={"/img/logo-full-dot.svg"} alt={"Logo"} width={600} height={300}/>
                 </div>
             </div>
+
+            {isTablet && <div className={"menu__corner-logo"}>
+                <Logo textColor={"black"} iconColor={"white"}/>
+            </div>}
         </section>
-    )
+    );
 }

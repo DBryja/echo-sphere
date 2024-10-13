@@ -23,6 +23,7 @@ body{
   width: 100dvw;
   min-height: 100vh;
   overflow-x: hidden;
+  @include typo-body;
 }
 
 main{
@@ -41,7 +42,7 @@ main{
   @include breakpoint("md") {
     --gutter: 16px;
     --margin: 24px;
-    --header-top: 64px;
+    --header-top: 48px;
   }
   @include breakpoint("lg") {
     --gutter: 24px;
