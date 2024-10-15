@@ -95,10 +95,11 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                     duration: duration,
                     stagger: 0.05,
                     delay: selector === ".menu__logo" ? 0 : delay,
-                }, "<0.1"); // Starts 0.1 seconds after the previous animation begins
+                }, "<");
             });
         } else {
-            selectors.forEach(selector => {
+            const backingSelectors = isDesktop?selectors:selectors.toReversed();
+            backingSelectors.forEach(selector => {
                 tl.to(selector, {
                     opacity: 0,
                     x: 20,
@@ -107,7 +108,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                     ease: "power2.out",
                     duration: isTablet?duration:duration/2.25,
                     stagger: isDesktop?-0.02:-0.03,
-                }, "<0.1"); // Starts 0.1 seconds after the previous animation begins
+                }, "<");
             });
             tl.set(".enter-anim", { opacity: 1, x: 0, y: 0, skewX: 0, delay: 0.11 });
         }

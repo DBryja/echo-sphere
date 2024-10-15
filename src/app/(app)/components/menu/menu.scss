@@ -16,7 +16,7 @@ body:has(.menu.active){
   flex-direction: column;
   justify-content: space-between;
   clip-path: inset(calc($headerTop + 2px) 0 calc(100% - $buttonHeight - $headerTop - 2px) calc(100% - $buttonWidth));
-  transition: opacity 0s 0.5s, visibility 0s 0.5s, clip-path 0.5s ease-in-out 0.1s;
+  transition: opacity 0s 0.5s, visibility 0s 0.5s, clip-path 0.5s ease-in-out;
 
   @include breakpoint("md"){
     flex-grow: 0;
@@ -27,7 +27,7 @@ body:has(.menu.active){
     grid-template-columns: repeat(6, 1fr);
     margin-top: $headerTop;
     margin-bottom: $headerTop;
-    clip-path: inset(calc(4px) 0 calc(100% - $buttonHeight - 4px) calc(100% - $buttonWidth));
+    clip-path: inset(4px 0 calc(100% - $buttonHeight - 4px) calc(100% - $buttonWidth));
     transition: opacity 0s 0.5s, visibility 0s 0.5s, clip-path 0.5s cubic-bezier(.89,0,.35,1);
   }
 
@@ -39,10 +39,7 @@ body:has(.menu.active){
     background-color: $red;
     transition: inset 0.5s ease-in-out 0.1s;
     @include breakpoint("lg"){
-      inset: 4px
-      0
-      calc(100% - $buttonHeight - 4px)
-      calc(100% - $buttonWidth);
+      inset: 4px 0 calc(100% - $buttonHeight - 4px) calc(100% - $buttonWidth);
       transition: inset 0.5s cubic-bezier(.89,0,.35,1);
     }
   }
@@ -52,7 +49,6 @@ body:has(.menu.active){
     pointer-events: all;
     transition: opacity 0s, visibility 0s;
     clip-path: inset(-25%);
-
     &:before {
       inset: -25%;
     }
