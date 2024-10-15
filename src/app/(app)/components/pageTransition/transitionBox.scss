@@ -1,0 +1,15 @@
+@import "@globals/colors.module";
+
+.transitionBox{
+  position: fixed;
+  top: 100%;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  z-index: 999;
+  background-color: $red;
+  display: block;
+  &.initial{
+    display: none;
+  }
+}

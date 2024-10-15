@@ -1,5 +1,5 @@
 "use client";
-import {useRef, useState, useEffect, useCallback, Suspense} from "react";
+import {useRef, useState, useEffect, useCallback, Suspense, useLayoutEffect} from "react";
 import {usePathname} from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -21,13 +21,13 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNav, setShowNav] = useState(true);
     const container = useRef<HTMLDivElement | null>(null);
-    const currentTimeline = useRef<gsap.core.Timeline | null>(null);
+    const currentTimeline = useRef<GSAPTimeline | null>(null);
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
-    const basketTimeline =useRef<gsap.core.Timeline | null>(null);
+    const basketTimeline =useRef<GSAPTimeline | null>(null);
     const breakpoint = parseInt(variables["bpLg"].replace("px", ""), 10);
+
     const pathname = usePathname();
     const isStore = pathname?.startsWith("/store");
-
 
     const headerElement = useRef<HTMLElement|null>(null);
     const [headerState, setHeaderState] = useState<"nav"|"button">("nav");
@@ -37,6 +37,9 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     const xOffset = 5;
     const stagger = 0.05;
 
+    useEffect(()=>{
+        setIsMenuOpen(false);
+    }, [pathname])
     // Set the header element reference
     useEffect(() => {
         headerElement.current = document.querySelector(".header");
@@ -215,3 +218,4 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         </div>
     );
 }
+
