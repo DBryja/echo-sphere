@@ -2,7 +2,7 @@
 
 import "./menu.scss";
 import Image from "next/image";
-import Link from "next/Link"
+import Link from "@components/Link"
 
 import type {ContactDatum, MenuItem} from "@/payload-types";
 import {getImageUrl, getAlt} from "@/app/(app)/utils";

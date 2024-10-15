@@ -15,33 +15,32 @@ const TransitionContext = createContext<TransitionContextType | undefined>(undef
 export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const transitionBoxRef = useRef<HTMLDivElement>(null);
     const tl = useRef<GSAPTimeline>(gsap.timeline());
-    const [direction, setDirection] = useState<"enter"|"exit">("enter")
+    const [direction, setDirection] = useState<"enter"|"exit"|"initial">("initial");
 
     // Returns transition duration in Seconds
-    const transitionDuration = 1;
+    const transitionDuration = 0.8;
     useGSAP(() => {
         if (!transitionBoxRef.current) return;
 
         if(direction==="enter"){
-            console.log("enter");
             tl.current.set(transitionBoxRef.current, {
                 opacity: 1,
-                yPercent: 0
+                yPercent: 0,
             })
             tl.current.to(transitionBoxRef.current, {
                 yPercent: -100,
                 duration: transitionDuration,
                 ease: "power2.inOut"
             })
-        } else{
-            console.log("exit");
+        } else if(direction ==="exit"){
             tl.current.to(transitionBoxRef.current, {
-                opacity: 0,
-                duration: transitionDuration/1.5,
+                yPercent: -200,
+                duration: transitionDuration,
                 ease: "power2.out"
-            },`>`)
+            },`>0.2`)
         }
     }, [direction]);
+
 
     const startTransition = () => {
         setDirection("enter");
