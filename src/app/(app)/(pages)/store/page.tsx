@@ -3,8 +3,8 @@
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
 import type {Product} from "@/payload-types";
-import ProductBox from "@/app/(app)/components/ProductBox";
-import CartButton from "@/app/(app)/components/CartButton";
+import ProductBox from "@components/ProductBox";
+import CartButton from "@components/CartButton";
 export default async function Page() {
     const payload = await getPayloadHMR({config});
     // noinspection TypeScriptValidateTypes

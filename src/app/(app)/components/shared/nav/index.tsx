@@ -1,5 +1,5 @@
 import "./nav.scss";
-import Link from "next/link";
+import Link from "@components/Link";
 import type {MenuItem} from "@/payload-types";
 
 export default function Nav({navItems}:{navItems: MenuItem[]}) {

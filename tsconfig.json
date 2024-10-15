@@ -29,7 +29,8 @@
       "@globals/*": ["src/app/(app)/styles/*"],
       "@components/*": ["src/app/(app)/components/*"],
       "@hooks/*": ["src/app/(app)/hooks/*"],
-      "@context/*": ["src/app/(app)/context/*"],
+      "@providers/*": ["src/app/(app)/providers/*"],
+      "@app/*": ["src/a[[/(app)/*"],
       "/src/*": [
         "/src/*"
       ],

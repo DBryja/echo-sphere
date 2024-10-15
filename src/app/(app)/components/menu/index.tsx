@@ -2,6 +2,8 @@
 
 import "./menu.scss";
 import Image from "next/image";
+import Link from "next/Link"
+
 import type {ContactDatum, MenuItem} from "@/payload-types";
 import {getImageUrl, getAlt} from "@/app/(app)/utils";
 import gsap from "gsap";
@@ -13,7 +15,7 @@ import Logo from "@components/shared/logo/logo-css";
 import {useGSAP} from "@gsap/react";
 
 // Create a map to store individual timelines for each item
-const itemTimelines: Map<string, gsap.core.Timeline> = new Map();
+const itemTimelines: Map<string, GSAPTimeline> = new Map();
 
 const animateImage = (imageElement: Element | null, direction: 'in' | 'out', itemName: string) => {
     if (!imageElement) return;
@@ -62,12 +64,13 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
         });
     };
 
-    const menuItemsTimeline = useRef<gsap.core.Timeline | null>(null);
-    const logoTimeline = useRef<gsap.core.Timeline | null>(null);
+    const menuItemsTimeline = useRef<GSAPTimeline | null>(null);
+    const logoTimeline = useRef<GSAPTimeline | null>(null);
     const isFirstRender = useRef(true);
     const hasBeenOpened = useRef(false);
+    let selectors = [".menu__links .enter-anim"];
+    if(isTablet) selectors = [".menu__links .enter-anim", ".menu__contact .enter-anim", ".menu__logo"];
 
-    const selectors = [".menu__links .enter-anim", ".menu__contact .enter-anim", ".menu__logo"];
     useGSAP(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
@@ -227,7 +230,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
             }
             <div className={"menu__links"}>
                 {navItems.map((item, index) => (
-                    <a data-name={item.name} key={index} href={item.path} className="enter-anim">{item.name}</a>
+                    <Link data-name={item.name} key={index} href={item.path} className="enter-anim">{item.name}</Link>
                 ))}
             </div>
             <div className="menu__contact-wrapper">

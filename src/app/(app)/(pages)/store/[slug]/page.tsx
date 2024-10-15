@@ -4,9 +4,9 @@ import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
 import Image from "next/image";
 import type {Product} from "@/payload-types"
-import ProductConfigurator from "@/app/(app)/components/ProductConfigurator";
+import ProductConfigurator from "@components/ProductConfigurator";
 import Link from "next/link";
-import ProductBox from "@/app/(app)/components/ProductBox";
+import ProductBox from "@components/ProductBox";
 import {formatCurrencyString} from "@/app/(app)/utils";
 
 

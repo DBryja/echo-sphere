@@ -24,6 +24,11 @@ body{
   min-height: 100vh;
   overflow-x: hidden;
   @include typo-body;
+
+  &.page-transition{
+    opacity: 0;
+    transition: opacity  0.5s ease-in-out;
+  }
 }
 
 main{
