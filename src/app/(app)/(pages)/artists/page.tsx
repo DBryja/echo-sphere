@@ -55,8 +55,10 @@ export default async function Artists(){
                 </div>
             </section>
         </div>
-            <VerticalSlider/>
+            <VerticalSlider qty={artists.length}/>
         </>
     )
 }
 
+
+//Todo: add buttons
