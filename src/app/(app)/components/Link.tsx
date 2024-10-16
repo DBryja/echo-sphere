@@ -2,7 +2,7 @@
 
 import React from "react";
 import NextLink, { LinkProps } from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from '@providers/TransitionContext';
 
 interface CustomLinkProps extends LinkProps {
@@ -12,6 +12,8 @@ interface CustomLinkProps extends LinkProps {
 export default function Link({ children, ...props }:CustomLinkProps){
     const router = useRouter();
     const { startTransition, transitionDuration } = useTransition();
+    const pathname = usePathname();
+    const {href, className} = props;
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
@@ -22,8 +24,8 @@ export default function Link({ children, ...props }:CustomLinkProps){
     };
 
     return (
-        <NextLink {...props} onClick={handleClick}>
-            {children}
-        </NextLink>
+        pathname === href
+            ? <span className={className}>{children}</span>
+            : <NextLink {...props} onClick={handleClick}>{children}</NextLink>
     );
 };

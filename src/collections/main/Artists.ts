@@ -13,14 +13,27 @@ export const Artists: CollectionConfig = {
             required: true,
         },
         {
-            name: 'name',
-            type: 'text',
-            required: true,
+            type: "row",
+            fields: [
+                {
+                    name: 'name',
+                    type: 'text',
+                    required: true,
+                },
+                {
+                    name: "order",
+                    type: "number",
+                    required: false,
+                    admin: {
+                        description: "The order in which the artists will appear on the site. The lower the number the biggest priority",
+                    }
+                },
+            ]
         },
         {
             name: "teaser",
             type: "textarea",
-            required: true,
+            required: false,
         },
         {
             name: "description",
@@ -31,7 +44,7 @@ export const Artists: CollectionConfig = {
             name: "img-profile",
             type: "upload",
             relationTo: "media",
-            required: true,
+            required: false,
         },
         {
             name: "img-banner",

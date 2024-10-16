@@ -40,7 +40,6 @@ export default async function RootLayout({children}: LayoutProps) {
                 {/*<AnimatePresence mode={"wait"} initial={"false"}>*/}
                     <Header/>
                      <main>
-                         <div className={"emptyRow"} style={{gridColumn: 1/-1, height: "100px"}}></div>
                          {children}
                      </main>
                 {/*</AnimatePresence>*/}

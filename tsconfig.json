@@ -30,7 +30,8 @@
       "@components/*": ["src/app/(app)/components/*"],
       "@hooks/*": ["src/app/(app)/hooks/*"],
       "@providers/*": ["src/app/(app)/providers/*"],
-      "@app/*": ["src/a[[/(app)/*"],
+      "@utils/*": ["src/app/(app}/utils/*"],
+      "@app/*": ["src/app/(app)/*"],
       "/src/*": [
         "/src/*"
       ],

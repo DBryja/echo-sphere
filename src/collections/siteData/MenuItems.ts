@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import payload from "payload";
+import {limitToOneRecord} from "@/collectionHooks";
 
 export const MenuItems: CollectionConfig = {
     slug: 'menu-items',

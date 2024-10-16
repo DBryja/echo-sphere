@@ -23,6 +23,7 @@ export interface Config {
     colors: Color;
     media: Media;
     users: User;
+    artistsArchive: ArtistsArchive;
     'contact-data': ContactDatum;
     'menu-items': MenuItem;
     'payload-preferences': PayloadPreference;
@@ -62,9 +63,10 @@ export interface UserAuthOperations {
 export interface Artist {
   id: string;
   name: string;
-  teaser: string;
+  order?: number | null;
+  teaser?: string | null;
   description: string;
-  'img-profile': string | Media;
+  'img-profile'?: (string | null) | Media;
   'img-banner'?: (string | null) | Media;
   socials?: {
     youtube?: string | null;
@@ -272,6 +274,20 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artistsArchive".
+ */
+export interface ArtistsArchive {
+  id: string;
+  heading?: string | null;
+  subheading?: string | null;
+  desc1?: string | null;
+  desc2?: string | null;
+  desc3?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
