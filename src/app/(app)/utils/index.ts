@@ -57,10 +57,32 @@ export const validateItem = (cartItem:CartItem, templateItem:TemplateItem) => {
 }
 
 export const getImageUrl = (img: string | Media) => {
-  if(typeof img === "string") return img;
+  if (typeof img !== "object") {
+    return img;
+  }
+  // if(typeof img === "string") return img;
   return img.url;
 }
-export const getAlt = (item:MenuItem) => {
-  if(typeof item.img === "string") return item.name;
-  return item.img.alt;
+type ItemWithImg ={
+  name: string;
+  img: string | Media;
+  [key:string]: any
+}
+export const getAlt = (item: ItemWithImg) => {
+  // If the item is a Media object directly, return its alt
+  if(item.img){
+     return typeof item.img === "string"
+        ?  item.name
+         : item.img.alt;
+  }
+};
+
+export const getImgAlt = (img: (Media|string)) => {
+  if (typeof img !== "object") {
+    return "";
+  }
+  // If the item is a Media object directly, return its alt
+  if ("alt" in img) {
+    return img.alt;
+  }
 }

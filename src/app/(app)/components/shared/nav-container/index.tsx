@@ -37,7 +37,7 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     const xOffset = 5;
     const stagger = 0.05;
 
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         setIsMenuOpen(false);
     }, [pathname])
     // Set the header element reference

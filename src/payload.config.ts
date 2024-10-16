@@ -24,6 +24,7 @@ import {Orders} from "@/collections/store/Orders";
 
 import {ContactData} from "@/collections/siteData/ContactData";
 import {MenuItems} from "@/collections/siteData/MenuItems";
+import {ArtistsArchive} from "@/collections/pages/ArtistsArchive";
 
 
 const filename = fileURLToPath(import.meta.url)
@@ -46,6 +47,8 @@ export default buildConfig({
      ProductTags, ProductTypes, ProductCategories,Colors,
       // utils
       Media, Users,
+      //pages
+      ArtistsArchive,
       //site data
       ContactData, MenuItems
   ],

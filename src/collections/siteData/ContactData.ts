@@ -1,9 +1,19 @@
 import type { CollectionConfig } from 'payload'
+import {limitToOneRecord} from "@/collectionHooks";
 
 export const ContactData: CollectionConfig = {
     slug: 'contact-data',
     admin: {
         group: "Site-Data",
+    },
+    access: {
+        create: ()=>false,
+        delete: ()=>false
+    },
+    hooks: {
+        beforeValidate: [
+            limitToOneRecord
+        ]
     },
     fields: [
         {
