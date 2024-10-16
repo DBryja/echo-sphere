@@ -82,9 +82,9 @@ body:has(.artists__wrapper) {
 
       h3{
         @include typo-h3;
+        font-weight: 500;
         writing-mode: vertical-rl;
         text-orientation: mixed;
-        flex: 0 0 100%;
         color: $white;
         display: block;
         line-height: 100%;

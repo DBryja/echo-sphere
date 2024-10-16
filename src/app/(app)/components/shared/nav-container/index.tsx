@@ -1,5 +1,5 @@
 "use client";
-import {useRef, useState, useEffect, useCallback, Suspense, useLayoutEffect} from "react";
+import {useRef, useState, useEffect, useCallback, useLayoutEffect, useMemo} from "react";
 import {usePathname} from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -19,98 +19,55 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function NavButtonContainer({navItems, contactData}: {navItems: MenuItem[], contactData: ContactDatum}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [showNav, setShowNav] = useState(true);
-    const container = useRef<HTMLDivElement | null>(null);
+    const container = useRef<HTMLDivElement>(null);
     const currentTimeline = useRef<GSAPTimeline | null>(null);
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
-    const basketTimeline =useRef<GSAPTimeline | null>(null);
-    const breakpoint = parseInt(variables["bpLg"].replace("px", ""), 10);
+    const basketTimeline = useRef<GSAPTimeline | null>(null);
+    const breakpoint = useMemo(() => parseInt(variables["bpLg"].replace("px", ""), 10), []);
 
     const pathname = usePathname();
     const isStore = pathname?.startsWith("/store");
+    const isHome = pathname === "/";
 
-    const headerElement = useRef<HTMLElement|null>(null);
-    const [headerState, setHeaderState] = useState<"nav"|"button">("nav");
+    const [showNav, setShowNav] = useState(isHome);
 
     const windowWidth = useWindowWidth();
+
+    const headerState = useMemo(() =>
+            (showNav && isHome && windowWidth >= breakpoint) ? "nav" : "button",
+        [showNav, windowWidth, isHome, breakpoint]);
 
     const xOffset = 5;
     const stagger = 0.05;
 
-    useLayoutEffect(()=>{
+    useEffect(() => {
         setIsMenuOpen(false);
-    }, [pathname])
-    // Set the header element reference
+    }, [pathname]);
+
     useEffect(() => {
-        headerElement.current = document.querySelector(".header");
-    }, []);
-    // Update the header state based on the window width
-    useEffect(() => {
-        if (!headerElement.current) return;
-        const newState = (showNav && windowWidth >= breakpoint && !isStore) ? "nav" : "button";
-        if (headerState !== newState) {
-            headerElement.current.dataset.state = newState;
-            setHeaderState(newState);
+        if(!isHome) return;
+        const headerElement = document.querySelector(".header");
+        if (headerElement) {
+            headerElement.dataset.state = headerState;
         }
-    }, [showNav, windowWidth, headerState, isStore, breakpoint]);
-    // Update the header state to button if on store path
-    useEffect(() => {
-        const newState = (showNav && windowWidth >= breakpoint && !isStore) ? "nav" : "button";
-        setHeaderState(newState);
-    }, [pathname, showNav, windowWidth, isStore, breakpoint]);
-
-    //Cart change position animation
-    useGSAP(()=>{
-        if (basketTimeline.current)
-            basketTimeline.current.kill();
-
-        let tl = gsap.timeline();
-        basketTimeline.current = tl;
-
-        tl.set(".open-cart", {
-            opacity: 0,
-            right: headerState === "button" ? 24 : 4,
-            top: headerState === "button" ? "auto" : 56,
-            position: headerState === "button" ? "relative" : "absolute"
-        });
-        // Animate opacity
-        tl.to(".open-cart", {
-            opacity: 1,
-            duration: 0.2,
-            ease: "power2.out"
-        }, ">0.3");
-        // Update position based on headerState
-        tl.to(".open-cart", {
-            right: headerState === "button" ? 24 : 4,
-            top: headerState === "button" ? "auto" : 56,
-            position: headerState === "button" ? "relative" : "absolute",
-            duration: 0.3,
-            ease: "power2.inOut"
-        }, "<");
-
-        return () => {
-            if (basketTimeline.current)
-                basketTimeline.current.kill();
-        }
-    }, {dependencies: [headerState], scope: container})
+    }, [headerState, isHome]);
 
     const updateNavVisibility = useCallback((progress: number) => {
+        if(!isHome) return;
         setShowNav(progress <= 0.5);
+    }, [isHome]);
+
+    const debouncedSetShowNav = useMemo(() =>
+            debounce(updateNavVisibility, 50),
+        [updateNavVisibility]);
+
+    const toggleMenu = useCallback(() => {
+        setIsMenuOpen(prev => !prev);
     }, []);
 
-    const debouncedSetShowNav = useCallback(
-        debounce(updateNavVisibility, 50),
-        [updateNavVisibility]
-    );
-
-    const toggleMenu=()=>{
-        setIsMenuOpen((prev)=>!prev);
-    }
-
-    // Create the scroll trigger for the header
     useGSAP(() => {
-        if (!container.current) return;
-        if(windowWidth < breakpoint) return;
+        if (!container.current || windowWidth < breakpoint) return;
+        if(!isHome) return;
 
         scrollTriggerInstance.current = ScrollTrigger.create({
             trigger: "body",
@@ -122,31 +79,51 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         });
 
         return () => {
-            if (scrollTriggerInstance.current) {
-                scrollTriggerInstance.current.kill();
-            }
+            scrollTriggerInstance.current?.kill();
             debouncedSetShowNav.cancel();
         };
-    }, {dependencies:[debouncedSetShowNav, windowWidth, headerState]});
+    }, [debouncedSetShowNav, windowWidth, breakpoint, isHome]);
 
-    // Create the animation for the header
     useGSAP(() => {
-        // Kill the previous timeline if it exists
-        if (currentTimeline.current) {
-            currentTimeline.current.kill();
-        }
-        // Create a new timeline
-        let tl = gsap.timeline();
+        if (basketTimeline.current) basketTimeline.current.kill();
+
+        const tl = gsap.timeline();
+        basketTimeline.current = tl;
+
+        tl.set(".open-cart", {
+            opacity: 0,
+            right: headerState === "button" ? 24 : 4,
+            top: headerState === "button" ? "auto" : 56,
+            position: headerState === "button" ? "relative" : "absolute"
+        });
+
+        tl.to(".open-cart", {
+            opacity: 1,
+            duration: 0.2,
+            ease: "power2.out"
+        }, ">0.3");
+
+        tl.to(".open-cart", {
+            right: headerState === "button" ? 24 : 4,
+            top: headerState === "button" ? "auto" : 56,
+            position: headerState === "button" ? "relative" : "absolute",
+            duration: 0.3,
+            ease: "power2.inOut"
+        }, "<");
+
+        return () => {
+            basketTimeline.current?.kill();
+        };
+    }, { dependencies: [headerState], scope: container });
+
+    useGSAP(() => {
+        if (currentTimeline.current) currentTimeline.current.kill();
+
+        const tl = gsap.timeline();
         currentTimeline.current = tl;
 
-        // Ensure the menu button is always visible for small screens
-        if(windowWidth <= breakpoint || isStore){
-            if(document.querySelector(".header__nav")){
-                tl.to(".header__nav", {
-                    visibility: "hidden",
-                    display: "none",
-                });
-            }
+        if (windowWidth <= breakpoint || !isHome) {
+            tl.to(".header__nav", { visibility: "hidden", display: "none" });
             tl.to(".header__menu", {
                 x: 0,
                 visibility: "visible",
@@ -155,8 +132,7 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
                 ease: "power2.out",
                 display: "flex",
             });
-        }
-        else {
+        } else {
             if (showNav) {
                 tl.to(".header__menu", {
                     x: xOffset,
@@ -164,18 +140,12 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
                     duration: 0.3,
                     ease: "power2.out",
                 });
-                tl.set(".header__menu", {
-                    visibility: "hidden",
-                    display: "none",
-                }, ">");
-                tl.to(".header__nav", {
-                    visibility: "visible",
-                    display: "flex",
-                }, "<-0.5");
+                tl.set(".header__menu", { visibility: "hidden", display: "none" }, ">");
+                tl.to(".header__nav", { visibility: "visible", display: "flex" }, "<-0.5");
                 tl.to(".header__nav > *", {
                     x: 0,
                     opacity: 1,
-                    stagger: -1*stagger,
+                    stagger: -1 * stagger,
                     duration: 0.1,
                     ease: "power2.out",
                 }, ">-0.1");
@@ -187,10 +157,7 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
                     duration: 0.1,
                     ease: "power2.out",
                 });
-                tl.to(".header__nav", {
-                    visibility: "hidden",
-                    display: "none",
-                }, ">-0.1");
+                tl.to(".header__nav", { visibility: "hidden", display: "none" }, ">-0.1");
                 tl.to(".header__menu", {
                     x: 0,
                     visibility: "visible",
@@ -203,15 +170,13 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         }
 
         return () => {
-            if (currentTimeline.current) {
-                currentTimeline.current.kill();
-            }
+            currentTimeline.current?.kill();
         };
-    }, {dependencies:[showNav, windowWidth, headerState]});
+    }, { dependencies: [showNav, windowWidth, headerState, breakpoint, isHome] });
 
     return (
         <div ref={container} style={{ display: "flex", alignItems: "center", justifyContent: "end", position: "relative", width: "fit-content" }}>
-            {windowWidth >= breakpoint && !isStore && <Nav navItems={navItems}/>}
+            {windowWidth >= breakpoint && isHome && <Nav navItems={navItems}/>}
             <OpenCart isStore={isStore}/>
             <Menu isOpen={isMenuOpen} navItems={navItems} contactData={contactData}/>
             <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen}/>

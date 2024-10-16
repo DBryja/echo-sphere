@@ -5,7 +5,7 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 //@ts-ignore
 gsap.registerPlugin(ScrollToPlugin);
 
-export default function VerticalSlider() {
+export default function VerticalSlider({qty}:{qty:number}) {
     const sliderRef = useRef<HTMLDivElement>(null);
     const barRef = useRef<HTMLDivElement>(null);
 
@@ -15,9 +15,6 @@ export default function VerticalSlider() {
             barRef.current = document.querySelector(".artists__slider__bar__container") as HTMLDivElement;
         }
         if (sliderRef.current && barRef.current) {
-            const images = sliderRef.current.querySelectorAll(".slider__item");
-            const imageCount = images.length;
-
             if (sliderRef.current && barRef.current) {
                 // Ensure we only append the clone once
                 if (!sliderRef.current.querySelector(".clone")) {
@@ -32,8 +29,7 @@ export default function VerticalSlider() {
                     barRef.current.prepend(emptyName);
                 }
             }
-
-            gsap.set(barRef.current, { yPercent: -imageCount * 100 });
+            gsap.set(barRef.current, { yPercent: (qty+1) * -100 });
             gsap.set(sliderRef.current, { yPercent: 0 });
 
             const tl = gsap.timeline({
@@ -42,7 +38,7 @@ export default function VerticalSlider() {
             });
 
             // Animate through all images including the clone
-            for (let i = 0; i <= imageCount-1; i++) {
+            for (let i = 0; i <= qty; i++) {
                 tl.to(sliderRef.current, {
                     duration: 3,
                     y: i === 0 ? "-=0vh" : "-=100vh",
