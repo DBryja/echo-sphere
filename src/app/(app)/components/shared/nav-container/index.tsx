@@ -34,23 +34,23 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     const windowWidth = useWindowWidth();
 
     const headerState = useMemo(() =>
-            (showNav && isHome && windowWidth >= breakpoint) ? "nav" : "button",
-        [showNav, windowWidth, isHome, breakpoint]);
+            (showNav && windowWidth >= breakpoint) ? "nav" : "button",
+        [showNav, windowWidth, breakpoint]);
 
     const xOffset = 5;
     const stagger = 0.05;
 
     useEffect(() => {
+        setShowNav(isHome)
         setIsMenuOpen(false);
-    }, [pathname]);
+    }, [pathname, isHome]);
 
     useEffect(() => {
-        if(!isHome) return;
-        const headerElement = document.querySelector(".header");
+        const headerElement = document.querySelector(".header") as HTMLDivElement;
         if (headerElement) {
             headerElement.dataset.state = headerState;
         }
-    }, [headerState, isHome]);
+    }, [headerState]);
 
     const updateNavVisibility = useCallback((progress: number) => {
         if(!isHome) return;
@@ -123,7 +123,9 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         currentTimeline.current = tl;
 
         if (windowWidth <= breakpoint || !isHome) {
-            tl.to(".header__nav", { visibility: "hidden", display: "none" });
+            if(document.querySelector(".header__nav")){
+                tl.to(".header__nav", { visibility: "hidden", display: "none" });
+            }
             tl.to(".header__menu", {
                 x: 0,
                 visibility: "visible",

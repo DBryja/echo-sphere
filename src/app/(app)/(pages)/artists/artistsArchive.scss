@@ -28,7 +28,7 @@ body:has(.artists__wrapper) {
     display: flex;
     flex-direction: column;
     row-gap: $space-10;
-    max-width: 750px;
+    max-width: 680px;
     @include typo-body;
 
     &__heading {

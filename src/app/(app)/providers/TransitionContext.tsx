@@ -18,7 +18,7 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [direction, setDirection] = useState<"enter"|"exit"|"initial">("initial");
 
     // Returns transition duration in Seconds
-    const transitionDuration = 0.8;
+    const transitionDuration:number = 0.8;
     useGSAP(() => {
         if (!transitionBoxRef.current) return;
 

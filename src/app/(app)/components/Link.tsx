@@ -12,20 +12,14 @@ interface CustomLinkProps extends LinkProps {
 export default function Link({ children, ...props }:CustomLinkProps){
     const router = useRouter();
     const { startTransition, transitionDuration } = useTransition();
-    const pathname = usePathname();
-    const {href, className} = props;
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
         startTransition();
         setTimeout(() => {
             router.push(props.href.toString());
-        }, 500); // Adjust this timing to match your transition duration
+        }, transitionDuration*1000); // Adjust this timing to match your transition duration
     };
 
-    return (
-        pathname === href
-            ? <span className={className}>{children}</span>
-            : <NextLink {...props} onClick={handleClick}>{children}</NextLink>
-    );
+    return (<NextLink {...props} onClick={handleClick}>{children}</NextLink>);
 };
