@@ -44,13 +44,13 @@ export const Artists: CollectionConfig = {
             name: "img-profile",
             type: "upload",
             relationTo: "media",
-            required: false,
+            required: true,
         },
         {
             name: "img-banner",
             type: "upload",
             relationTo: "media",
-            required: false,
+            required: true,
         },
         {
             name: 'socials',
@@ -62,9 +62,9 @@ export const Artists: CollectionConfig = {
                     defaultValue: "https://www.youtube.com/",
                 },
                 {
-                    name: "instagram",
+                    name: "tidal",
                     type: "text",
-                    defaultValue: "https://www.instagram.com/",
+                    defaultValue: "https://www.tidal.com/",
                 },
                 {
                     name: "spotify",

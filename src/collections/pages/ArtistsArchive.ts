@@ -2,7 +2,8 @@ import type { CollectionConfig } from 'payload'
 import {limitToOneRecord} from "@/collectionHooks";
 import payload from "payload";
 
-export const ArtistsArchive: CollectionConfig = {
+export let ArtistsArchive: CollectionConfig;
+ArtistsArchive = {
     slug: 'artistsArchive',
     labels: {
         singular: "artistsArchive",
@@ -12,8 +13,8 @@ export const ArtistsArchive: CollectionConfig = {
         group: "Pages",
     },
     access: {
-        create: ()=>false,
-        delete: ()=>false
+        create: () => false,
+        delete: () => false
     },
     hooks: {
         beforeValidate: [
@@ -42,4 +43,4 @@ export const ArtistsArchive: CollectionConfig = {
             type: "textarea"
         }
     ]
-}
+};
