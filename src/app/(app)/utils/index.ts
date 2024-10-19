@@ -86,3 +86,7 @@ export const getImgAlt = (img: (Media|string)) => {
     return img.alt;
   }
 }
+
+export const sanitizeBreakpointVariable = (variable:string) => {
+  return parseInt(variable.replace(/["px\s]/g, ''));
+}

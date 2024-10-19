@@ -81,17 +81,25 @@ body:has(.artists__wrapper) {
       }
 
       h3{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+
         @include typo-h3;
+        line-height: 92.5%;
         font-weight: 500;
         writing-mode: vertical-rl;
         text-orientation: mixed;
-        color: $white;
-        display: block;
-        line-height: 100%;
-        height: 100vh;
         white-space: nowrap;
         text-transform: uppercase;
         text-align: center;
+        color: $white;
+
+        @supports (-moz-appearance: none){
+          line-height: 115%;
+        }
       }
     }
   }
@@ -103,6 +111,16 @@ body:has(.artists__wrapper) {
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  @include breakpoint(lg){
+    right: 30%;
+  }
+  @include breakpoint(xl){
+    right: 10%;
+  }
+  @include breakpoint(2xl){
+    right: 0;
+  }
+
 
   &__img {
     min-width: 100%;
