@@ -56,12 +56,13 @@ export const validateItem = (cartItem:CartItem, templateItem:TemplateItem) => {
   return true;
 }
 
-export const getImageUrl = (img: string | Media) => {
-  if (typeof img !== "object") {
+export const getImageUrl = (img: string | Media):string => {
+  if (typeof img !== "object")
     return img;
-  }
-  // if(typeof img === "string") return img;
-  return img.url;
+  if(img.url)
+    return img.url;
+
+  return ""
 }
 type ItemWithImg ={
   name: string;
@@ -75,16 +76,17 @@ export const getAlt = (item: ItemWithImg) => {
         ?  item.name
          : item.img.alt;
   }
+  return "";
 };
 
-export const getImgAlt = (img: (Media|string)) => {
-  if (typeof img !== "object") {
+export const getImgAlt = (img: (Media|string)):string => {
+  if (typeof img !== "object")
     return "";
-  }
-  // If the item is a Media object directly, return its alt
-  if ("alt" in img) {
+
+  if ("alt" in img)
     return img.alt;
-  }
+
+  return "";
 }
 
 export const sanitizeBreakpointVariable = (variable:string) => {

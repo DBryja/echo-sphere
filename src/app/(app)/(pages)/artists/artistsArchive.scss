@@ -20,6 +20,11 @@ body:has(.artists__wrapper) {
     grid-template-columns: 1fr minmax(780px, 50%);
     grid-template-rows: 1fr;
     overflow: hidden;
+    &:has(.slider__item:hover){
+      .artists__slider__info{
+        opacity: 1
+      }
+    }
   }
 
   &__copy {
@@ -65,6 +70,39 @@ body:has(.artists__wrapper) {
       height: 100vh;
       display: grid;
       grid-template-columns: 1fr 80px;
+      position: relative;
+    }
+
+    &__info{
+      position: absolute;
+      text-transform: uppercase;
+      //bottom: $space-10;
+      pointer-events: none;
+      width: calc(100% - 80px);
+      height: 100%;
+      background-color: transparentize($black, 0.6);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      span{
+        position: absolute;
+        bottom: $space-10;
+        text-align: center;
+        @include typo-h3;
+        color: $white;
+        display: block;
+        left: 50%;
+        transform: translateX(-50%);
+        &:after{
+          content: '';
+          display: block;
+          position: relative;
+          width: calc(100% - 4rem);
+          margin: 0 2rem;
+          height: 2px;
+          background-color: $white;
+        }
+      }
     }
 
     &__bar {
@@ -120,7 +158,6 @@ body:has(.artists__wrapper) {
   @include breakpoint(2xl){
     right: 0;
   }
-
 
   &__img {
     min-width: 100%;

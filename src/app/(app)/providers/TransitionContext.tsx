@@ -8,6 +8,7 @@ interface TransitionContextType {
     startTransition: () => void;
     endTransition: () => void;
     transitionBoxRef: React.RefObject<HTMLDivElement>;
+    transitionDuration: number;
 }
 
 const TransitionContext = createContext<TransitionContextType | undefined>(undefined);

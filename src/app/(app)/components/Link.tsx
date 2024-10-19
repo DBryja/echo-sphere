@@ -4,18 +4,23 @@ import React from "react";
 import NextLink, { LinkProps } from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from '@providers/TransitionContext';
+import {Url} from "next/dist/shared/lib/router/router";
 
 interface CustomLinkProps extends LinkProps {
     children: React.ReactNode,
+    className?: string,
     onItemClick?: ()=>void
 }
-const comparePaths = (pathname, href) => {
-    const normalize = (path) => path.replace(/^\/+/, '');
+const comparePaths = (pathname:string, href:(string| Url)):boolean => {
+    const normalize = (path:(string|Url)) => {
+        if(typeof(path) !== "string") path = path.toString();
+        return path.replace(/^\/+/, '');
+    }
     const hrefPath = typeof href === 'string' ? href : href.pathname || '';
     return normalize(pathname) === normalize(hrefPath);
 };
 
-export default function Link({ children, onItemClick, ...props }:CustomLinkProps){
+export default function Link({ children, onItemClick, className, ...props }:CustomLinkProps){
     const router = useRouter();
     const { startTransition, transitionDuration } = useTransition();
     const pathname = usePathname();
@@ -38,5 +43,5 @@ export default function Link({ children, onItemClick, ...props }:CustomLinkProps
         handleClick();
     }
 
-    return (<NextLink {...props} onClick={onClick}>{children}</NextLink>);
+    return (<NextLink {...props} className={className} onClick={onClick}>{children}</NextLink>);
 };

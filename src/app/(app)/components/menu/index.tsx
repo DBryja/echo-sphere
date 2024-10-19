@@ -121,6 +121,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpe
                 menuItemsTimeline.current.kill();
             }
         }
+    //     @ts-ignore
     }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
     useGSAP(() => {
         if(!isTablet) return;
@@ -147,6 +148,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpe
                 logoTimeline.current.kill();
             }
         }
+        //     @ts-ignore
     }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
 
     useEffect(() => {
@@ -190,7 +192,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpe
         };
 
         navItems.forEach((item) => {
-            const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`);
+            const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`) as HTMLAnchorElement;
             if (linkElement) {
                 linkElement.addEventListener("mouseenter", handleMouseEnter);
                 linkElement.addEventListener("mouseleave", handleMouseLeave);
@@ -199,7 +201,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpe
 
         return () => {
             navItems.forEach((item) => {
-                const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`);
+                const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`) as HTMLAnchorElement;
                 if (linkElement) {
                     linkElement.removeEventListener("mouseenter", handleMouseEnter);
                     linkElement.removeEventListener("mouseleave", handleMouseLeave);
@@ -230,7 +232,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpe
             }
             <div className={"menu__links"}>
                 {navItems.map((item, index) => (
-                    <Link data-name={item.name} key={index} href={item.path} onItemClick={onItemClick} className="enter-anim">{item.name}</Link>
+                    <Link data-name={item.name} key={index} href={item.path.startsWith("/")?item.path:`/${item.path}`} onItemClick={onItemClick} className="enter-anim">{item.name}</Link>
                 ))}
             </div>
             {/*TODO: Move this to outside component*/}

@@ -64,9 +64,9 @@ export const Releases: CollectionConfig = {
                     defaultValue: "https://www.spotify.com/",
                 },
                 {
-                    name: "apple-music",
+                    name: "tidal",
                     type: "text",
-                    defaultValue: "https://music.apple.com/",
+                    defaultValue: "https://tidal.com/",
                 },
                 {
                     name: "youtube",

@@ -31,8 +31,8 @@ export const Artists: CollectionConfig = {
             ]
         },
         {
-            name: "teaser",
-            type: "textarea",
+            name: "genre",
+            type: "text",
             required: false,
         },
         {
