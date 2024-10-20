@@ -66,6 +66,7 @@ export interface Artist {
   order?: number | null;
   genre?: string | null;
   description: string;
+  extra?: string | null;
   'img-profile': string | Media;
   'img-banner': string | Media;
   socials?: {
@@ -105,6 +106,7 @@ export interface Release {
   type: 'album' | 'ep' | 'single';
   'img-cover': string | Media;
   'release-date': string;
+  authors?: string | null;
   artists: (string | Artist)[];
   links?: {
     spotify?: string | null;

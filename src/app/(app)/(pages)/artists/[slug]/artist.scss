@@ -1,0 +1,126 @@
+@import '@globals/variables';
+@import "@globals/colors.module";
+@import "@globals/typography";
+
+@mixin ignoreMarginWidth{
+  width: calc(100% + 2 * $margin + 5px);
+  margin: 0 calc(-1 * $margin);
+}
+
+.artist{
+  &__wrapper{
+    margin-top: calc($buttonHeight + $headerTop * 2);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 1/-1;
+    width: 100%;
+  }
+
+  &__image{
+    grid-row: 1;
+    @include ignoreMarginWidth;
+    position: relative;
+    img{
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      height: unset;
+    }
+    &:after{
+      content:'';
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 120%) no-repeat;    }
+  }
+
+  &__heading{
+    position: absolute;
+    top: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    @include typo-sub2;
+    color: $red;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__details{
+    margin-top: calc($margin * 4);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-6;
+
+    &__desc{
+      display: flex;
+      flex-direction: column;
+      gap: $margin;
+
+      &__heading{
+        @include typo-sub3;
+        text-transform: uppercase;
+        display: inline-flex;
+        justify-content: start;
+        align-items: center;
+        column-gap: $space-1;
+      }
+    }
+    &__separator{
+      img{
+        @include ignoreMarginWidth;
+        display: block;
+        object-fit: cover;
+        height: unset;
+      }
+      p{
+        margin-top: $space-4;
+      }
+    }
+
+    &__listen{
+      &__heading{
+        @include typo-btn-small;
+        text-transform: uppercase;
+      }
+      &__icons{
+        display: flex;
+        justify-content: start;
+        column-gap: $space-2;
+        margin-top: $space-1;
+      }
+    }
+
+    &__releases{
+      display: flex;
+      flex-direction: column;
+      gap: $space-2;
+
+      &__heading{
+        @include typo-sub3;
+        text-transform: uppercase;
+        font-weight: 400;
+      }
+      &__list{
+        display: flex;
+        flex-direction: column;
+        gap: $space-3;
+      }
+    }
+
+    &:before{
+        content: '';
+        display: block;
+        @include ignoreMarginWidth;
+        height: 2px;
+        position: absolute;
+        background-color: $gray-400;
+        top: calc(-2 * $margin);
+    }
+  }
+}

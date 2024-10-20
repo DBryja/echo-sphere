@@ -41,6 +41,11 @@ export const Artists: CollectionConfig = {
             required: true,
         },
         {
+          name: "extra",
+          type: "textarea",
+          required: false,
+        },
+        {
             name: "img-profile",
             type: "upload",
             relationTo: "media",
