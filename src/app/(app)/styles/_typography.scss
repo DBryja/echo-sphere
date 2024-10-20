@@ -31,44 +31,44 @@ a{
 @mixin typo-h1{
     font-family: $nats;
     font-size: 20rem;
-    letter-spacing: -6%;
+    letter-spacing: -1.8px;
     line-height: 140%;
 }
 @mixin typo-h2{
     font-family: $nats;
     font-size: 12rem;
-    letter-spacing: -6%;
+    letter-spacing: -1.8px;
     line-height: 140%;
 }
 @mixin typo-h3{
     font-family: $nats;
     font-size: 8rem;
     line-height: 100%;
-    letter-spacing: -2%;
+    letter-spacing: -0.6px;
 }
 @mixin typo-sub1{
     font-family: $nats;
     font-size: 6rem;
     line-height: 100%;
-    letter-spacing: -2%;
+    letter-spacing: -0.6px;
 }
 @mixin typo-sub2{
     font-family: $nats;
     font-size: 4.2rem;
     line-height: 100%;
-    letter-spacing: -1%;
+    letter-spacing: -0.6px;
 }
 @mixin typo-sub3{
     font-family: $nats;
     font-size: 3rem;
     line-height: 100%;
-    letter-spacing: -2%;
+    letter-spacing: -0.6px;
 }
 @mixin typo-sub4{
     font-family: $nats;
     font-size: 2.4rem;
     line-height: 100%;
-    letter-spacing: -2%;
+    letter-spacing: -0.6px;
 }
 @mixin typo-btn{
     font-family: $nats;
@@ -112,7 +112,7 @@ a{
 //  font-family: $nats;
 //  font-size: 8rem;
 //  line-height: 100%;
-//  letter-spacing: -2%;
+//  letter-spacing: -0.6px;
 //}
 //
 ////subtitle 1
@@ -120,24 +120,24 @@ a{
 //  font-family: $nats;
 //  font-size: 6rem;
 //  line-height: 100%;
-//  letter-spacing: -2%;
+//  letter-spacing: -0.6px;
 //}
 ////subtitle 2
 //h5{
 //  font-family: $nats;
 //  font-size: 4.2rem;
 //  line-height: 100%;
-//  letter-spacing: -1%;
+//  letter-spacing: -0.3px;
 //}
 ////subtitle 3,4
 //h6{
 //    font-family: $nats;
 //    font-size: 3rem;
 //    line-height: 100%;
-//    letter-spacing: -2%;
+//    letter-spacing: -0.6px;
 //
 //  .small{
-//    letter-spacing: -1%;
+//    letter-spacing: -0.3px;
 //    font-size: 2.4rem;
 //  }
 //}

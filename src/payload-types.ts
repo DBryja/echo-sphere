@@ -64,13 +64,14 @@ export interface Artist {
   id: string;
   name: string;
   order?: number | null;
-  teaser?: string | null;
+  genre?: string | null;
   description: string;
-  'img-profile'?: (string | null) | Media;
-  'img-banner'?: (string | null) | Media;
+  extra?: string | null;
+  'img-profile': string | Media;
+  'img-banner': string | Media;
   socials?: {
     youtube?: string | null;
-    instagram?: string | null;
+    tidal?: string | null;
     spotify?: string | null;
   };
   updatedAt: string;
@@ -105,10 +106,11 @@ export interface Release {
   type: 'album' | 'ep' | 'single';
   'img-cover': string | Media;
   'release-date': string;
+  authors?: string | null;
   artists: (string | Artist)[];
   links?: {
     spotify?: string | null;
-    'apple-music'?: string | null;
+    tidal?: string | null;
     youtube?: string | null;
   };
   updatedAt: string;
@@ -120,9 +122,12 @@ export interface Release {
  */
 export interface Event {
   id: string;
-  name: string;
+  type: 'concert' | 'festival' | 'tour';
+  heading: string;
+  subheading?: string | null;
   date: string;
-  'img-poster': string | Media;
+  address?: string | null;
+  'img-poster'?: (string | null) | Media;
   'related-artists'?: (string | Artist)[] | null;
   links?: {
     website?: string | null;

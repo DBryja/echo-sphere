@@ -8,6 +8,7 @@ interface TransitionContextType {
     startTransition: () => void;
     endTransition: () => void;
     transitionBoxRef: React.RefObject<HTMLDivElement>;
+    transitionDuration: number;
 }
 
 const TransitionContext = createContext<TransitionContextType | undefined>(undefined);
@@ -18,7 +19,7 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [direction, setDirection] = useState<"enter"|"exit"|"initial">("initial");
 
     // Returns transition duration in Seconds
-    const transitionDuration = 0.8;
+    const transitionDuration:number = 0.8;
     useGSAP(() => {
         if (!transitionBoxRef.current) return;
 

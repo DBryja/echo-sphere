@@ -7,9 +7,10 @@ import {fetchArtistsData} from "@app/utils/data";
 import {getAlt, getImageUrl, getImgAlt} from "@app/utils";
 import "./artistsArchive.scss";
 import VerticalSlider from "@components/artists/VerticalSlider"
+import Link from "@components/Link";
 
 
-export const revalidate = 3600*24
+export const revalidate = 86400;
 export default async function Artists(){
     const payload = await getPayloadHMR({config});
     const copyData:ArtistsArchive = (
@@ -28,16 +29,21 @@ export default async function Artists(){
                 <div className={"artists__slider"}>
                     <div id="artistSlider" className={"artists__slider__container"}>
                     {artists.map((artist: Artist) => {
-                        return (<div key={artist.id} className={"artists__slider__item slider__item"}>
+                        return (<Link key={artist.id} className="artists__slider__item slider__item" href={`/artists/${artist.id}`}>
                             <Image
                                 className={"slider__item__img"}
                                 src={getImageUrl(artist["img-profile"])}
                                 width={1000} height={1000}
                                 alt={getImgAlt(artist["img-profile"])}
                             />
-                        </div>)
+                        </Link>)
                     })}
                     </div>
+                </div>
+                <div className={"artists__slider__info"}>
+                    <span>
+                        Read More
+                    </span>
                 </div>
                 <div className={"artists__slider__bar"} id="artistSliderBar">
                     <div className={"artists__slider__bar__container"} data-transform={`${artists.length*100}%`}>

@@ -1,4 +1,5 @@
 @import "./variables";
+@import "mixins";
 
 :export {
   bpSm: map-get($breakpoints, sm);

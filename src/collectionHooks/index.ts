@@ -1,6 +1,6 @@
-import type { GlobalBeforeValidateHook } from 'payload'
+import type { CollectionBeforeValidateHook } from 'payload'
 
-export const limitToOneRecord: GlobalBeforeValidateHook = async ({data,req,originalDoc}) => {
+export const limitToOneRecord: CollectionBeforeValidateHook = async ({data,req,originalDoc}) => {
     const {payload} = req;
     const existingDocs = await payload.find({
         collection: 'artistsArchive',

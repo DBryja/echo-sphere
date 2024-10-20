@@ -1,9 +1,29 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, CollectionBeforeChangeHook } from 'payload'
+
+const populateAuthorsField:CollectionBeforeChangeHook = async ({ data, req, operation, originalDoc }) => {
+    // Only proceed if it's an update/create operation and authors field is empty
+    if ((operation === 'create' || operation === 'update') && !data.authors) {
+        const payload = req.payload;
+        const artistDocs = await payload.find({
+            collection: 'artists',
+            where: {
+                id: {
+                    in: data.artists
+                }
+            }
+        });
+        data.authors = artistDocs.docs.map(artist => artist.name).join(' & ');
+    }
+    return data;
+};
 
 export const Releases: CollectionConfig = {
     slug: 'releases',
     admin: {
         group: "Main",
+    },
+    hooks: {
+        beforeChange: [populateAuthorsField]
     },
     fields: [
         {
@@ -48,11 +68,22 @@ export const Releases: CollectionConfig = {
             required: true,
         },
         {
+            name: "authors",
+            type: "text",
+            required: false,
+            admin: {
+                description: "The authors of the release: Aaliyah & Ethan & Jack. If empty the authors will be equal to the assigned artists.",
+            },
+        },
+        {
             name: "artists",
             type: "relationship",
             relationTo: "artists",
             hasMany: true,
             required: true,
+            admin: {
+                description: "The artists(from the label) that are part of this release. Used to query documents."
+            }
         },
         {
             name: "links",
@@ -64,9 +95,9 @@ export const Releases: CollectionConfig = {
                     defaultValue: "https://www.spotify.com/",
                 },
                 {
-                    name: "apple-music",
+                    name: "tidal",
                     type: "text",
-                    defaultValue: "https://music.apple.com/",
+                    defaultValue: "https://tidal.com/",
                 },
                 {
                     name: "youtube",

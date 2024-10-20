@@ -14,6 +14,7 @@ import HeaderMenuButton from "@components/buttons/menu";
 import Menu from "@components/menu";
 import OpenCart from "@components/OpenCart";
 import {ContactDatum, MenuItem} from "@/payload-types";
+import {sanitizeBreakpointVariable} from "@app/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,13 +24,13 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     const currentTimeline = useRef<GSAPTimeline | null>(null);
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const basketTimeline = useRef<GSAPTimeline | null>(null);
-    const breakpoint = useMemo(() => parseInt(variables["bpLg"].replace("px", ""), 10), []);
+    const breakpoint = useMemo(() => sanitizeBreakpointVariable(variables["bpLg"]), []);
 
     const pathname = usePathname();
     const isStore = pathname?.startsWith("/store");
     const isHome = pathname === "/";
 
-    const [showNav, setShowNav] = useState(isHome);
+    const [showNav, setShowNav] = useState<boolean>(isHome);
 
     const windowWidth = useWindowWidth();
 
@@ -45,8 +46,7 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     }, [pathname]);
 
     useEffect(() => {
-        if(!isHome) return;
-        const headerElement = document.querySelector(".header");
+        const headerElement = document.querySelector(".header") as HTMLElement;
         if (headerElement) {
             headerElement.dataset.state = headerState;
         }
@@ -123,15 +123,17 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         currentTimeline.current = tl;
 
         if (windowWidth <= breakpoint || !isHome) {
-            tl.to(".header__nav", { visibility: "hidden", display: "none" });
-            tl.to(".header__menu", {
-                x: 0,
-                visibility: "visible",
-                opacity: 1,
-                duration: 0.5,
-                ease: "power2.out",
-                display: "flex",
-            });
+            if(document.querySelector(".header__nav")){
+                tl.to(".header__nav", { visibility: "hidden", display: "none" });
+            }
+                tl.to(".header__menu", {
+                    x: 0,
+                    visibility: "visible",
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    display: "flex",
+                });
         } else {
             if (showNav) {
                 tl.to(".header__menu", {
@@ -178,7 +180,7 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         <div ref={container} style={{ display: "flex", alignItems: "center", justifyContent: "end", position: "relative", width: "fit-content" }}>
             {windowWidth >= breakpoint && isHome && <Nav navItems={navItems}/>}
             <OpenCart isStore={isStore}/>
-            <Menu isOpen={isMenuOpen} navItems={navItems} contactData={contactData}/>
+            <Menu isOpen={isMenuOpen} navItems={navItems} contactData={contactData} onItemClick={toggleMenu}/>
             <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen}/>
         </div>
     );

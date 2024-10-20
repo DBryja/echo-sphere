@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "@components/Link"
 
 import type {ContactDatum, MenuItem} from "@/payload-types";
-import {getImageUrl, getAlt} from "@/app/(app)/utils";
+import {getImageUrl, getAlt, sanitizeBreakpointVariable} from "@/app/(app)/utils";
 import gsap from "gsap";
 import {useEffect, useRef, useState} from "react";
 import {useWindowWidth} from "@hooks/useWindowWidth";
@@ -46,15 +46,15 @@ const animateImage = (imageElement: Element | null, direction: 'in' | 'out', ite
     }
 };
 
-export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, contactData: ContactDatum, navItems: MenuItem[]}) {
+export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpen:boolean, contactData: ContactDatum, navItems: MenuItem[], onItemClick: ()=>void}) {
     const {email, "phone-number":phoneNumber, address, socials } = contactData;
     const containerRef = useRef<HTMLElement|null>(null);
     const [itemZIndices, setItemZIndices] = useState<{[key: string]: number}>({});
     const [lastHoveredItem, setLastHoveredItem] = useState<string | null>(null);
 
     const windowWidth = useWindowWidth();
-    const isTablet = windowWidth >= parseInt(variables["bpMd"].replace("px", ""));
-    const isDesktop = windowWidth >= parseInt(variables["bpLg"].replace("px", ""));
+    const isTablet = windowWidth >= sanitizeBreakpointVariable(variables["bpMd"]);
+    const isDesktop = windowWidth >= sanitizeBreakpointVariable(variables["bpLg"]);
 
     const grantHighestZIndex = (itemName: string) => {
         setLastHoveredItem(itemName);
@@ -121,6 +121,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                 menuItemsTimeline.current.kill();
             }
         }
+    //     @ts-ignore
     }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
     useGSAP(() => {
         if(!isTablet) return;
@@ -147,6 +148,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
                 logoTimeline.current.kill();
             }
         }
+        //     @ts-ignore
     }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
 
     useEffect(() => {
@@ -190,7 +192,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
         };
 
         navItems.forEach((item) => {
-            const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`);
+            const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`) as HTMLAnchorElement;
             if (linkElement) {
                 linkElement.addEventListener("mouseenter", handleMouseEnter);
                 linkElement.addEventListener("mouseleave", handleMouseLeave);
@@ -199,7 +201,7 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
 
         return () => {
             navItems.forEach((item) => {
-                const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`);
+                const linkElement = container.querySelector(`.menu__links a[data-name="${item.name}"]`) as HTMLAnchorElement;
                 if (linkElement) {
                     linkElement.removeEventListener("mouseenter", handleMouseEnter);
                     linkElement.removeEventListener("mouseleave", handleMouseLeave);
@@ -230,9 +232,10 @@ export default function Menu({isOpen, contactData, navItems}:{isOpen:boolean, co
             }
             <div className={"menu__links"}>
                 {navItems.map((item, index) => (
-                    <Link data-name={item.name} key={index} href={item.path} className="enter-anim">{item.name}</Link>
+                    <Link data-name={item.name} key={index} href={item.path.startsWith("/")?item.path:`/${item.path}`} onItemClick={onItemClick} className="enter-anim">{item.name}</Link>
                 ))}
             </div>
+            {/*TODO: Move this to outside component*/}
             <div className="menu__contact-wrapper">
                 {isTablet &&
                     <div className={"menu__contact contact"}>

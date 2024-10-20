@@ -12,6 +12,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: $black;
 }
 
 body{
@@ -24,6 +25,7 @@ body{
   min-height: 100vh;
   overflow-x: hidden;
   @include typo-body;
+  background-color: $white;
 
   &.page-transition{
     opacity: 0;
@@ -43,11 +45,11 @@ main{
   --margin: 16px;
   --button-width: 48px;
   --button-height: 48px;
-  --header-top: 32px;
+  --header-top: 20px;
   @include breakpoint("md") {
     --gutter: 16px;
     --margin: 24px;
-    --header-top: 48px;
+    --header-top: 40px;
   }
   @include breakpoint("lg") {
     --gutter: 24px;

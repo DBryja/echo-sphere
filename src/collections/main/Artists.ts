@@ -31,8 +31,8 @@ export const Artists: CollectionConfig = {
             ]
         },
         {
-            name: "teaser",
-            type: "textarea",
+            name: "genre",
+            type: "text",
             required: false,
         },
         {
@@ -41,16 +41,21 @@ export const Artists: CollectionConfig = {
             required: true,
         },
         {
+          name: "extra",
+          type: "textarea",
+          required: false,
+        },
+        {
             name: "img-profile",
             type: "upload",
             relationTo: "media",
-            required: false,
+            required: true,
         },
         {
             name: "img-banner",
             type: "upload",
             relationTo: "media",
-            required: false,
+            required: true,
         },
         {
             name: 'socials',
@@ -62,9 +67,9 @@ export const Artists: CollectionConfig = {
                     defaultValue: "https://www.youtube.com/",
                 },
                 {
-                    name: "instagram",
+                    name: "tidal",
                     type: "text",
-                    defaultValue: "https://www.instagram.com/",
+                    defaultValue: "https://www.tidal.com/",
                 },
                 {
                     name: "spotify",
