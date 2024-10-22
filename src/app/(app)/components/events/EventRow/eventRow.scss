@@ -45,4 +45,17 @@
       //transform: translateY(-50%);
     }
   }
+  @include breakpoint("xl"){
+    grid-template-columns: 1fr;
+    &__date{
+      @include typo-label;
+    }
+    &__title{
+      @include typo-sub3;
+    }
+    &__button{
+      padding: 15px 32px;
+      @include typo-btn-small;
+    }
+  }
 }

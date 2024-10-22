@@ -18,6 +18,7 @@ interface ArtistProps{
 
 // export const revalidate = 86400;
 export default async function Artist({params:{slug}}:ArtistProps){
+    //TODO: Extract this to separate functions
     const payload = await getPayloadHMR({config});
     const artist:Artist = (
         await payload.findByID({
@@ -95,9 +96,10 @@ export default async function Artist({params:{slug}}:ArtistProps){
                     </div>
                 </div>
             </section>
-            <div className={"artist__image"}>
+            <div className={"artist__image"} data-genre={artist.genre}>
                 <Image src={getImageUrl(artist["img-profile"])} alt={getImgAlt(artist["img-banner"])} width={device==="phone"?500:1000} height={device==="phone"?500:1000} />
             </div>
         </div>
+        //TODO: Add our artist slider here
     )
 }

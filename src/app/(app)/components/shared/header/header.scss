@@ -27,6 +27,9 @@
     height: calc($headerTop * 2 + $space-8);
     margin: 0 calc(-1 * $margin) 0 calc(-1 * $margin);
   }
+  @include breakpoint("xl"){
+    height: calc($headerTop * 2 + $space-10);
+  }
 
   &__nav, &__menu{
     width: max-content;
