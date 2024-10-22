@@ -2,20 +2,12 @@
 @import "@globals/colors.module";
 @import "@globals/typography";
 
-body:has(.artists__wrapper) {
-  padding: 0;
-  header {
-    padding: 0 $margin;
-    width: 100%;
-  }
-}
-
 .artists {
   &__wrapper {
     display: grid;
     grid-row: 1;
     grid-column: 1/-1;
-    width: 100%;
+    @include ignoreMarginWidth;
     height: 100vh;
     grid-template-columns: 1fr minmax(780px, 50%);
     grid-template-rows: 1fr;

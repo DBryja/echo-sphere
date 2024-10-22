@@ -183,7 +183,7 @@ body:has(.menu.active){
     height: $buttonHeight;
     @include breakpoint("lg"){
       height: 64px;
-      top: 0;
+      top: 8px;
     }
   }
 }

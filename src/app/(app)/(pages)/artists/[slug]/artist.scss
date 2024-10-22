@@ -2,10 +2,6 @@
 @import "@globals/colors.module";
 @import "@globals/typography";
 
-@mixin ignoreMarginWidth{
-  width: calc(100% + 2 * $margin + 5px);
-  margin: 0 calc(-1 * $margin);
-}
 // TODO: Rebuild desktop layout so it works with scroll
 .artist{
   &__wrapper{

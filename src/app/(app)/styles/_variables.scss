@@ -21,3 +21,8 @@ $radius-1: 4px;
 $radius-2: 8px;
 
 $dotPath: "/img/dot.svg";
+
+@mixin ignoreMarginWidth{
+  width: calc(100% + 2 * $margin + 5px);
+  margin: 0 calc(-1 * $margin);
+}
