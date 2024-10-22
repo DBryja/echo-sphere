@@ -6,6 +6,7 @@ $breakpoints: (
         2xl: "1536px",
         3xl: "1920px"
 );
+$dotPath: "/img/dot.svg";
 
 @mixin breakpoint($name) {
   @if not map-has-key($breakpoints, $name) {
@@ -32,4 +33,15 @@ $breakpoints: (
   @media (hover: hover) and (pointer: fine){
     @content;
   }
+}
+
+@mixin beforeDot {
+  width: 32px;
+  height: 32px;
+  content: "";
+  position: absolute;
+  background-image: url($dotPath);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }

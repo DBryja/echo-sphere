@@ -5,6 +5,7 @@
   position: fixed;
   grid-column: 1/-1;
   grid-row: 1;
+  max-width: 100dvw;
   width: 100%;
   margin: 0 calc(-1 * $margin) 0 calc(-1 * $margin);
   padding: $headerTop $margin $headerTop $margin;

@@ -14,6 +14,7 @@
     grid-template-columns: 1fr;
     grid-column: 1/-1;
     width: 100%;
+    margin-bottom: $space-6;
   }
 
   &__image{
@@ -33,12 +34,33 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 120%) no-repeat;    }
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 120%) no-repeat;
+    }
+
+    @include breakpoint("md"){
+      width: 80%;
+      margin: calc($margin * 2) auto 0;
+      &:after{
+        display: none;
+      }
+      &:before{
+        content: '';
+        display: block;
+        position: absolute;
+        pointer-events: none;
+        z-index: -1;
+        background: $red;
+        width: calc(100% + $space-3 * 2);
+        height: 90%;
+        top: -$space-5;
+        left: -$space-3;
+      }
+    }
   }
 
   &__heading{
     position: absolute;
-    top: 500px;
+    top: calc($headerTop + $buttonHeight + 100vw - 2*$margin);
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
@@ -48,6 +70,23 @@
     color: $red;
     text-transform: uppercase;
     white-space: nowrap;
+
+    @include breakpoint("md") {
+      @include typo-h3;
+      top: calc($headerTop * 2 + $buttonHeight + 80vw + $space-6);
+      left: calc($margin * 3 + 10px);
+      transform: translateX(0);
+      text-align: left;
+
+      &:before{
+        @include beforeDot;
+        height: 40px;
+        width: 40px;
+        left: calc(-36px - $margin);
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
   }
 
   &__details{
@@ -56,11 +95,18 @@
     display: flex;
     flex-direction: column;
     row-gap: $space-6;
+    @include breakpoint("md") {
+      margin-top: calc($margin * 2);
+    }
 
     &__desc{
       display: flex;
       flex-direction: column;
       gap: $margin;
+
+      @include breakpoint("md") {
+        margin-top: calc($margin * 4);
+      }
 
       &__heading{
         @include typo-sub3;
@@ -69,6 +115,9 @@
         justify-content: start;
         align-items: center;
         column-gap: $space-1;
+        @include breakpoint("md") {
+          display: none;
+        }
       }
     }
     &__separator{
@@ -87,12 +136,19 @@
       &__heading{
         @include typo-btn-small;
         text-transform: uppercase;
+        @include breakpoint("md"){
+          @include typo-sub3;
+        }
       }
       &__icons{
         display: flex;
         justify-content: start;
         column-gap: $space-2;
         margin-top: $space-1;
+
+        @include breakpoint("md"){
+          margin-top: $space-3;
+        }
       }
     }
 
@@ -100,11 +156,33 @@
       display: flex;
       flex-direction: column;
       gap: $space-2;
+      @include breakpoint("md"){
+        row-gap: $space-4;
+      }
 
       &__heading{
         @include typo-sub3;
         text-transform: uppercase;
         font-weight: 400;
+      }
+      &__list{
+        display: flex;
+        flex-direction: column;
+        gap: $space-3;
+
+        @include breakpoint("md"){
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+
+    &__events{
+      display: flex;
+      flex-direction: column;
+      row-gap: $space-2;
+      @include breakpoint("md"){
+        row-gap: $space-4;
       }
       &__list{
         display: flex;

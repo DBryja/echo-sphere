@@ -1,0 +1,18 @@
+@import "@globals/mixins";
+
+.social-icon{
+  img{
+    width: 48px;
+    height: 48px;
+
+    @include breakpoint("md"){
+        width: 64px;
+        height: 64px;
+    }
+
+    @include breakpoint("lg"){
+        width: 80px;
+        height: 80px;
+    }
+  }
+}
