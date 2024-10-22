@@ -25,14 +25,15 @@ function formatDate(dateStart: string, dateEnd?: string): string {
 }
 
 export default function EventRow({event}: {event: Event}) {
-    const {date, dateEnd, subheading, links} = event;
+    const {date, dateEnd, heading, subheading, links} = event;
     const formattedDate = formatDate(date, dateEnd);
+    const title = subheading ? subheading : heading;
 
     return (
         <div className="event-row">
             <div>
                 <div className="event-row__date">{formattedDate}</div>
-                <div className="event-row__title">{subheading}</div>
+                <div className="event-row__title">{title}</div>
             </div>
             {links?.tickets && <Button className="event-row__button"><a href={links?.tickets}>Buy Tickets</a></Button>}
         </div>
