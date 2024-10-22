@@ -15,6 +15,10 @@
     color: $black;
 }
 
+html{
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 body{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -22,6 +26,7 @@ body{
   column-gap: $gutter;
   padding: 0 $margin;
   width: 100dvw;
+  max-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
   @include typo-body;
