@@ -4,7 +4,7 @@ export const Events: CollectionConfig = {
     slug: 'events',
     admin: {
         group: "Main",
-        defaultColumns: ["heading", "type", "date"],
+        defaultColumns: ["heading", "subheading", "type", "date"],
     },
     fields: [
         {
@@ -50,6 +50,27 @@ export const Events: CollectionConfig = {
                     },
                 }
             },
+              {
+                  name: "dateEnd",
+                  type: "date",
+                  required: false,
+                  admin: {
+                      date: {
+                          pickerAppearance: "dayAndTime",
+                      },
+                      description: "Optional field for end date of event if it spans multiple days"
+                  },
+                  hooks: {
+                      beforeValidate: [
+                          ({data, originalDoc}) => {
+                              if (data.dateEnd && new Date(data.dateEnd) < new Date(data.date)) {
+                                  throw new Error("End date must be after start date")
+                              }
+                              return data
+                          }
+                      ]
+                  }
+              },
           ]
         },
         {

@@ -126,6 +126,7 @@ export interface Event {
   heading: string;
   subheading?: string | null;
   date: string;
+  dateEnd?: string | null;
   address?: string | null;
   'img-poster'?: (string | null) | Media;
   'related-artists'?: (string | Artist)[] | null;

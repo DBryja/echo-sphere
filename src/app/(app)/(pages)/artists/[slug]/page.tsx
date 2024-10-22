@@ -3,11 +3,12 @@ import config from "@payload-config";
 import type {Artist} from "@/payload-types";
 import {headers} from "next/headers";
 import Image from "next/image";
-import SocialIcon from "@components/shared/SocialIcon";
-import type {Socials} from "@components/shared/SocialIcon"
+import Index from "@components/shared/socialIcon";
+import type {Socials} from "@components/shared/socialIcon"
 import {getImageUrl, getImgAlt} from "@app/utils";
 import "./artist.scss";
 import Album from "@components/artists/Album";
+import EventRow from "@components/events/EventRow";
 
 interface ArtistProps{
     params: {
@@ -53,12 +54,13 @@ export default async function Artist({params:{slug}}:ArtistProps){
 
     const device = headers().get("x-device-type") || "";
     const isPhone = device === "phone";
+    console.log(device);
     const splitName = artist.name.split(" ");
     const socialsList = [];
     //@ts-ignore // ignoring due to undefined coming from payload types, this is still checked in the function
     for (const [key, value] of Object.entries(artist.socials) as [Socials, string][]) {
         if (key && value)
-            socialsList.push(<SocialIcon href={value} social={key} key={key} />);
+            socialsList.push(<Index href={value} social={key} key={key} />);
     }
 
 
@@ -86,10 +88,10 @@ export default async function Artist({params:{slug}}:ArtistProps){
                         {/*{releases.map((item, i)=><div key={i}>{item.name}</div>)}*/}
                     </div>
                 </div>
-                <div className={"artists__details__events"}>
-                    <h3 className={"artist__details__events__heading"}>Events:</h3>
+                <div className={"artist__details__events"}>
+                    <h3 className={"artist__details__events__heading"}>UPCOMING EVENTS</h3>
                     <div className={"artist__details__events__list"}>
-                        {events.map((item, i)=><div key={i}>{item.heading}</div>)}
+                        {events.map((event, i)=><EventRow key={i} event={event}/>)}
                     </div>
                 </div>
             </section>
