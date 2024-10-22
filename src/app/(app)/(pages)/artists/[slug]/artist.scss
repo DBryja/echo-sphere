@@ -61,10 +61,16 @@
       }
     }
     @include breakpoint("xl") {
-      grid-column: 4/-1;
-      width: calc(100% + $margin);
-      margin: calc(-1* ($headerTop * 2 + $buttonHeight)) calc(-1 * $margin) 0 0;
+      position: fixed;
+      right: 0;
+      top: calc(-1 * ($headerTop*2));
       height: 90vh;
+      width: calc(((100vw - 2 * $margin) / 6) * 3 + $gutter);
+      z-index: -1;
+      //width: calc(100% + $margin);
+      //grid-column: 4/-1;
+      //margin: calc(-1* ($headerTop * 2 + $buttonHeight)) calc(-1 * $margin) 0 0;
+      //height: 90vh;
       img{
         width: 100%;
         height: 100%;
@@ -141,12 +147,10 @@
     }
     @include breakpoint("xl") {
       margin-top: calc(150px + 80px + $space-5); //margin of heading + heading height + 40px space
-      max-height: calc(100vh - $headerTop * 2 - $buttonHeight - 270px);
       padding-bottom: $space-5;
       grid-column: 2/4;
-      overflow-y: scroll;
-      overflow-x: hidden;
       //align-self: center;
+      margin-left: $gutter;
     }
 
     &__desc{
@@ -184,7 +188,6 @@
         margin-top: $space-4;
       }
     }
-
     &__listen{
       &__heading{
         @include typo-btn-small;
@@ -204,7 +207,6 @@
         }
       }
     }
-
     &__releases{
       display: flex;
       flex-direction: column;
@@ -231,7 +233,6 @@
         }
       }
     }
-
     &__events{
       display: flex;
       flex-direction: column;
@@ -245,7 +246,6 @@
         gap: $space-3;
       }
     }
-
     &:before{
       content: '';
       display: block;
@@ -254,6 +254,14 @@
       position: absolute;
       background-color: $gray-400;
       top: calc(-2 * $margin);
+
+      @include breakpoint("xl"){
+        width: 2px;
+        height: 100%;
+        margin: 0;
+        top: 0;
+        left: calc(-1 * $gutter);
+      }
     }
   }
 }
