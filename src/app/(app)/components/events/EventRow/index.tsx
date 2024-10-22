@@ -26,7 +26,7 @@ function formatDate(dateStart: string, dateEnd?: string): string {
 
 export default function EventRow({event}: {event: Event}) {
     const {date, dateEnd, heading, subheading, links} = event;
-    const formattedDate = formatDate(date, dateEnd);
+    const formattedDate = dateEnd ? formatDate(date, dateEnd) : formatDate(date);
     const title = subheading ? subheading : heading;
 
     return (
