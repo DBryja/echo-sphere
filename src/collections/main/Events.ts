@@ -1,10 +1,27 @@
-import type { CollectionConfig } from 'payload'
+import {CollectionBeforeOperationHook, CollectionConfig} from 'payload'
+import type {Event} from "@/payload-types";
+import {CustomError} from "@/collections/classes/CustomError";
+
+const checkDates:CollectionBeforeOperationHook  = (async ({args, req, operation}) => {
+    if (!(operation == 'update' || operation == 'create')) return args;
+
+    const typedData = args.data as Partial<Event>
+    if (typedData.dateEnd && typedData.date && typedData.dateEnd !== "" &&
+        new Date(typedData.dateEnd) < new Date(typedData.date)) {
+        throw new CustomError("End date must be after start date");
+    }
+
+    return args;
+})
 
 export const Events: CollectionConfig = {
     slug: 'events',
     admin: {
         group: "Main",
         defaultColumns: ["heading", "subheading", "type", "date"],
+    },
+    hooks: {
+      beforeOperation: [checkDates]
     },
     fields: [
         {
@@ -60,17 +77,7 @@ export const Events: CollectionConfig = {
                       },
                       description: "Optional field for end date of event if it spans multiple days"
                   },
-                  hooks: {
-                      beforeValidate: [
-                          ({data, originalDoc}) => {
-                              if (data.dateEnd && new Date(data.dateEnd) < new Date(data.date)) {
-                                  throw new Error("End date must be after start date")
-                              }
-                              return data
-                          }
-                      ]
-                  }
-              },
+              }
           ]
         },
         {
