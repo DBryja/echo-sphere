@@ -121,6 +121,8 @@
       }
     }
     @include breakpoint("xl") {
+      position: fixed; //changed
+      z-index: 2;
       top: calc($headerTop * 2 + $buttonHeight + 150px);
       left: calc((100vw / 6) +  $gutter);
       transform: translateX(0);
@@ -147,6 +149,19 @@
       grid-column: 2/4;
       //align-self: center;
       margin-left: $gutter;
+
+      &:after{
+        content: "";
+        display: block;
+        position: fixed;
+        //top: calc(150px + 80px + $space-5); //margin of heading + heading height + 40px space
+        top: 0;
+        left: calc((100vw / 6 + $gutter));
+        width: calc((100vw / 6) * 2 - $gutter);
+        background: $white;
+        height: calc($headerTop * 2 + $buttonHeight + 150px + 80px + $space-5);
+        z-index: 1;
+      }
     }
 
     &__desc{
