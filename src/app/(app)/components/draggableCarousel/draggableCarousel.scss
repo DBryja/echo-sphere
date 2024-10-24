@@ -1,0 +1,31 @@
+.carousel-container {
+  width:100vw !important;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  grid-column: 1/-1;
+}
+
+.carousel {
+  display: flex;
+  cursor: grab;
+  will-change: transform;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  display: block;
+  box-sizing: border-box;
+  width: 300px;
+  height: 500px;
+
+  background-color: lightblue;
+
+  &:nth-child(2n){
+    background-color: lightcoral;
+  }
+}

@@ -3,12 +3,17 @@ import config from "@payload-config";
 import type {Artist} from "@/payload-types";
 import {headers} from "next/headers";
 import Image from "next/image";
-import Index from "@components/shared/socialIcon";
-import type {Socials} from "@components/shared/socialIcon"
-import {getImageUrl, getImgAlt} from "@app/utils";
 import "./artist.scss";
+import {getImageUrl, getImgAlt} from "@app/utils";
+
+import Icon from "@components/shared/socialIcon";
+import type {Socials} from "@components/shared/socialIcon"
 import Album from "@components/artists/Album";
 import EventRow from "@components/events/EventRow";
+// import DraggableCarousel from "@components/artists/draggableCarousel"
+import {fetchArtistsData} from "@utils/data";
+import DraggableCarousel from "src/app/(app)/components/draggableCarousel";
+import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 
 interface ArtistProps{
     params: {
@@ -52,6 +57,8 @@ export default async function Artist({params:{slug}}:ArtistProps){
             pagination: false
         })
     ).docs;
+    const artists = (await fetchArtistsData()).docs.filter((item)=>item.id!==artist.id);
+
 
     const device = headers().get("x-device-type") || "";
     const isPhone = device === "phone";
@@ -61,11 +68,12 @@ export default async function Artist({params:{slug}}:ArtistProps){
     //@ts-ignore // ignoring due to undefined coming from payload types, this is still checked in the function
     for (const [key, value] of Object.entries(artist.socials) as [Socials, string][]) {
         if (key && value)
-            socialsList.push(<Index href={value} social={key} key={key} />);
+            socialsList.push(<Icon href={value} social={key} key={key} />);
     }
 
 
     return (
+        <>
         <div className={"artist__wrapper"}>
             <h1 className={"artist__heading"}>{artist.name}</h1>
             <section className={"artist__details"}>
@@ -100,6 +108,9 @@ export default async function Artist({params:{slug}}:ArtistProps){
                 <Image src={getImageUrl(artist["img-profile"])} alt={getImgAlt(artist["img-banner"])} width={device==="phone"?500:1000} height={device==="phone"?500:1000} />
             </div>
         </div>
-        //TODO: Add our artist slider here
+            <ArtistsCarousel artists={artists}/>
+        {/*//TODO: Add our artist slider here*/}
+        {/*    <DraggableCarousel slides={slides} slidesPerView={4} spaceBetween={0} className={"carousel-container"}/>*/}
+        </>
     )
 }
