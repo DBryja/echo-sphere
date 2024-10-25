@@ -1,6 +1,3 @@
-import {getPayloadHMR} from "@payloadcms/next/utilities";
-import config from "@payload-config";
-import type {Artist} from "@/payload-types";
 import {headers} from "next/headers";
 import Image from "next/image";
 import "./artist.scss";
@@ -10,7 +7,7 @@ import Icon from "@components/shared/socialIcon";
 import type {Socials} from "@components/shared/socialIcon"
 import Album from "@components/artists/Album";
 import EventRow from "@components/events/EventRow";
-import {fetchArtistsData} from "@utils/data";
+import {fetchArtistById, fetchArtistsData, fetchEventsByArtistId, fetchReleasesByArtistId} from "@utils/data";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 
 interface ArtistProps{
@@ -19,44 +16,17 @@ interface ArtistProps{
     }
 }
 
-// export const revalidate = 86400;
 export default async function Artist({params:{slug}}:ArtistProps){
-    //TODO: Extract this to separate functions
-    const payload = await getPayloadHMR({config});
-    const artist:Artist = (
-        await payload.findByID({
-            collection: "artists",
-            id: slug
-        })
-    )
-    const releases = (
-        await payload.find({
-            collection: "releases",
-            where: {
-                'artists.id': {
-                    in: [artist.id]
-                }
-            },
-            sort: "-release-date",
-            limit: 5,
-            pagination: false
-        })
-    ).docs;
-    const events = (
-        await payload.find({
-            collection: "events",
-            where: {
-                'related-artists.id': {
-                    in: [artist.id]
-                }
-            },
-            sort: "-date",
-            limit: 5,
-            pagination: false
-        })
-    ).docs;
-    const artists = (await fetchArtistsData()).docs.filter((item)=>item.id!==artist.id);
+    const [artist, artistsData] = await Promise.all([
+        fetchArtistById(slug),
+        fetchArtistsData()
+    ]);
+    const [releases, events] = await Promise.all([
+        fetchReleasesByArtistId(artist.id),
+        fetchEventsByArtistId(artist.id)
+    ]);
 
+    const artists = artistsData.docs.filter((item) => item.id !== artist.id);
 
     const device = headers().get("x-device-type") || "";
     const isPhone = device === "phone";

@@ -1,9 +1,7 @@
-import {getPayloadHMR} from "@payloadcms/next/utilities";
-import config from "@payload-config"
 import type {Artist, ArtistsArchive} from "@/payload-types";
 import Image from "next/image"
 import {headers} from "next/headers"
-import {fetchArtistsData} from "@app/utils/data";
+import {fetchArtistsArchiveCopy, fetchArtistsData} from "@app/utils/data";
 import {getAlt, getImageUrl, getImgAlt} from "@app/utils";
 import "./artistsArchive.scss";
 import VerticalSlider from "@components/artists/VerticalSlider"
@@ -12,15 +10,12 @@ import Link from "@components/Link";
 
 export const revalidate = 86400;
 export default async function Artists(){
-    const payload = await getPayloadHMR({config});
-    const copyData:ArtistsArchive = (
-        await payload.find({
-            collection: "artistsArchive",
-            pagination: false
-        })
-    ).docs[0];
-    const artists = (await fetchArtistsData()).docs;
+    const [copyData, artistsData] = await Promise.all([
+        fetchArtistsArchiveCopy(),
+        fetchArtistsData()
+    ]);
     const device = headers().get("x-device-type") || "";
+    const artists = artistsData.docs;
 
     return (
         <>

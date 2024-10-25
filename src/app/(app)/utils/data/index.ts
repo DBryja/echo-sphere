@@ -1,12 +1,13 @@
 import {cache} from "react";
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
-import type {ArtistsArchive, Artist} from "@/payload-types";
+import {ArtistsArchive, Artist, MenuItem, ContactDatum, Release, Event} from "@/payload-types";
 import {PaginatedDocs} from "payload";
+
+const payload = await getPayloadHMR({ config });
 
 
 export const fetchArtistsData = cache(async () => {
-    const payload = await getPayloadHMR({ config });
     const data:PaginatedDocs<Artist> = (
         await payload.find({
             collection: "artists",
@@ -16,3 +17,68 @@ export const fetchArtistsData = cache(async () => {
     );
     return data;
 });
+
+export const fetchNavItems = cache(async (): Promise<MenuItem[]> => {
+    const query = await payload.find({
+        collection: "menu-items",
+        pagination: false,
+        sort: "order"
+    });
+    return query.docs as MenuItem[];
+});
+
+export const fetchContactData = cache(async (): Promise<ContactDatum> => {
+    const query = await payload.find({
+        collection: "contact-data",
+        pagination: false
+    });
+    return query.docs[0] as ContactDatum;
+});
+
+export const fetchArtistById = cache(async (slug: string): Promise<Artist> => {
+    const artist: Artist = await payload.findByID({
+        collection: "artists",
+        id: slug
+    });
+    return artist;
+});
+
+export const fetchReleasesByArtistId = cache(async (artistId: string): Promise<Release[]> => {
+    const releases = await payload.find({
+        collection: "releases",
+        where: {
+            'artists.id': {
+                in: [artistId]
+            }
+        },
+        sort: "-release-date",
+        limit: 5,
+        pagination: false
+    });
+    return releases.docs as Release[];
+});
+
+export const fetchEventsByArtistId = cache(async (artistId: string): Promise<Event[]> => {
+    const events = await payload.find({
+        collection: "events",
+        where: {
+            'related-artists.id': {
+                in: [artistId]
+            }
+        },
+        sort: "-date",
+        limit: 5,
+        pagination: false
+    });
+    return events.docs as Event[];
+});
+
+export const fetchArtistsArchiveCopy = cache(async (): Promise<ArtistsArchive> => {
+    return (
+        await payload.find({
+            collection: "artistsArchive",
+            pagination: false
+        })
+    ).docs[0];
+});
+

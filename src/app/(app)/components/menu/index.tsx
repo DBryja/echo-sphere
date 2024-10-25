@@ -46,7 +46,12 @@ const animateImage = (imageElement: Element | null, direction: 'in' | 'out', ite
     }
 };
 
-export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpen:boolean, contactData: ContactDatum, navItems: MenuItem[], onItemClick: ()=>void}) {
+export default function Menu({isOpen, contactData, navItems, onItemClick}:{
+    isOpen:boolean,
+    contactData: ContactDatum,
+    navItems: MenuItem[],
+    onItemClick: ()=>void
+}) {
     const {email, "phone-number":phoneNumber, address, socials } = contactData;
     const containerRef = useRef<HTMLElement|null>(null);
     const [itemZIndices, setItemZIndices] = useState<{[key: string]: number}>({});
@@ -243,12 +248,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{isOpe
                         <p className={"enter-anim"}>{email}</p>
                         <p className={"enter-anim"}>{phoneNumber}</p>
                         <p className={"enter-anim"}>{address}</p>
-                            {/*<p className={"contact__icons"}>*/}
-                            {/*    {socials?.facebook && <a href={socials.facebook}>Fb</a>}*/}
-                            {/*    {socials?.instagram && <a href={socials.instagram}>Ig</a>}*/}
-                            {/*    {socials?.youtube && <a href={socials.youtube}>Yt</a>}*/}
-                            {/*</p>*/}
-                        </div>
+                    </div>
                 }
                 <div className={"menu__logo enter-anim"}>
                     <Image src={"/img/logo-full-dot.svg"} alt={"Logo"} width={600} height={300}/>
