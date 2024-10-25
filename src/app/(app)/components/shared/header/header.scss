@@ -9,7 +9,7 @@
   width: 100%;
   margin: 0 calc(-1 * $margin) 0 calc(-1 * $margin);
   padding: $headerTop $margin $headerTop $margin;
-  z-index: 2;
+  z-index: $z-header;
   height: calc($headerTop * 2 + $space-6);
   background-color: $white;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);

@@ -85,7 +85,7 @@
         content: attr(data-genre);
         background: none;
         display: block;
-        z-index: 2;
+        z-index: $z-content;
         @include typo-h2;
         color: $red;
       }
@@ -94,7 +94,7 @@
 
   &__heading{
     position: absolute;
-    top: calc($headerTop + $buttonHeight + 100vw - 2*$margin);
+    top: calc($headerTop + $buttonHeight + 100vw - 2 * $margin);
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
@@ -123,7 +123,7 @@
     }
     @include breakpoint("xl") {
       position: fixed; //changed
-      z-index: 2;
+      z-index: $z-content;
       top: calc($headerTop * 2 + $buttonHeight + 150px);
       left: calc((100vw / 6) +  $gutter);
       transform: translateX(0);
@@ -137,6 +137,8 @@
 
   &__details{
     margin-top: calc($margin * 4);
+    grid-column: 1/-1;
+    width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -146,10 +148,10 @@
     }
     @include breakpoint("xl") {
       margin-top: calc(150px + 80px + $space-5); //margin of heading + heading height + 40px space
-      padding-bottom: $space-5;
       grid-column: 2/4;
       //align-self: center;
       margin-left: $gutter;
+      padding-right: $space-2;
 
       &:after{
         content: "";

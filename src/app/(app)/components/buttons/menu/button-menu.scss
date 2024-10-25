@@ -16,7 +16,7 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
   color: $white;
   position: relative;
   overflow: hidden;
-  z-index: 99;
+  z-index: $z-header;
   @include typo-btn-small;
   cursor:pointer;
 

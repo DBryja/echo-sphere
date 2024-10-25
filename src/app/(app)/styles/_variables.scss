@@ -20,6 +20,13 @@ $space-1: 8px;
 $radius-1: 4px;
 $radius-2: 8px;
 
+
+$z-content: 2;
+$z-footer: 5;
+$z-header: 9;
+$z-absolute: 10;
+$z-transition: 100;
+
 $dotPath: "/img/dot.svg";
 
 @mixin ignoreMarginWidth{

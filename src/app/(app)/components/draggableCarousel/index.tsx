@@ -22,6 +22,7 @@ interface InfiniteSliderProps {
     loop?: boolean;
     freeMode?: boolean;
     className?: string;
+    id?: string;
     onSlideChange?: (swiper: SwiperType) => void;
     onSwiper?: (swiper: SwiperType) => void;
 }
@@ -33,6 +34,7 @@ const InfiniteSlider: React.FC<InfiniteSliderProps> = ({
                                                            loop = true,
                                                            freeMode = true,
                                                            className = '',
+                                                            id = '',
                                                            onSlideChange,
                                                            onSwiper
                                                        }) => {
@@ -50,6 +52,7 @@ const InfiniteSlider: React.FC<InfiniteSliderProps> = ({
                 sticky: false,
             }}
             className={className}
+            id={id}
             onSlideChange={onSlideChange}
             onSwiper={onSwiper}
         >

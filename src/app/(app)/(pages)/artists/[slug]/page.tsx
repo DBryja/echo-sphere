@@ -10,9 +10,7 @@ import Icon from "@components/shared/socialIcon";
 import type {Socials} from "@components/shared/socialIcon"
 import Album from "@components/artists/Album";
 import EventRow from "@components/events/EventRow";
-// import DraggableCarousel from "@components/artists/draggableCarousel"
 import {fetchArtistsData} from "@utils/data";
-import DraggableCarousel from "src/app/(app)/components/draggableCarousel";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 
 interface ArtistProps{
@@ -108,9 +106,7 @@ export default async function Artist({params:{slug}}:ArtistProps){
                 <Image src={getImageUrl(artist["img-profile"])} alt={getImgAlt(artist["img-banner"])} width={device==="phone"?500:1000} height={device==="phone"?500:1000} />
             </div>
         </div>
-            <ArtistsCarousel artists={artists}/>
-        {/*//TODO: Add our artist slider here*/}
-        {/*    <DraggableCarousel slides={slides} slidesPerView={4} spaceBetween={0} className={"carousel-container"}/>*/}
+        <ArtistsCarousel artists={artists}/>
         </>
     )
 }
