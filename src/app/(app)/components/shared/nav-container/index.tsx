@@ -1,5 +1,5 @@
 "use client";
-import {useRef, useState, useEffect, useCallback, useLayoutEffect, useMemo} from "react";
+import {useRef, useState, useEffect} from "react";
 import {usePathname} from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -24,19 +24,16 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
     const currentTimeline = useRef<GSAPTimeline | null>(null);
     const scrollTriggerInstance = useRef<ScrollTrigger | null>(null);
     const basketTimeline = useRef<GSAPTimeline | null>(null);
-    const breakpoint = useMemo(() => sanitizeBreakpointVariable(variables["bpLg"]), []);
+    const breakpoint = sanitizeBreakpointVariable(variables["bpLg"]);
 
     const pathname = usePathname();
     const isStore = pathname?.startsWith("/store");
     const isHome = pathname === "/";
-
+    // Simplified state: we only need showNav, headerState can be derived
     const [showNav, setShowNav] = useState<boolean>(isHome);
 
     const windowWidth = useWindowWidth();
-
-    const headerState = useMemo(() =>
-            (showNav && isHome && windowWidth >= breakpoint) ? "nav" : "button",
-        [showNav, windowWidth, isHome, breakpoint]);
+    const headerState = showNav && isHome && windowWidth >= breakpoint ? "nav" : "button";
 
     const xOffset = 5;
     const stagger = 0.05;
@@ -50,24 +47,18 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         if (headerElement) {
             headerElement.dataset.state = headerState;
         }
-    }, [headerState, isHome]);
+    }, [headerState]);
 
-    const updateNavVisibility = useCallback((progress: number) => {
-        if(!isHome) return;
+    const debouncedSetShowNav = debounce((progress: number) => {
+        if (!isHome) return;
         setShowNav(progress <= 0.5);
-    }, [isHome]);
+    }, 50);
 
-    const debouncedSetShowNav = useMemo(() =>
-            debounce(updateNavVisibility, 50),
-        [updateNavVisibility]);
+    const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
-    const toggleMenu = useCallback(() => {
-        setIsMenuOpen(prev => !prev);
-    }, []);
-
+    //ScrollTrigger for showing/hiding nav
     useGSAP(() => {
-        if (!container.current || windowWidth < breakpoint) return;
-        if(!isHome) return;
+        if (!container.current || windowWidth < breakpoint || !isHome) return;
 
         scrollTriggerInstance.current = ScrollTrigger.create({
             trigger: "body",
@@ -82,19 +73,22 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
             scrollTriggerInstance.current?.kill();
             debouncedSetShowNav.cancel();
         };
-    }, [debouncedSetShowNav, windowWidth, breakpoint, isHome]);
+    }, [windowWidth, breakpoint, isHome]);
 
+    //Basket animation
     useGSAP(() => {
         if (basketTimeline.current) basketTimeline.current.kill();
 
         const tl = gsap.timeline();
         basketTimeline.current = tl;
 
+        const isNavState = headerState === "nav";
+
         tl.set(".open-cart", {
             opacity: 0,
-            right: headerState === "button" ? 24 : 4,
-            top: headerState === "button" ? "auto" : 56,
-            position: headerState === "button" ? "relative" : "absolute"
+            right: isNavState ? 4 : 24,
+            top: isNavState ? 56 : "auto",
+            position: isNavState ? "absolute" : "relative"
         });
 
         tl.to(".open-cart", {
@@ -104,9 +98,9 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         }, ">0.3");
 
         tl.to(".open-cart", {
-            right: headerState === "button" ? 24 : 4,
-            top: headerState === "button" ? "auto" : 56,
-            position: headerState === "button" ? "relative" : "absolute",
+            right: isNavState ? 4 : 24,
+            top: isNavState ? 56 : "auto",
+            position: isNavState ? "absolute" : "relative",
             duration: 0.3,
             ease: "power2.inOut"
         }, "<");
@@ -116,6 +110,7 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         };
     }, { dependencies: [headerState], scope: container });
 
+    // Hiding and showing nav and menu
     useGSAP(() => {
         if (currentTimeline.current) currentTimeline.current.kill();
 
@@ -126,14 +121,14 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
             if(document.querySelector(".header__nav")){
                 tl.to(".header__nav", { visibility: "hidden", display: "none" });
             }
-                tl.to(".header__menu", {
-                    x: 0,
-                    visibility: "visible",
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    display: "flex",
-                });
+            tl.to(".header__menu", {
+                x: 0,
+                visibility: "visible",
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                display: "flex",
+            });
         } else {
             if (showNav) {
                 tl.to(".header__menu", {
@@ -185,4 +180,3 @@ export default function NavButtonContainer({navItems, contactData}: {navItems: M
         </div>
     );
 }
-
