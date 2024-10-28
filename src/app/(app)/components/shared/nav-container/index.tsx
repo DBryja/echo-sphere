@@ -18,7 +18,10 @@ import {sanitizeBreakpointVariable} from "@app/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function NavButtonContainer({navItems, contactData}: {navItems: MenuItem[], contactData: ContactDatum}) {
+export default function NavButtonContainer({navItems, contactData}: {
+    navItems: MenuItem[],
+    contactData: ContactDatum
+}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const container = useRef<HTMLDivElement>(null);
     const currentTimeline = useRef<GSAPTimeline | null>(null);

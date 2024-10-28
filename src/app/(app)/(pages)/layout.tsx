@@ -10,6 +10,7 @@ import Header from "@components/shared/header";
 import {TransitionProvider} from "@providers/TransitionContext";
 import TransitionBox from "@components/pageTransition/TransitionBox"
 import TransitionHandler from "@components/pageTransition/TransitionHandler"
+import Footer from "@components/footer";
 
 const natsRegular = localFont({
   src: '../fonts/NATS-Regular.woff',
@@ -42,6 +43,7 @@ export default async function RootLayout({children}: LayoutProps) {
                      <main>
                          {children}
                      </main>
+                    <Footer/>
                 {/*</AnimatePresence>*/}
             </Cart>
           </body>
