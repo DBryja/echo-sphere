@@ -243,7 +243,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
             {/*TODO: Move this to outside component*/}
             <div className="menu__contact-wrapper">
                 {isTablet &&
-                    <div className={"menu__contact contact"}>
+                    <div className={"menu__contact contact-comp"}>
                         <h3 className={"enter-anim"}>Contact</h3>
                         <p className={"enter-anim"}>{email}</p>
                         <p className={"enter-anim"}>{phoneNumber}</p>

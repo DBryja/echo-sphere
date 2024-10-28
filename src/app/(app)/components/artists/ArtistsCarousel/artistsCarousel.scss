@@ -5,7 +5,6 @@
 #artists-carousel{
   grid-column: 1/-1;
   @include ignoreMarginWidth;
-  margin-bottom: 1000px;
   z-index: $z-footer;
 
   .swiper{

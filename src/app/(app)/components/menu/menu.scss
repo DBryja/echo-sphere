@@ -132,24 +132,7 @@ body:has(.menu.active){
       padding-top: $buttonHeight;
     }
   }
-  &__contact{
-    width: max-content;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    row-gap: $space-1;
-    margin-bottom: 4px;
 
-    h3{
-      @include typo-sub3;
-      text-transform: uppercase;
-      margin-bottom: auto;
-    }
-    p{
-      @include typo-btn-small;
-      text-transform: uppercase;
-    }
-  }
   &__logo{
     width: 200px;
     @include breakpoint("md"){
