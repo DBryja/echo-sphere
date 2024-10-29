@@ -7,10 +7,18 @@ function getWindowWidth(){
     return typeof window !== 'undefined' ? window.innerWidth : 0;
 }
 
+function updateFooterMargin(width: number){
+    if(width < 768) return;
+    const footerHeight = document.querySelector("footer")?.clientHeight;
+    document.querySelector("main")?.setAttribute("style", `margin-bottom: ${footerHeight}px`);
+}
+
 function updateWindowWidth(){
     const newWidth = getWindowWidth();
+
     if(newWidth !== windowWidth){
         windowWidth = newWidth;
+        updateFooterMargin(newWidth);
         subscribers.forEach((callback)=>callback(windowWidth));
     }
 }
@@ -24,6 +32,7 @@ export function useWindowWidth(){
         }
 
         setWidth(getWindowWidth());
+        updateFooterMargin(width);
 
         window.addEventListener("resize", handleResize);
         subscribers.add(setWidth);

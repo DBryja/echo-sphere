@@ -39,10 +39,13 @@ body{
 }
 
 main{
-    grid-column: 1/-1;
-    grid-row: 2;
-    display: grid;
-    grid-template-columns: subgrid;
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: subgrid;
+  position: relative;
+  background-color: $white;
+  z-index: 1;
 }
 
 .contact-comp{

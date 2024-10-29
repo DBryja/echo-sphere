@@ -3,7 +3,18 @@
 @import "@globals/typography";
 @import "@globals/mixins";
 
-// TODO: Rebuild desktop layout so it works with scroll
+
+body:has(.artist__wrapper){
+  .footer{
+    position: relative;
+    top: unset;
+    z-index: $z-content;
+  }
+  main{
+    margin-bottom: 0 !important;
+  }
+}
+
 .artist{
   &__wrapper{
     margin-top: calc($buttonHeight + $headerTop * 2);
