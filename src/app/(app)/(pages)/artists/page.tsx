@@ -8,6 +8,8 @@ import VerticalSlider from "@components/artists/VerticalSlider"
 import Link from "@components/Link";
 import DraggableCarousel from "@components/draggableCarousel";
 import MobileArtist from "@components/artists/MobileArtist";
+import ScrollAnimation from "@components/artists/ScrollAnimation";
+import AnimatedRow from "@components/artists/AnimatedRow";
 
 
 export const revalidate = 86400;
@@ -30,7 +32,7 @@ export default async function Artists(){
 
     return (
         <>
-        <div className={"artists__wrapper"}>
+        <div className={`artists__wrapper ${isDesktop?"isDesktop":""}`}>
             {device === "desktop" && <section className={"artists__slider__wrapper"}>
                 <div className={"artists__slider"}>
                     <div id="artistSlider" className={"artists__slider__container"}>
@@ -71,14 +73,24 @@ export default async function Artists(){
                     </p>}
                     {isDesktop&& <p className={"artists__copy__extra"}>{copyData.desc2}</p>}
                 </div>
+                {isDesktop && <div className={"artists__list"}>
+                    <h3 className={"artists__list__heading"}>Learn more</h3>
+                    {artists.map((artist: Artist) => {
+                        return <AnimatedRow key={artist.id}>
+                            <Link  className={"artists__list__item"} href={`/artists/${artist.id}`}>
+                            {artist.name}
+                        </Link>
+                        </AnimatedRow>
+                    })}
+                </div>}
             </section>
-            {(isPhone || isTablet )  && <section className={"artists__mobile-list"}>
+            {(isPhone || isTablet) && <section className={"artists__mobile-list"}>
                 <DraggableCarousel slides={mobileSlides} slidesPerView={isPhone?1.5:1.6} loop={false} freeMode={true}/>
             </section>}
             {isPhone && <div className={"artists__copy__extra"}><p>{copyData.desc2}</p></div>}
-
         </div>
             {isDesktop && <VerticalSlider qty={artists.length}/>}
+            {isDesktop && <ScrollAnimation/>}
         </>
     )
 }
