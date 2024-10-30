@@ -1,5 +1,5 @@
-import type {Artist, Release} from "@/payload-types";
-import Image from "next/image";
+import type { Release} from "@/payload-types";
+import Image from "@components/Image";
 import {getImageUrl, getImgAlt} from "@app/utils";
 import "./album.scss";
 

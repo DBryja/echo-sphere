@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import {Metadata} from 'next'
+import React from 'react'
+// import {Metadata} from 'next'
 import {getPayloadHMR} from "@payloadcms/next/utilities";
 import config from "@payload-config";
-import Image from "next/image";
+import Image from "@components/Image";
 import type {Product} from "@/payload-types"
 import ProductConfigurator from "@components/ProductConfigurator";
 import Link from "next/link";
@@ -10,9 +10,8 @@ import ProductBox from "@components/ProductBox";
 import {formatCurrencyString} from "@/app/(app)/utils";
 
 
-export default async function ProductPage({params: {slug}}) {
+export default async function ProductPage({params: {slug}}:{params: {slug: string}}){
     const payload = await getPayloadHMR({config});
-    //@ts-ignore
     const item:Product = await payload.findByID({id: slug, collection: 'products'});
 
     return (
@@ -22,7 +21,7 @@ export default async function ProductPage({params: {slug}}) {
             <p>{item.description}</p>
             {/*<p>{item.color}</p>*/}
             <div>
-                {item.images.map((image, i) => {
+                {item.images && item.images.map((image, i) => {
                     if (!image) return null;
                     if (typeof image.img === 'string') return <Image key={i} src={image.img} alt={item.name} width={300} height={300}/>
                     return <Image key={i}  src={image.img?.url!} alt={image.img?.alt!} width={300} height={300}/>

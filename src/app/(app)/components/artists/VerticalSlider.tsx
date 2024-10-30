@@ -1,16 +1,16 @@
 "use client";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 //@ts-ignore
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function VerticalSlider({qty}:{qty:number}) {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const barRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const shouldPauseRef = useRef<boolean>(null);
-    const tlRef = useRef<GSAPTimeline>(null);
+    const sliderRef = useRef<HTMLDivElement | null>(null);
+    const barRef = useRef<HTMLDivElement | null>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const shouldPauseRef = useRef<boolean>(false);
+    const tlRef = useRef<GSAPTimeline | null>(null);
 
     //animation variables:
     const duration = 3;
@@ -77,7 +77,7 @@ export default function VerticalSlider({qty}:{qty:number}) {
 
         // Add event listeners for timeline state changes
         tl.eventCallback("onUpdate", checkPauseCondition);
-        tl.eventCallback("onResume", checkPauseCondition);
+        // tl.eventCallback("onResume", checkPauseCondition);
 
         // Animate through all images including the clone
         for (let i = 0; i <= qty; i++) {
@@ -97,9 +97,9 @@ export default function VerticalSlider({qty}:{qty:number}) {
         tl.play();
 
         return () => {
-            containerRef.current.removeEventListener("mouseover", handleMouseOver);
-            containerRef.current.removeEventListener("mouseleave", handleMouseLeave);
-            tlRef.current.kill();
+            containerRef.current?.removeEventListener("mouseover", handleMouseOver);
+            containerRef.current?.removeEventListener("mouseleave", handleMouseLeave);
+            tlRef.current?.kill();
         };
     }, [qty, threshold]);
 

@@ -1,6 +1,6 @@
 import React from "react";
-import {Media, Product, Product as ProductType} from "@/payload-types";
-import Image from "next/image";
+import {Product as ProductType} from "@/payload-types";
+import Image from "@components/Image";
 import Link from "next/link";
 
 
@@ -9,7 +9,7 @@ export default function ProductBox({product}: { product: ProductType }) {
     return (
         <div>
             <div>
-                {product.images.map(({img}) => {
+                {product.images?.map(({img}) => {
                     if (!img) return null;
                     if (typeof img === "string")
                         return <Image key={img} src={img} alt={product.name} width={150} height={150}/>

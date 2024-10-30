@@ -1,6 +1,6 @@
 import {NextResponse}from "next/server";
 
-export function middleware(req){
+export function middleware(req: Request){
     const userAgent = req.headers.get("user-agent") || "";
     const isTablet = /mobile|android|iphone|ipad/i.test(userAgent);
     const isPhone = /mobile|iphone|android/i.test(userAgent) && !/ipad|tablet/i.test(userAgent);

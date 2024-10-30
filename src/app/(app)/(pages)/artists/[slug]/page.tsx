@@ -1,5 +1,5 @@
 import {headers} from "next/headers";
-import Image from "next/image";
+import Image from "@components/Image";
 import "./artist.scss";
 import {getImageUrl, getImgAlt} from "@app/utils";
 
@@ -39,7 +39,6 @@ export default async function Artist({params:{slug}}:ArtistProps){
             socialsList.push(<Icon href={value} social={key} key={key} />);
     }
 
-
     return (
         <>
         <div className={"artist__wrapper"}>
@@ -73,7 +72,7 @@ export default async function Artist({params:{slug}}:ArtistProps){
                 </div>
             </section>
             <div className={"artist__image"} data-genre={artist.genre}>
-                <Image src={getImageUrl(artist["img-profile"])} alt={getImgAlt(artist["img-banner"])} width={device==="phone"?500:1000} height={device==="phone"?500:1000} />
+                <Image src={getImageUrl(artist["img-profile"])} alt={getImgAlt(artist["img-banner"])} width={device==="phone"?350:600} height={device==="phone"?350:600} />
             </div>
         </div>
         <ArtistsCarousel artists={artists}/>

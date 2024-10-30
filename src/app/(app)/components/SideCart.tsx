@@ -2,7 +2,7 @@
 import {CSSProperties, useEffect, useRef} from "react";
 import {useShoppingCart} from "use-shopping-cart";
 import CartButton from "@/app/(app)/components/CartButton";
-import Image from "next/image";
+import Image from "@components/Image";
 
 const styles = {
     cart: {
@@ -49,10 +49,12 @@ export default function SideCart(){
             <ul>
                 {
                     // if(!cartDetails) return null;
+                    //@ts-ignore
                     Object.values(cartDetails).map((item, i) => (
                         <li key={i} style={{display: "flex"}}>
+                    {/*//@ts-ignore*/}
                             <Image src={item.product_data.image.url} alt={item.product_data.image.alt} width={150}
-                                   height={150} objectFit={"cover"}/>
+                                   height={150} style={{objectFit:"cover"}}/>
                             <div>
                                 <h3>{item.name}</h3>
                                 <p>{item.sku}</p>

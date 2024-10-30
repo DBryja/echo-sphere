@@ -1,7 +1,7 @@
 "use client";
 
 import "./menu.scss";
-import Image from "next/image";
+import Image from "@components/Image";
 import Link from "@components/Link"
 
 import type {ContactDatum, MenuItem} from "@/payload-types";
@@ -52,7 +52,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
     navItems: MenuItem[],
     onItemClick: ()=>void
 }) {
-    const {email, "phone-number":phoneNumber, address, socials } = contactData;
+    const {email, "phone-number":phoneNumber, address } = contactData;
     const containerRef = useRef<HTMLElement|null>(null);
     const [itemZIndices, setItemZIndices] = useState<{[key: string]: number}>({});
     const [lastHoveredItem, setLastHoveredItem] = useState<string | null>(null);

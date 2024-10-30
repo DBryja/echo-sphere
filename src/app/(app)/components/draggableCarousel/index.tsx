@@ -21,24 +21,28 @@ interface InfiniteSliderProps {
     spaceBetween?: number;
     loop?: boolean;
     freeMode?: boolean;
+    sticky?: boolean;
     className?: string;
     id?: string;
     onSlideChange?: (swiper: SwiperType) => void;
     onSwiper?: (swiper: SwiperType) => void;
 }
 
-const InfiniteSlider: React.FC<InfiniteSliderProps> = ({
+const DraggableCarousel: React.FC<InfiniteSliderProps> = ({
                                                            slides,
                                                            slidesPerView = 'auto',
                                                            spaceBetween = 0,
                                                            loop = true,
                                                            freeMode = true,
+                                                              sticky = false,
                                                            className = '',
                                                             id = '',
                                                            onSlideChange,
                                                            onSwiper
                                                        }) => {
-    slides = [...slides, ...slides];
+
+    if(loop)
+        slides = [...slides, ...slides];
 
     return (
         <Swiper
@@ -49,7 +53,7 @@ const InfiniteSlider: React.FC<InfiniteSliderProps> = ({
             loop={loop}
             freeMode={{
                 enabled: freeMode,
-                sticky: false,
+                sticky: sticky,
             }}
             className={className}
             id={id}
@@ -65,4 +69,4 @@ const InfiniteSlider: React.FC<InfiniteSliderProps> = ({
     );
 };
 
-export default InfiniteSlider;
+export default DraggableCarousel;

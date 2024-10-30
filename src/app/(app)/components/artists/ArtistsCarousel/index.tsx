@@ -3,7 +3,7 @@ import {Artist} from "@/payload-types";
 import DraggableCarousel from "@components/draggableCarousel";
 
 import './artistsCarousel.scss'
-import Image from "next/image";
+import Image from "@components/Image";
 import {getImageUrl, getImgAlt} from "@app/utils";
 import Link from "@components/Link";
 
