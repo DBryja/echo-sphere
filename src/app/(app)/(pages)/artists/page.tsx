@@ -1,11 +1,13 @@
-import type {Artist, ArtistsArchive} from "@/payload-types";
-import Image from "next/image"
+import type {Artist} from "@/payload-types";
+import Image from "@components/Image";
 import {headers} from "next/headers"
 import {fetchArtistsArchiveCopy, fetchArtistsData} from "@app/utils/data";
-import {getAlt, getImageUrl, getImgAlt} from "@app/utils";
+import {getImageUrl, getImgAlt} from "@app/utils";
 import "./artistsArchive.scss";
 import VerticalSlider from "@components/artists/VerticalSlider"
 import Link from "@components/Link";
+import DraggableCarousel from "@components/draggableCarousel";
+import MobileArtist from "@components/artists/MobileArtist";
 
 
 export const revalidate = 86400;
@@ -15,12 +17,21 @@ export default async function Artists(){
         fetchArtistsData()
     ]);
     const device = headers().get("x-device-type") || "";
+    const isDesktop = device === "desktop";
+    const isPhone = device === "phone";
+    const isTablet = device === "tablet";
     const artists = artistsData.docs;
+    const mobileSlides = artists.map((artist: Artist, i) => {
+        return {
+        id: i,
+        content: <MobileArtist key={artist.id} artist={artist}/>
+        }
+    });
 
     return (
         <>
         <div className={"artists__wrapper"}>
-            <section className={"artists__slider__wrapper"}>
+            {device === "desktop" && <section className={"artists__slider__wrapper"}>
                 <div className={"artists__slider"}>
                     <div id="artistSlider" className={"artists__slider__container"}>
                     {artists.map((artist: Artist) => {
@@ -47,16 +58,27 @@ export default async function Artists(){
                         ))}
                     </div>
                 </div>
-            </section>
+            </section>}
             <section className={"artists__copy"}>
                 <h1 className={"artists__copy__heading"}>{copyData.heading}</h1>
                 <div className={"artists__copy__wrapper"}>
-                    <p className={"artists__copy__main"}>{copyData.subheading} {copyData.desc1} {copyData.desc2}</p>
-                    {device === "desktop" && <p className={"artists__copy__extra"}>{copyData.desc3}</p>}
+                    {(isPhone || isTablet ) && <div className={"artists__copy__main"}>
+                        <p className={"bold"}>{copyData.subheading}</p>
+                        <p>{copyData.desc1} {isTablet && copyData.desc2}</p>
+                    </div>}
+                    {isDesktop && <p className={"artists__copy__main"}>
+                        {copyData.subheading} {copyData.desc1} {copyData.desc2}
+                    </p>}
+                    {isDesktop&& <p className={"artists__copy__extra"}>{copyData.desc2}</p>}
                 </div>
             </section>
+            {(isPhone || isTablet )  && <section className={"artists__mobile-list"}>
+                <DraggableCarousel slides={mobileSlides} slidesPerView={isPhone?1.5:1.6} loop={false} freeMode={true}/>
+            </section>}
+            {isPhone && <div className={"artists__copy__extra"}><p>{copyData.desc2}</p></div>}
+
         </div>
-            <VerticalSlider qty={artists.length}/>
+            {isDesktop && <VerticalSlider qty={artists.length}/>}
         </>
     )
 }

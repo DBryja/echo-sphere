@@ -6,11 +6,12 @@ interface DefaultButtonProps {
     onClick?: () => void;
     className?: string;
     disabled?: boolean;
+    color?: "black" | "white";
 }
 
-export default function DefaultButton({children, onClick, className, disabled}: DefaultButtonProps) {
+export default function DefaultButton({children, onClick, className, disabled, color="black"}: DefaultButtonProps) {
     return (
-        <button onClick={onClick} className={`default-button ${className || ""}`} disabled={disabled}>
+        <button onClick={onClick} className={`default-button default-button--${color} ${className || ""}`} disabled={disabled}>
             {children}
         </button>
     );

@@ -11,16 +11,34 @@
   padding: 7.5px 32px;
   border: none;
   cursor: pointer;
-  color: $white;
-  background-color: $black;
   border-radius: 4px;
-  @include typo-btn;
+  @include typo-btn-small;
+  font-weight: 400;
   transition: color 0.3s, background-color 0.3s;
   flex-grow: 0;
   width: min-content;
   white-space: nowrap;
 
+  &--black{
+    color: $white;
+    background-color: $black;
+    &:active{
+      color: $black;
+      background-color: $red;
+    }
+  }
+  &--white{
+    color: $gray-600;
+    background-color: $white;
+    &:active{
+      color: $white;
+      background-color: $black;
+    }
+  }
+
+
   @include breakpoint("md"){
+    @include typo-btn;
     padding: 11px 32px;
   }
   @include breakpoint("lg"){
@@ -32,10 +50,5 @@
       color: $black;
       background-color: $gray-200;
     }
-  }
-
-  &:active{
-    color: $black;
-    background-color: $red;
   }
 }
