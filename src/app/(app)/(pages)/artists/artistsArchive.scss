@@ -2,6 +2,15 @@
 @import "@globals/colors.module";
 @import "@globals/typography";
 
+body:has(.artists__wrapper.isDesktop){
+  height: 100vh;
+  overflow: hidden;
+
+  footer{
+    display: none;
+  }
+}
+
 .artists {
   &__wrapper {
     display: flex;
@@ -21,9 +30,12 @@
     @include breakpoint("xl"){
       display: grid;
       @include ignoreMarginWidth;
-      grid-template-columns: 1fr minmax(780px, 50%);
+      padding-top: 0;
+      grid-template-columns: 1fr minmax(780px, 920px);
       grid-template-rows: 1fr;
-      overflow: hidden;
+      position: fixed;
+      overflow: scroll;
+      //position: relative;
       &:has(.slider__item:hover){
         .artists__slider__info{
           opacity: 1
@@ -69,9 +81,9 @@
     @include breakpoint("xl"){
       grid-column: unset;
       margin-top: 300px;
-      margin-left: $space-10;
+      margin-left: clamp(0px, 40px, 80px);
       row-gap: $space-10;
-      max-width: 680px;
+      //max-width: 680px;
     }
 
     &__heading {
@@ -84,6 +96,7 @@
         @include typo-h2;
       }
       @include breakpoint("xl"){
+        max-width: 700px;
         @include typo-display;
       }
     }
@@ -99,6 +112,9 @@
     &__wrapper {
       display: flex;
       flex-direction: column;
+      @include breakpoint("xl") {
+      max-width: 680px;
+      }
     }
     &__extra {
       @include breakpoint-max("md"){
@@ -112,6 +128,38 @@
     }
   }
 
+  &__list{
+    width: 100%;
+    max-width: 680px;
+    margin-bottom: 110px;
+    &__heading{
+      @include typo-h3;
+      color: $red;
+      text-transform: uppercase;
+    }
+    &__item{
+      width: 100%;
+      display: flex;
+      padding: $space-2 var(--l);
+      justify-content: start;
+      align-items: center;
+      @include typo-sub2;
+      font-weight: 400;
+      border-bottom: 2px solid $gray-400;
+      position: relative;
+      z-index: 2;
+      &:before{
+        display: block;
+        content: '';
+        inset: 0;
+        position: absolute;
+        background-color: $gray-200;
+        z-index: -1;
+        clip-path: inset(var(--top) 0 var(--bottom) 0);
+        //transition: clip-path 0.3s ease-in-out;
+      }
+    }
+  }
   &__mobile-list{
     grid-column: 1/-1;
     width: 100vw;

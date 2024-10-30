@@ -10,7 +10,11 @@ const ImageWithFallback = ({
                                className,
                                ...props
                            } : ImageProps) => {
-    const [error, setError] = useState(typeof src === "string" ? !src.startsWith('/img') : true);
+    const fixedError = (process.env.NEXT_PUBLIC_NODE_ENV === "dev")
+        ? (typeof src === "string" && !src.startsWith('/img'))
+        : (typeof src === "string" ? !src.startsWith('/img') : true);
+
+    const [error, setError] = useState(fixedError);
 
     // Base64 encoded gradient - you can generate your own at https://png-pixel.com
     const placeholderDataUrl = "data:image/svg+xml;base64," + btoa(`
