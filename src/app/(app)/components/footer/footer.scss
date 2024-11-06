@@ -37,12 +37,13 @@ body:has(.footer){
 
   &__decor{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     row-gap: $space-4;
-    height: $buttonHeight;
     svg{
-      height: min-content !important;
+      height: 50px !important;
+    }
+    &__socials{
+      height: $buttonHeight;
     }
     @include breakpoint("md"){
       grid-column: 1;
@@ -98,12 +99,17 @@ body:has(.footer){
     }
   }
   &__link{
-    @include typo-sub2;
+    @include typo-sub3;
     white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 500;
     @include hoverable{
       &:hover{
         color: $red;
       }
+    }
+    @include breakpoint("md"){
+        @include typo-sub2;
     }
   }
   &__contact{

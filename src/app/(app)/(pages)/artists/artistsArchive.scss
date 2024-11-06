@@ -119,8 +119,24 @@ body:has(.artists__wrapper.isDesktop){
     &__extra {
       @include breakpoint-max("md"){
         @include typo-sub4;
-        text-align: center;
-        padding: $space-4 0;
+        @include ignoreMarginWidth;
+        background-color: $white;
+        position: relative;
+        p{
+          padding: $space-4 calc($margin + 2px);
+          width: 100%;
+          white-space: wrap;
+          word-wrap: normal;
+        }
+        &:after{
+          display: block;
+          position: absolute;
+          font-family: $nats;
+          content: "”";
+          font-size: 5rem;
+          bottom: $space-2;
+          right: calc($margin + 6px);
+        }
       }
       @include breakpoint("xl"){
         margin-top: $space-2;
