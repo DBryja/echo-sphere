@@ -88,11 +88,10 @@ body:has(.menu.active){
     flex-direction: column;
     grid-column: 1/-1;
     row-gap: $space-3;
-    margin-top: calc($headerTop);
-    @include typo-sub2;
+    margin-top: calc($headerTop*2 + $buttonHeight + $space-1);
+    @include typo-sub3;
     text-transform: uppercase;
     @include breakpoint("md"){
-      margin-top: calc($headerTop*2 + $buttonHeight);
       @include typo-sub1;
       row-gap: $space-4;
       grid-column: 1/-1;

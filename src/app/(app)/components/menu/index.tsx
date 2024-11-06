@@ -73,7 +73,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
     const logoTimeline = useRef<GSAPTimeline | null>(null);
     const isFirstRender = useRef(true);
     const hasBeenOpened = useRef(false);
-    let selectors = [".menu__links .enter-anim"];
+    let selectors = [".menu__links .enter-anim", ".menu__logo"];
     if(isTablet) selectors = [".menu__links .enter-anim", ".menu__contact .enter-anim", ".menu__logo"];
 
     useGSAP(() => {
@@ -129,7 +129,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
     //     @ts-ignore
     }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
     useGSAP(() => {
-        if(!isTablet) return;
+        if(isDesktop) return;
         if (logoTimeline.current) logoTimeline.current.kill();
         const logoTl = gsap.timeline();
         logoTimeline.current = logoTl;
@@ -154,7 +154,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
             }
         }
         //     @ts-ignore
-    }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
+    }, { scope: containerRef.current, dependencies: [isOpen, isDesktop] });
 
     useEffect(() => {
         if(!isDesktop) return;
@@ -240,7 +240,6 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
                     <Link data-name={item.name} key={index} href={item.path.startsWith("/")?item.path:`/${item.path}`} onItemClick={onItemClick} className="enter-anim">{item.name}</Link>
                 ))}
             </div>
-            {/*TODO: Move this to outside component*/}
             <div className="menu__contact-wrapper">
                 {isTablet &&
                     <div className={"menu__contact contact-comp"}>
@@ -255,7 +254,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
                 </div>
             </div>
 
-            {isTablet && <div className={"menu__corner-logo"}>
+            {!isDesktop && <div className={"menu__corner-logo"}>
                 <Logo/>
             </div>}
         </section>
