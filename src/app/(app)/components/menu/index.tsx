@@ -11,6 +11,7 @@ import {useEffect, useRef, useState} from "react";
 import {useWindowWidth} from "@hooks/useWindowWidth";
 
 import variables from "@globals/_variables.module.scss"
+import colors from "@globals/_colors.module.scss"
 import Logo from "@components/shared/logo/logo-css";
 import {useGSAP} from "@gsap/react";
 
@@ -76,6 +77,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
     let selectors = [".menu__links .enter-anim", ".menu__logo"];
     if(isTablet) selectors = [".menu__links .enter-anim", ".menu__contact .enter-anim", ".menu__logo"];
 
+    // Menu items animation
     useGSAP(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
@@ -126,23 +128,22 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
                 menuItemsTimeline.current.kill();
             }
         }
-    //     @ts-ignore
-    }, { scope: containerRef.current, dependencies: [isOpen, isTablet] });
+    }, { scope: containerRef.current!, dependencies: [isOpen, isTablet] });
+    // Icon color animation
     useGSAP(() => {
-        if(isDesktop) return;
         if (logoTimeline.current) logoTimeline.current.kill();
         const logoTl = gsap.timeline();
         logoTimeline.current = logoTl;
 
         if(isOpen) {
             logoTl.to(".logoSVG", {
-                ["--logo-icon-color"]: "#F2F2F2",
+                ["--logo-icon-color"]: colors["white"],
                 ease: "power2.in",
                 duration: 0.5,
             })
         } else{
             logoTl.to(".logoSVG", {
-                ["--logo-icon-color"]: "#FF4820",
+                ["--logo-icon-color"]: colors["red"],
                 ease: "power2.in",
                 duration: 0.3,
             })
@@ -153,9 +154,9 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
                 logoTimeline.current.kill();
             }
         }
-        //     @ts-ignore
-    }, { scope: containerRef.current, dependencies: [isOpen, isDesktop] });
+    }, { scope: containerRef.current!, dependencies: [isOpen, isDesktop] });
 
+    // Menu item hover on desktop
     useEffect(() => {
         if(!isDesktop) return;
 
@@ -171,7 +172,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
             });
         }
     }, [lastHoveredItem, isDesktop]);
-
+    // Menu item hover on desktop
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -254,9 +255,9 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
                 </div>
             </div>
 
-            {!isDesktop && <div className={"menu__corner-logo"}>
+            <div className={"menu__corner-logo"}>
                 <Logo/>
-            </div>}
+            </div>
         </section>
     );
 }

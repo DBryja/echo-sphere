@@ -33,7 +33,7 @@ export default async function Artists(){
     return (
         <>
         <div className={`artists__wrapper ${isDesktop?"isDesktop":""}`}>
-            {device === "desktop" && <section className={"artists__slider__wrapper"}>
+            {device === "desktop" && <div className={"artists__slider__wrapper"}>
                 <div className={"artists__slider"}>
                     <div id="artistSlider" className={"artists__slider__container"}>
                     {artists.map((artist: Artist) => {
@@ -60,7 +60,7 @@ export default async function Artists(){
                         ))}
                     </div>
                 </div>
-            </section>}
+            </div>}
             <section className={"artists__copy"}>
                 <h1 className={"artists__copy__heading"}>{copyData.heading}</h1>
                 <div className={"artists__copy__wrapper"}>
@@ -72,9 +72,17 @@ export default async function Artists(){
                         {copyData.subheading} {copyData.desc1} {copyData.desc2}
                     </p>}
                     {isDesktop&& <p className={"artists__copy__extra"}>{copyData.desc2}</p>}
+                    {isDesktop && <div className={"artists__copy__arrow"}>
+                        <div className={"artists__copy__arrow__icon"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24.5 11L24.5 36M24.5 36L12.5 24M24.5 36L36.5 24" stroke="#F2F2F2" strokeWidth="3"
+                                  strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        </div>
+                    </div>}
                 </div>
                 {isDesktop && <div className={"artists__list"}>
-                    <h3 className={"artists__list__heading"}>Learn more</h3>
+                    <h3 className={"artists__list__heading"}>Meet echo artists</h3>
                     {artists.map((artist: Artist) => {
                         return <AnimatedRow key={artist.id}>
                             <Link  className={"artists__list__item"} href={`/artists/${artist.id}`}>
@@ -94,6 +102,3 @@ export default async function Artists(){
         </>
     )
 }
-
-
-//Todo: add buttons
