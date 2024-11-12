@@ -8,6 +8,7 @@ import Cart from "@/app/(app)/providers/Cart";
 import Header from "@components/shared/header";
 
 import {TransitionProvider} from "@providers/TransitionContext";
+import LenisGsap from "@providers/LenisGsap";
 import TransitionBox from "@components/pageTransition/TransitionBox"
 import TransitionHandler from "@components/pageTransition/TransitionHandler"
 import Footer from "@components/footer";
@@ -33,21 +34,21 @@ interface LayoutProps {
 export default async function RootLayout({children}: LayoutProps) {
   return (
       <TransitionProvider>
-        <html lang="en">
-          <body className={`${natsRegular.variable} ${kokoroRegular.variable} bg-gray-300`}>
-          <TransitionBox/>
-          <TransitionHandler/>
-          <Cart>
-                {/*<AnimatePresence mode={"wait"} initial={"false"}>*/}
-                    <Header/>
-                     <main>
-                         {children}
-                     </main>
-                    <Footer/>
-                {/*</AnimatePresence>*/}
-            </Cart>
-          </body>
-        </html>
+            <html lang="en">
+              {/*<LenisGsap>*/}
+              <body className={`${natsRegular.variable} ${kokoroRegular.variable} bg-gray-300`}>
+              <TransitionBox/>
+              <TransitionHandler/>
+              <Cart>
+                        <Header/>
+                         <main>
+                             {children}
+                         </main>
+                        <Footer/>
+                </Cart>
+              </body>
+                {/*</LenisGsap>*/}
+            </html>
       </TransitionProvider>
   );
 }
