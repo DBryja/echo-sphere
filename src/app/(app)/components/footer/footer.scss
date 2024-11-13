@@ -59,10 +59,12 @@ body:has(.footer){
     @include breakpoint("xl"){
       &__socials{
         flex-direction: row;
+        height: auto;
       }
       width: 300px;
       grid-column: 1/4;
       svg{
+        height: auto !important;
         width: 250px;
       }
     }
