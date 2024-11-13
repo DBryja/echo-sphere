@@ -8,12 +8,12 @@
   grid-template-rows: 1fr;
   column-gap: $space-3;
 
-    img{
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 6px solid $red;
-    }
+  img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 6px solid $red;
+  }
 
   h4{
     @include typo-sub3;
@@ -24,5 +24,14 @@
     @include typo-label;
     line-height: 100%;
     margin-top: 4px;
+  }
+
+  &--big{
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    row-gap: $space-2;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
   }
 }

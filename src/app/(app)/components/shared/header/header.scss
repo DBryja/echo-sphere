@@ -17,6 +17,11 @@
   display: flex;
   justify-content: space-between;
   grid-template-rows: auto;
+  pointer-events: none;
+
+  &>*{
+    pointer-events: auto;
+  }
 
     @include breakpoint("md"){
       background-color: transparent;

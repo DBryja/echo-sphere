@@ -3,11 +3,11 @@ import Image from "@components/Image";
 import {getImageUrl, getImgAlt} from "@app/utils";
 import "./album.scss";
 
-export default async function Album({item}:{item:Release}){
+export default async function Album({item, big}:{item:Release, big?:boolean}){
 
     return (
-        <div className="album">
-                <Image src={getImageUrl(item["img-cover"])} alt={getImgAlt(item["img-cover"])} width={150} height={150}/>
+        <div className={`album ${big?"album--big":""}`}>
+                <Image src={getImageUrl(item["img-cover"])} alt={getImgAlt(item["img-cover"])} width={big?512:256} height={big?512:256}/>
             <div className={"album__details"}>
                 <h4>{item.name}</h4>
                 <p>{item.authors}</p>
