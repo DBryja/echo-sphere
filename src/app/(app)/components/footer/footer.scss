@@ -17,6 +17,7 @@ body:has(.footer){
 
 .footer{
   grid-column: 1/-1;
+  grid-row: -1;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: $space-5;
