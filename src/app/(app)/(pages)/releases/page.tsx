@@ -21,7 +21,7 @@ export default async function Releases(){
     const slides:ISlide[] = releases.map((item, i)=>({
         id: i,
         cover: <div className={"releases__carousel__item"}>
-            <Album item={item}/>
+            <Album item={item} big={!isPhone}/>
         </div>,
         title: `${item.authors} / ${item.name}`,
         links: item.links
