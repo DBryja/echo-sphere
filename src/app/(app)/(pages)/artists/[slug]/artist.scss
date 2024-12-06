@@ -272,12 +272,7 @@ body:has(.artist__wrapper){
       }
     }
     &:before{
-      content: '';
-      display: block;
-      @include ignoreMarginWidth;
-      height: 2px;
-      position: absolute;
-      background-color: $gray-400;
+      @include horizontalLine;
       top: calc(-2 * $margin);
 
       @include breakpoint("xl"){

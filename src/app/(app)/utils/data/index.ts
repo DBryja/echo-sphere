@@ -82,3 +82,12 @@ export const fetchArtistsArchiveCopy = cache(async (): Promise<ArtistsArchive> =
     ).docs[0];
 });
 
+export const fetchReleases = cache(async (): Promise<Release[]> => {
+    return (
+        await payload.find({
+            collection: "releases",
+            pagination: false
+        })
+    ).docs;
+});
+
