@@ -33,3 +33,12 @@ $dotPath: "/img/dot.svg";
   width: calc(100% + 2 * $margin + 5px);
   margin: 0 calc(-1 * $margin);
 }
+
+@mixin horizontalLine{
+  content: '';
+  display: block;
+  @include ignoreMarginWidth;
+  height: 2px;
+  position: absolute;
+  background-color: $gray-400;
+}

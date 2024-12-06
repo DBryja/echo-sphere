@@ -10,6 +10,7 @@ import DraggableCarousel from "@components/draggableCarousel";
 import MobileArtist from "@components/artists/MobileArtist";
 import ScrollAnimation from "@components/artists/ScrollAnimation";
 import AnimatedRow from "@components/artists/AnimatedRow";
+import getDevice from "@utils/get-device";
 
 
 export const revalidate = 86400;
@@ -18,10 +19,7 @@ export default async function Artists(){
         fetchArtistsArchiveCopy(),
         fetchArtistsData()
     ]);
-    const device = headers().get("x-device-type") || "";
-    const isDesktop = device === "desktop";
-    const isPhone = device === "phone";
-    const isTablet = device === "tablet";
+    const {device, isDesktop, isTablet, isPhone} = getDevice();
     const artists = artistsData.docs;
     const mobileSlides = artists.map((artist: Artist, i) => {
         return {

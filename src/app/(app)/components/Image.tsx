@@ -12,7 +12,7 @@ const ImageWithFallback = ({
                            } : ImageProps) => {
     const fixedError = (process.env.NEXT_PUBLIC_NODE_ENV === "dev")
         ? (typeof src === "string" && !src.startsWith('/img'))
-        : (typeof src === "string" ? !src.startsWith('/img') : true);
+        : false;
 
     const [error, setError] = useState(fixedError);
 
