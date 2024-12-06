@@ -9,7 +9,7 @@ export interface SocialIconProps{
 }
 
 export default function Index({href, social, red}:SocialIconProps){
-    return <a href={href} target={"_blank"} rel={"noopener noreferrer"} className={`social-icon`}>
+    return <a href={href} target={"_blank"} rel={"noopener noreferrer"} className={`social-icon ${red?"social-icon--red":""}`}>
         <Image src={`/img/socials/${red?"red/":""}${social}.svg`} alt={social} width={80} height={80}/>
     </a>
 }

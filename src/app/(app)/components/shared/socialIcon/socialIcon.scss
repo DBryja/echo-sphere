@@ -1,23 +1,38 @@
 @import "@globals/mixins";
 @import "@globals/colors.module";
 .social-icon{
-  img{
+  img {
     width: 48px;
     height: 48px;
 
-    @include breakpoint("md"){
-        width: 64px;
-        height: 64px;
+    @include breakpoint("md") {
+      width: 64px;
+      height: 64px;
     }
 
-    @include breakpoint("xl"){
-        width: 72px;
-        height: 72px;
+    @include breakpoint("xl") {
+      width: 72px;
+      height: 72px;
     }
 
-    @include breakpoint("2xl"){
-        width: 80px;
-        height: 80px;
+    @include breakpoint(2xl) {
+      width: 80px;
+      height: 80px;
+    }
+
+    transition: opacity 0.1s ease-in-out, filter 0.1s ease-in-out;
+  }
+  &:not(.social-icon--red):hover {
+      img{
+        opacity: 0.5;
+      }
+  }
+
+  &--red{
+    img{
+      &:hover{
+        filter: grayscale(1);
+      }
     }
   }
 }

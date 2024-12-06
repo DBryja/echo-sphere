@@ -11,6 +11,14 @@
     @include breakpoint("md"){
       padding-top: calc($headerTop * 2);
     }
+
+    @include breakpoint("lg"){
+      @include ignoreMarginWidth;
+      padding-top: 0;
+      display: grid;
+      height: 100dvh;
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__heading{
@@ -28,6 +36,33 @@
       margin-top: $space-3;
       @include typo-h2;
     }
+
+    @include breakpoint("lg"){
+      @include typo-display;
+      margin: 0;
+      font-size: 150px;
+      padding-left: calc($margin - 14px);
+      top: 414px;
+      position: absolute;
+      z-index: 1;
+      width: 49dvw;
+      word-break: break-word;
+      white-space: break-spaces;
+      text-align: left;
+      line-height: 55%;
+      letter-spacing: -10px;
+    }
+
+    @include breakpoint("xl"){
+      font-size: 190px;
+    }
+    @include breakpoint(2xl){
+      font-size: 210px;
+    }
+    @include breakpoint(3xl){
+      font-size: 230px;
+    }
+
   }
 
   &__copy{
@@ -48,6 +83,26 @@
       margin: 0 auto;
       padding: 0 $space-6 $space-6 $space-6;
     }
+    
+    @include breakpoint("lg"){
+      width: 100%;
+      background-color: $gray-200;
+      padding-top: 720px;
+      padding-left: 128px;
+      text-align: start;
+      text-wrap: balance;
+      position: relative;
+      &:after{
+        display: none;
+      }
+      &:before{
+        @include beforeDot;
+        width: 64px;
+        height: 64px;
+        top: 720px;
+        left: $margin;
+      }
+    }
   }
 
   &__carousel{ //.releases__carousel
@@ -58,6 +113,20 @@
       margin-top: $space-10;
     }
 
+    @include breakpoint("lg") {
+      width: 100%;
+      position: relative;
+      margin: 0;
+      clip-path: polygon(-100% 85%, 0% 85%, 0% 0%, 100% 0%, 100% 100%, -100% 100%);
+
+      .carousel-container{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 160%;
+      }
+    }
 
     .carousel{ //.releases__carousel .carousel - components/releases/carousel
       &__bar{
@@ -78,6 +147,15 @@
           min-height: unset;
           padding: $space-6 $space-4;
         }
+        @include breakpoint(lg){
+          margin: 0;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          padding: $space-1 $margin $space-1 0;
+          width: 101vw;
+          z-index: 5;
+        }
 
 
         &__name{
@@ -95,6 +173,12 @@
             text-align: right;
             justify-content: flex-end;
           }
+          @include breakpoint("lg"){
+            @include typo-sub1;
+          }
+          @include breakpoint(2xl){
+            @include typo-h3;
+          }
         }
 
         &__icons{
@@ -110,6 +194,12 @@
             a img{
               width: 40px;
               height: 40px;
+            }
+          }
+          @include breakpoint("lg"){
+            a img{
+              width: 48px;
+              height: 48px;
             }
           }
         }

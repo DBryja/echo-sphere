@@ -35,7 +35,7 @@ export default async function Releases(){
                 {!isPhone && " Whether you're into electronic beats, indie vibes, or something in between, you're sure to find sounds that resonate with you."}
             </p>
             <div className={"releases__carousel"}>
-                <Carousel slides={slides} gap={isPhone?64:128} spv={isDesktop?3:1.5}/>
+                <Carousel slides={slides} gap={isPhone?64:256} spv={isDesktop?2:1.5}/>
             </div>
         </div>
     )
