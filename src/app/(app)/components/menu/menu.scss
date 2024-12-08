@@ -39,7 +39,7 @@ body:has(.menu.active){
     background-color: $red;
     transition: inset 0.5s ease-in-out 0.1s;
     @include breakpoint("lg"){
-      inset: 4px 0 calc(100% - $buttonHeight - 4px) calc(100% - $buttonWidth);
+      inset: 12px 0 calc(100% - $buttonHeight - 12px) calc(100% - $buttonWidth);
       transition: inset 0.5s cubic-bezier(.89,0,.35,1);
     }
   }
