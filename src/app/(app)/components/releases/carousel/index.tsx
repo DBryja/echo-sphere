@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import type {Swiper as SwiperType} from "swiper"
 import debounce from 'lodash/debounce';
-import {EffectCoverflow} from "swiper/modules";
+import {EffectCoverflow, Navigation} from "swiper/modules";
 import {ISlide} from "@app/(pages)/releases/page";
 import gsap from "gsap";
 
@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import Icon, {Socials} from "@components/shared/socialIcon";
 
-export default function Carousel({slides, gap, spv}: {slides: ISlide[], gap: number, spv:number}){
+export default function Carousel({slides}: {slides: ISlide[]}) {
     const [currentSlide, setCurrentSlide] = useState<ISlide | null>(null);
 
     useEffect(() => {
@@ -28,8 +28,6 @@ export default function Carousel({slides, gap, spv}: {slides: ISlide[], gap: num
 
     return <>
         <Swiper
-            slidesPerView={spv}
-            spaceBetween={gap}
             onSlideChange={debounce((swiper: SwiperType) => setCurrentSlide(slides[swiper.realIndex]), 100)}
             centeredSlides={true}
             effect={"coverflow"}
@@ -40,9 +38,37 @@ export default function Carousel({slides, gap, spv}: {slides: ISlide[], gap: num
                 modifier: 1,
                 slideShadows: false
             }}
+            breakpoints={{
+                0: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 64,
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 96,
+                },
+                1024: {
+                    slidesPerView: 2,
+                    spaceBetween: 128,
+                },
+                1440: {
+                    slidesPerView: 2,
+                    spaceBetween: 180,
+                },
+                1600:{
+                    slidesPerView: 2,
+                    spaceBetween: 264,
+                }
+            }}
             loop={true}
             pagination={false}
-            modules={[EffectCoverflow]}
+            navigation={
+                {
+                    nextEl: '.nav-btn--next',
+                    prevEl: '.nav-btn--prev'
+                }
+            }
+            modules={[EffectCoverflow, Navigation]}
             className={"carousel-container"}
         >
             {slides.map((slide, i) => (
@@ -62,6 +88,10 @@ export default function Carousel({slides, gap, spv}: {slides: ISlide[], gap: num
                     </div>
                 </>
             )}
+        </div>
+        <div className={"carousel__navigation"}>
+            <button className={"nav-btn nav-btn--prev"}>👈</button>
+            <button className={"nav-btn nav-btn--next"}>👉</button>
         </div>
     </>
 }
