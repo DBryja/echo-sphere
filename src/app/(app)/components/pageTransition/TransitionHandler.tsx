@@ -15,8 +15,10 @@ export default function TransitionHandler() {
             transitionBoxRef.current?.classList.remove("initial");
             return;
         }
-        endTransition();
-    }, [pathname, endTransition]);
+        requestAnimationFrame(() => {
+            endTransition();
+        });
+    }, [isInitialLoad, transitionBoxRef, pathname, endTransition]);
 
     return null;
 };

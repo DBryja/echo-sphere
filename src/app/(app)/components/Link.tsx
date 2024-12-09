@@ -9,7 +9,8 @@ import {Url} from "next/dist/shared/lib/router/router";
 interface CustomLinkProps extends LinkProps {
     children: React.ReactNode,
     className?: string,
-    onItemClick?: ()=>void
+    onItemClick?: ()=>void,
+    isMenu?: boolean
 }
 const comparePaths = (pathname:string, href:(string| Url)):boolean => {
     const normalize = (path:(string|Url)) => {
@@ -20,7 +21,7 @@ const comparePaths = (pathname:string, href:(string| Url)):boolean => {
     return normalize(pathname) === normalize(hrefPath);
 };
 
-export default function Link({ children, onItemClick, className, ...props }:CustomLinkProps){
+export default function Link({ children, onItemClick, className, isMenu, ...props }:CustomLinkProps){
     const router = useRouter();
     const { startTransition, transitionDuration } = useTransition();
     const pathname = usePathname();
@@ -28,10 +29,13 @@ export default function Link({ children, onItemClick, className, ...props }:Cust
     const arePathsEqual = comparePaths(pathname, href);
 
     const handleClick = () => {
-        startTransition();
-        setTimeout(() => {
-            router.push(props.href.toString());
-        }, transitionDuration*1000); // Adjust this timing to match your transition duration
+        if(!isMenu){
+            startTransition();
+            setTimeout(() => {
+                router.push(props.href.toString());
+            }, transitionDuration*1000);
+        }
+        else router.push(props.href.toString());
     };
 
     const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>{

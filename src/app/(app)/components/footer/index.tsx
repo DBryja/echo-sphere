@@ -29,7 +29,7 @@ export default async function Footer(){
         </div>
         <div className={"footer__links"}>
             {navItems.map((item, index) =>
-                <Link key={index} className={"footer__link"} href={item.path}>{item.name}</Link>
+                <Link key={index} className={"footer__link"} href={item.path.startsWith('/') ? item.path : `/${item.path}`}>{item.name}</Link>
             )}
         </div>
         <div className={"footer__contact contact-comp"}>

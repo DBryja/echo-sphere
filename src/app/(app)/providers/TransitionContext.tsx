@@ -38,7 +38,7 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 yPercent: -200,
                 duration: transitionDuration,
                 ease: "power2.out"
-            },`>0.2`)
+            },`>0.4`)
         }
     }, [direction]);
 

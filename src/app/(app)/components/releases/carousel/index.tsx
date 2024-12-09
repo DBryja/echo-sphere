@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import type {Swiper as SwiperType} from "swiper"
 import debounce from 'lodash/debounce';
@@ -22,7 +22,7 @@ export default function Carousel({slides}: {slides: ISlide[]}) {
 
     useEffect(() => {
         if (currentSlide) {
-            gsap.fromTo(".carousel__bar__name", { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: 0.3 });
+            gsap.fromTo(".carousel__bar__name", { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: 0.5 });
         }
     }, [currentSlide]);
 
@@ -56,7 +56,7 @@ export default function Carousel({slides}: {slides: ISlide[]}) {
                     spaceBetween: 180,
                 },
                 1600:{
-                    slidesPerView: 2,
+                    slidesPerView: 2.3,
                     spaceBetween: 264,
                 }
             }}
@@ -68,8 +68,10 @@ export default function Carousel({slides}: {slides: ISlide[]}) {
                     prevEl: '.nav-btn--prev'
                 }
             }
+            speed={500}
+            grabCursor={true}
             modules={[EffectCoverflow, Navigation]}
-            className={"carousel-container"}
+            className={"carousel-container carousel-container--releases"}
         >
             {slides.map((slide, i) => (
                 <SwiperSlide key={i}>

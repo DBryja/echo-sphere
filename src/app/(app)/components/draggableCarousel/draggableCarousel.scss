@@ -1,4 +1,4 @@
-.carousel-container {
+.carousel-container:not(.carousel-container--releases) {
   width:100vw !important;
   overflow: hidden;
   position: relative;

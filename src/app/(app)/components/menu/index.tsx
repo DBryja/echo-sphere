@@ -238,7 +238,7 @@ export default function Menu({isOpen, contactData, navItems, onItemClick}:{
             }
             <div className={"menu__links"}>
                 {navItems.map((item, index) => (
-                    <Link data-name={item.name} key={index} href={item.path.startsWith("/")?item.path:`/${item.path}`} onItemClick={onItemClick} className="enter-anim">{item.name}</Link>
+                    <Link data-name={item.name} key={index} isMenu href={item.path.startsWith("/")?item.path:`/${item.path}`} onItemClick={onItemClick} className="enter-anim">{item.name}</Link>
                 ))}
             </div>
             <div className="menu__contact-wrapper">
