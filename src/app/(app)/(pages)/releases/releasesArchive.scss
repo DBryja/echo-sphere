@@ -42,7 +42,7 @@
       margin: 0;
       font-size: 150px;
       padding-left: calc($margin - 14px);
-      top: 414px;
+      bottom: 350px;
       position: absolute;
       z-index: 1;
       width: 49dvw;
@@ -87,20 +87,30 @@
     @include breakpoint("lg"){
       width: 100%;
       background-color: $gray-200;
-      padding-top: 720px;
-      padding-left: 128px;
       text-align: start;
       text-wrap: balance;
       position: relative;
+      display: flex;
+      align-items: end;
+      padding-bottom: 196px;
+      padding-left: $margin;
       &:after{
         display: none;
       }
-      &:before{
-        @include beforeDot;
-        width: 64px;
-        height: 64px;
-        top: 720px;
-        left: $margin;
+      span{
+        position: relative;
+        display: block;
+        padding-left: 96px;
+        max-width: 700px;
+        &:before{
+          @include beforeDot;
+          position: absolute;
+          display: block;
+          width: 64px;
+          height: 64px;
+          top: 0;
+          left: 0;
+        }
       }
     }
   }
@@ -178,6 +188,7 @@
           }
           @include breakpoint(2xl){
             @include typo-h3;
+            font-size: 7.5rem;
           }
         }
 
@@ -202,6 +213,12 @@
               height: 48px;
             }
           }
+        }
+      }
+      &__navigation{
+        .nav-btn{
+          &--prev{}
+          &--next{}
         }
       }
     }

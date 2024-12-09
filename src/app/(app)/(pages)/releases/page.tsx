@@ -16,7 +16,7 @@ export interface ISlide {
 export const revalidate = 86400;
 export default async function Releases(){
     const releases = await fetchReleases();
-    const {isPhone, isDesktop, isTablet} = getDevice();
+    const {isPhone} = getDevice();
 
     const slides:ISlide[] = releases.map((item, i)=>({
         id: i,
@@ -31,11 +31,13 @@ export default async function Releases(){
         <div className={"releases__wrapper"}>
             <h1 className={"releases__heading"}>NEW RELEASES</h1>
             <p className={"releases__copy"}>
-                Discover the latest albums from Echo Sphere artists, freshly released and ready for you to explore.
-                {!isPhone && " Whether you're into electronic beats, indie vibes, or something in between, you're sure to find sounds that resonate with you."}
+                <span>
+                    Discover the latest albums from Echo Sphere artists, freshly released and ready for you to explore.
+                    {!isPhone && " Whether you're into electronic beats, indie vibes, or something in between, you're sure to find sounds that resonate with you."}
+                </span>
             </p>
             <div className={"releases__carousel"}>
-                <Carousel slides={slides} gap={isPhone?64:256} spv={isDesktop?2:1.5}/>
+                <Carousel slides={slides}/>
             </div>
         </div>
     )
