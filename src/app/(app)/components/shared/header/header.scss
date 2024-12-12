@@ -1,7 +1,7 @@
 @import "@globals/variables";
 @import "@globals/colors.module";
 
-.header{
+.header {
   position: fixed;
   grid-column: 1/-1;
   grid-row: 1;
@@ -19,36 +19,37 @@
   grid-template-rows: auto;
   pointer-events: none;
 
-  &>*{
+  & > * {
     pointer-events: auto;
   }
 
-    @include breakpoint("md"){
-      background-color: transparent;
-      box-shadow: none;
-    }
+  @include breakpoint("md") {
+    background-color: transparent;
+    box-shadow: none;
+  }
 
-  @include breakpoint("lg"){
+  @include breakpoint("lg") {
     height: calc($headerTop * 2 + $space-8);
     margin: 0 calc(-1 * $margin) 0 calc(-1 * $margin);
   }
-  @include breakpoint("xl"){
+  @include breakpoint("xl") {
     height: calc($headerTop * 2 + $space-10);
   }
 
-  &__nav, &__menu{
+  &__nav,
+  &__menu {
     width: max-content;
     position: absolute;
     right: 0;
   }
 
-  &[data-state="button"]{
-    .open-cart{
+  &[data-state="button"] {
+    .open-cart {
       right: 24px;
     }
   }
-  &[data-state="nav"]{
-    .open-cart{
+  &[data-state="nav"] {
+    .open-cart {
       position: absolute;
       right: 4px;
       top: 56px;
@@ -56,7 +57,7 @@
   }
 }
 
-.open-cart{
+.open-cart {
   position: relative;
   border: none;
   background-color: transparent;
@@ -64,11 +65,11 @@
   height: 48px;
   cursor: pointer;
   transition: inset 0.3s ease-in-out 0.1s;
-  svg{
+  svg {
     height: 100%;
     width: 100%;
   }
-  &:after{
+  &:after {
     content: attr(data-qty);
     display: block;
     position: absolute;
@@ -79,7 +80,7 @@
     left: 60%;
     background-color: $red;
     color: $white;
-    @include breakpoint("md"){
+    @include breakpoint("md") {
       line-height: 75%;
     }
   }

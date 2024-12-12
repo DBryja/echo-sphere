@@ -1,17 +1,17 @@
-$red: #FF4820;
+$red: #ff4820;
 
-$white: #F2F2F2;
+$white: #f2f2f2;
 $black: #040404;
 
-$gray-200: #CACACA;
-$gray-400: #8E8E8E;
-$gray-600: #5E5A56;
+$gray-200: #cacaca;
+$gray-400: #8e8e8e;
+$gray-600: #5e5a56;
 
-:export{
-    red: $red;
-    white: $white;
-    black: $black;
-    gray200: $gray-200;
-    gray400: $gray-400;
-    gray600: $gray-600;
+:export {
+  red: $red;
+  white: $white;
+  black: $black;
+  gray200: $gray-200;
+  gray400: $gray-400;
+  gray600: $gray-600;
 }

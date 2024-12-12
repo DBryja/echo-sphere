@@ -1,7 +1,7 @@
 @import "@globals/variables";
 @import "@globals/typography";
 
-.event-row{
+.event-row {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -9,51 +9,51 @@
   flex-grow: 0;
   flex-shrink: 0;
 
-  &__date{
+  &__date {
     @include typo-sub3;
   }
-  &__title{
+  &__title {
     @include typo-label;
     margin-bottom: $space-2;
     //text-transform: uppercase;
   }
-  &__button{
+  &__button {
     width: min-content;
     height: min-content;
   }
 
-  &:before{
+  &:before {
     @include beforeDot;
     top: 0;
     left: 2px;
   }
 
-  @include breakpoint("md"){
+  @include breakpoint("md") {
     display: grid;
     grid-template-columns: 1fr min-content;
 
-    &__date{
-        @include typo-sub2;
+    &__date {
+      @include typo-sub2;
     }
-    &__title{
+    &__title {
       @include typo-sub3;
     }
 
-    &:before{
+    &:before {
       top: 8px;
       //top: 0`;
       //transform: translateY(-50%);
     }
   }
-  @include breakpoint("xl"){
+  @include breakpoint("xl") {
     grid-template-columns: 1fr;
-    &__date{
+    &__date {
       @include typo-label;
     }
-    &__title{
+    &__title {
       @include typo-sub3;
     }
-    &__button{
+    &__button {
       padding: 15px 32px;
       @include typo-btn-small;
     }

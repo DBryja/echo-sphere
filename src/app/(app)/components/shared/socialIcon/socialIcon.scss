@@ -1,6 +1,6 @@
 @import "@globals/mixins";
 @import "@globals/colors.module";
-.social-icon{
+.social-icon {
   img {
     width: 48px;
     height: 48px;
@@ -20,17 +20,19 @@
       height: 80px;
     }
 
-    transition: opacity 0.1s ease-in-out, filter 0.1s ease-in-out;
+    transition:
+      opacity 0.1s ease-in-out,
+      filter 0.1s ease-in-out;
   }
   &:not(.social-icon--red):hover {
-      img{
-        opacity: 0.5;
-      }
+    img {
+      opacity: 0.5;
+    }
   }
 
-  &--red{
-    img{
-      &:hover{
+  &--red {
+    img {
+      &:hover {
         filter: grayscale(1);
       }
     }

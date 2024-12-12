@@ -2,16 +2,16 @@
 @import "@globals/colors.module";
 @import "@globals/typography";
 
-body:has(.artists__wrapper.isDesktop){
-  main{
+body:has(.artists__wrapper.isDesktop) {
+  main {
     position: static;
   }
-    position: relative;
-    height: 100vh;
-    max-width: 100vw;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: $white;
+  position: relative;
+  height: 100vh;
+  max-width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: $white;
 }
 
 .artists {
@@ -24,13 +24,13 @@ body:has(.artists__wrapper.isDesktop){
     width: 100%;
     row-gap: $space-4;
 
-    @include breakpoint("md"){
+    @include breakpoint("md") {
       height: 100vh;
       padding-top: calc($headerTop + $buttonHeight);
       row-gap: $space-3;
     }
 
-    @include breakpoint("xl"){
+    @include breakpoint("xl") {
       display: grid;
       padding-top: 0;
       grid-template-columns: minmax(0, 1024px) minmax(762px, 1fr);
@@ -38,9 +38,9 @@ body:has(.artists__wrapper.isDesktop){
       height: fit-content;
       background-color: $white;
       @include ignoreMarginWidth;
-      &:has(.slider__item:hover){
-        .artists__slider__info{
-          opacity: 1
+      &:has(.slider__item:hover) {
+        .artists__slider__info {
+          opacity: 1;
         }
       }
     }
@@ -58,9 +58,9 @@ body:has(.artists__wrapper.isDesktop){
     grid-column: 1/-1;
     width: 100%;
 
-    &:after{
+    &:after {
       position: absolute;
-      content: '';
+      content: "";
       display: block;
       height: 2px;
       background-color: $gray-400;
@@ -68,19 +68,19 @@ body:has(.artists__wrapper.isDesktop){
       margin: 0 calc(-1 * $margin);
       bottom: 0;
 
-      @include breakpoint("xl"){
+      @include breakpoint("xl") {
         display: none;
       }
     }
 
-    @include breakpoint("md"){
+    @include breakpoint("md") {
       @include typo-body;
       row-gap: 0;
       margin-top: 0;
       padding-bottom: $space-2;
       max-width: calc(100% - $buttonHeight);
     }
-    @include breakpoint("xl"){
+    @include breakpoint("xl") {
       grid-column: unset;
       margin-top: 300px;
       margin-left: clamp(0px, 40px, 80px);
@@ -95,18 +95,18 @@ body:has(.artists__wrapper.isDesktop){
       display: inline-block;
       text-transform: uppercase;
       color: $red;
-      @include breakpoint("md"){
+      @include breakpoint("md") {
         @include typo-h2;
       }
-      @include breakpoint("xl"){
+      @include breakpoint("xl") {
         max-width: 700px;
         @include typo-display;
       }
     }
-    .bold{
+    .bold {
       @include typo-sub4;
       margin-bottom: $space-1;
-      @include breakpoint("md"){
+      @include breakpoint("md") {
         @include typo-sub3;
         margin-bottom: 0;
       }
@@ -117,24 +117,24 @@ body:has(.artists__wrapper.isDesktop){
       flex-direction: column;
       position: relative;
       @include breakpoint("xl") {
-        p{
+        p {
           max-width: 680px;
         }
       }
     }
     &__extra {
-      @include breakpoint-max("md"){
+      @include breakpoint-max("md") {
         @include typo-sub4;
         @include ignoreMarginWidth;
         background-color: $white;
         position: relative;
-        p{
+        p {
           padding: $space-4 calc($margin + 2px);
           width: 100%;
           white-space: wrap;
           word-wrap: normal;
         }
-        &:after{
+        &:after {
           display: block;
           position: absolute;
           font-family: $nats;
@@ -144,19 +144,19 @@ body:has(.artists__wrapper.isDesktop){
           right: calc($margin + 6px);
         }
       }
-      @include breakpoint("xl"){
+      @include breakpoint("xl") {
         margin-top: $space-2;
       }
     }
 
-    &__arrow{
+    &__arrow {
       height: 80px;
       position: absolute;
       width: calc(100% - $margin + 11px);
       display: flex;
       justify-content: end;
       top: 100%;
-      &__icon{
+      &__icon {
         width: 80px;
         height: 80px;
         background-color: $black;
@@ -166,25 +166,24 @@ body:has(.artists__wrapper.isDesktop){
         align-items: center;
         right: calc(2px);
         top: 100%;
-        svg{
+        svg {
           animation: subtleLevitate 3s infinite linear;
         }
       }
-
     }
   }
 
-  &__list{
+  &__list {
     width: 100%;
     max-width: 680px;
     margin-bottom: 110px;
     margin-top: $space-4;
-    &__heading{
+    &__heading {
       @include typo-h3;
       color: $red;
       text-transform: uppercase;
     }
-    &__item{
+    &__item {
       width: 100%;
       display: flex;
       padding: $space-2 var(--l);
@@ -195,9 +194,9 @@ body:has(.artists__wrapper.isDesktop){
       border-bottom: 2px solid $gray-400;
       position: relative;
       z-index: 2;
-      &:before{
+      &:before {
         display: block;
-        content: '';
+        content: "";
         inset: 0;
         position: absolute;
         background-color: $gray-200;
@@ -207,43 +206,43 @@ body:has(.artists__wrapper.isDesktop){
       }
     }
   }
-  &__mobile-list{
+  &__mobile-list {
     grid-column: 1/-1;
     width: 100vw;
     margin: 0 calc(-1 * $margin);
     height: 350px;
     position: relative;
 
-    @include breakpoint("md"){
+    @include breakpoint("md") {
       height: 100%;
     }
 
-    .swiper{
+    .swiper {
       width: 100%;
       height: 100%;
     }
 
-      &:after{
-        position: absolute;
-        content: '';
-        display: block;
-        height: 2px;
-        background-color: $gray-400;
-        width: 100vw;
-        //margin: 0 calc(-1 * $margin);
-        bottom: calc(-1 * $space-4);
+    &:after {
+      position: absolute;
+      content: "";
+      display: block;
+      height: 2px;
+      background-color: $gray-400;
+      width: 100vw;
+      //margin: 0 calc(-1 * $margin);
+      bottom: calc(-1 * $space-4);
 
-        @include breakpoint("md"){
-            display: none;
-        }
+      @include breakpoint("md") {
+        display: none;
       }
+    }
   }
 
   &__slider {
     display: grid;
     height: 100vh;
     overflow: hidden;
-    &__container{
+    &__container {
       width: 100%;
       height: 100%;
       display: grid;
@@ -251,7 +250,7 @@ body:has(.artists__wrapper.isDesktop){
       justify-content: end;
     }
 
-    &__wrapper{
+    &__wrapper {
       position: sticky;
       top: 0;
       align-self: start;
@@ -261,7 +260,7 @@ body:has(.artists__wrapper.isDesktop){
       grid-template-columns: 1fr 80px;
     }
 
-    &__info{
+    &__info {
       position: absolute;
       text-transform: uppercase;
       //bottom: $space-10;
@@ -272,7 +271,7 @@ body:has(.artists__wrapper.isDesktop){
       text-align: center;
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
-      span{
+      span {
         position: absolute;
         bottom: $space-10;
         text-align: center;
@@ -282,8 +281,8 @@ body:has(.artists__wrapper.isDesktop){
         left: 50%;
         transform: translateX(-50%);
         white-space: nowrap;
-        &:after{
-          content: '';
+        &:after {
+          content: "";
           display: block;
           position: relative;
           width: calc(100% - 4rem);
@@ -299,7 +298,7 @@ body:has(.artists__wrapper.isDesktop){
       height: 100vh;
       background-color: $black;
       overflow: hidden;
-      &__container{
+      &__container {
         width: 100%;
         height: 100%;
         display: grid;
@@ -307,7 +306,7 @@ body:has(.artists__wrapper.isDesktop){
         justify-content: end;
       }
 
-      h3{
+      h3 {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -324,7 +323,7 @@ body:has(.artists__wrapper.isDesktop){
         text-align: center;
         color: $white;
 
-        @supports (-moz-appearance: none){
+        @supports (-moz-appearance: none) {
           line-height: 115%;
         }
       }
@@ -338,13 +337,13 @@ body:has(.artists__wrapper.isDesktop){
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  @include breakpoint(lg){
+  @include breakpoint(lg) {
     right: 30%;
   }
-  @include breakpoint(xl){
+  @include breakpoint(xl) {
     right: 10%;
   }
-  @include breakpoint(2xl){
+  @include breakpoint(2xl) {
     right: 0;
   }
 
@@ -356,15 +355,14 @@ body:has(.artists__wrapper.isDesktop){
   }
 }
 
-
-@keyframes subtleLevitate{
-    0%{
-        transform: translateY(-2px);
-    }
-    50%{
-        transform: translateY(2px);
-    }
-    100%{
-        transform: translateY(-2px);
-    }
+@keyframes subtleLevitate {
+  0% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+  100% {
+    transform: translateY(-2px);
+  }
 }

@@ -1,16 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useTransition } from '@providers/TransitionContext';
-import "./transitionBox.scss"
+import React from "react";
+import { useTransition } from "@providers/TransitionContext";
+import "./transitionBox.scss";
 
-export default function TransitionBox(){
-    const { transitionBoxRef } = useTransition();
+export default function TransitionBox() {
+  const { transitionBoxRef } = useTransition();
 
-    return (
-        <div
-            ref={transitionBoxRef}
-            className={"transitionBox initial"}
-        />
-    );
-};
+  return <div ref={transitionBoxRef} className={"transitionBox initial"} />;
+}

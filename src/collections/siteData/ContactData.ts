@@ -1,56 +1,54 @@
-import type { CollectionConfig } from 'payload'
-import {limitToOneRecord} from "@/collectionHooks";
+import type { CollectionConfig } from "payload";
+import { limitToOneRecord } from "@/collectionHooks";
 
 export const ContactData: CollectionConfig = {
-    slug: 'contact-data',
-    admin: {
-        group: "Site-Data",
+  slug: "contact-data",
+  admin: {
+    group: "Site-Data",
+  },
+  access: {
+    create: () => false,
+    delete: () => false,
+  },
+  hooks: {
+    beforeValidate: [limitToOneRecord],
+  },
+  fields: [
+    {
+      name: "email",
+      type: "text",
+      required: true,
     },
-    access: {
-        create: ()=>false,
-        delete: ()=>false
+    {
+      name: "phone-number",
+      type: "text",
+      required: true,
     },
-    hooks: {
-        beforeValidate: [
-            limitToOneRecord
-        ]
+    {
+      name: "address",
+      type: "text",
+      required: true,
     },
-    fields: [
+    {
+      name: "socials",
+      type: "group",
+      fields: [
         {
-            name: 'email',
-            type: 'text',
-            required: true,
+          name: "facebook",
+          type: "text",
+          defaultValue: "https://www.facebook.com/",
         },
         {
-            name: "phone-number",
-            type: "text",
-            required: true,
+          name: "instagram",
+          type: "text",
+          defaultValue: "https://www.instagram.com/",
         },
         {
-            name: "address",
-            type: "text",
-            required: true,
+          name: "youtube",
+          type: "text",
+          defaultValue: "https://www.youtube.com/",
         },
-        {
-            name: 'socials',
-            type: 'group',
-            fields: [
-                {
-                    name: "facebook",
-                    type: "text",
-                    defaultValue: "https://www.facebook.com/",
-                },
-                {
-                    name: "instagram",
-                    type: "text",
-                    defaultValue: "https://www.instagram.com/",
-                },
-                {
-                    name: "youtube",
-                    type: "text",
-                    defaultValue: "https://www.youtube.com/",
-                },
-            ]
-        }
-    ],
-}
+      ],
+    },
+  ],
+};

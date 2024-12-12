@@ -1,22 +1,21 @@
-@import '@globals/variables';
+@import "@globals/variables";
 @import "@globals/colors.module";
 @import "@globals/typography";
 @import "@globals/mixins";
 
-
-body:has(.artist__wrapper){
-  .footer{
+body:has(.artist__wrapper) {
+  .footer {
     position: relative;
     top: unset;
     z-index: $z-content;
   }
-  main{
+  main {
     margin-bottom: 0 !important;
   }
 }
 
-.artist{
-  &__wrapper{
+.artist {
+  &__wrapper {
     margin-top: calc($buttonHeight + $headerTop * 2);
     display: grid;
     grid-template-columns: 1fr;
@@ -24,39 +23,44 @@ body:has(.artist__wrapper){
     width: 100%;
     margin-bottom: $space-6;
 
-    @include breakpoint("xl"){
+    @include breakpoint("xl") {
       grid-template-columns: subgrid;
     }
   }
 
-  &__image{
+  &__image {
     grid-row: 1;
     @include ignoreMarginWidth;
     position: relative;
-    img{
+    img {
       display: block;
       width: 100%;
       aspect-ratio: 1;
       object-fit: cover;
       height: unset;
     }
-    &:after{
-      content:'';
+    &:after {
+      content: "";
       display: block;
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 120%) no-repeat;
+      background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.5) 120%
+        )
+        no-repeat;
     }
 
-    @include breakpoint("md"){
+    @include breakpoint("md") {
       width: 80%;
       margin: calc($margin * 2) auto 0;
-      &:after{
+      &:after {
         display: none;
       }
-      &:before{
-        content: '';
+      &:before {
+        content: "";
         display: block;
         position: absolute;
         pointer-events: none;
@@ -71,7 +75,7 @@ body:has(.artist__wrapper){
     @include breakpoint("xl") {
       position: fixed;
       right: 0;
-      top: calc(-1 * ($headerTop*2));
+      top: calc(-1 * ($headerTop * 2));
       height: 90vh;
       width: calc(((100vw - 2 * $margin) / 6) * 3 + $gutter);
       z-index: -1;
@@ -79,16 +83,16 @@ body:has(.artist__wrapper){
       //grid-column: 4/-1;
       //margin: calc(-1* ($headerTop * 2 + $buttonHeight)) calc(-1 * $margin) 0 0;
       //height: 90vh;
-      img{
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: top center;
       }
-      &:before{
+      &:before {
         display: none;
       }
-      &:after{
+      &:after {
         top: unset;
         left: unset;
         bottom: 0;
@@ -103,7 +107,7 @@ body:has(.artist__wrapper){
     }
   }
 
-  &__heading{
+  &__heading {
     position: absolute;
     top: calc($headerTop + $buttonHeight + 100vw - 2 * $margin);
     left: 50%;
@@ -123,7 +127,7 @@ body:has(.artist__wrapper){
       transform: translateX(0);
       text-align: left;
 
-      &:before{
+      &:before {
         @include beforeDot;
         height: 40px;
         width: 40px;
@@ -136,17 +140,17 @@ body:has(.artist__wrapper){
       position: fixed; //changed
       z-index: $z-content;
       top: calc($headerTop * 2 + $buttonHeight + 150px);
-      left: calc((100vw / 6) +  $gutter);
+      left: calc((100vw / 6) + $gutter);
       transform: translateX(0);
       text-align: left;
-      &:before{
+      &:before {
         left: calc(-1 * ($gutter + 36px));
         transform: translateY(-40%);
       }
     }
   }
 
-  &__details{
+  &__details {
     margin-top: calc($margin * 4);
     grid-column: 1/-1;
     width: 100%;
@@ -158,13 +162,15 @@ body:has(.artist__wrapper){
       margin-top: calc($margin * 2);
     }
     @include breakpoint("xl") {
-      margin-top: calc(150px + 80px + $space-5); //margin of heading + heading height + 40px space
+      margin-top: calc(
+        150px + 80px + $space-5
+      ); //margin of heading + heading height + 40px space
       grid-column: 2/4;
       //align-self: center;
       margin-left: $gutter;
       padding-right: $space-2;
 
-      &:after{
+      &:after {
         content: "";
         display: block;
         position: fixed;
@@ -178,7 +184,7 @@ body:has(.artist__wrapper){
       }
     }
 
-    &__desc{
+    &__desc {
       display: flex;
       flex-direction: column;
       gap: $margin;
@@ -190,7 +196,7 @@ body:has(.artist__wrapper){
         margin-top: 0;
       }
 
-      &__heading{
+      &__heading {
         @include typo-sub3;
         text-transform: uppercase;
         display: inline-flex;
@@ -202,80 +208,80 @@ body:has(.artist__wrapper){
         }
       }
     }
-    &__separator{
-      img{
+    &__separator {
+      img {
         @include ignoreMarginWidth;
         display: block;
         object-fit: cover;
         height: unset;
       }
-      p{
+      p {
         margin-top: $space-4;
       }
     }
-    &__listen{
-      &__heading{
+    &__listen {
+      &__heading {
         @include typo-btn-small;
         text-transform: uppercase;
-        @include breakpoint("md"){
+        @include breakpoint("md") {
           @include typo-sub3;
         }
       }
-      &__icons{
+      &__icons {
         display: flex;
         justify-content: start;
         column-gap: $space-2;
         margin-top: $space-1;
 
-        @include breakpoint("md"){
+        @include breakpoint("md") {
           margin-top: $space-3;
         }
       }
     }
-    &__releases{
+    &__releases {
       display: flex;
       flex-direction: column;
       gap: $space-2;
-      @include breakpoint("md"){
+      @include breakpoint("md") {
         row-gap: $space-4;
       }
-      &__heading{
+      &__heading {
         @include typo-sub3;
         text-transform: uppercase;
         font-weight: 400;
       }
-      &__list{
+      &__list {
         display: flex;
         flex-direction: column;
         gap: $space-3;
 
-        @include breakpoint("md"){
+        @include breakpoint("md") {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
         }
-        @include breakpoint("xl"){
+        @include breakpoint("xl") {
           grid-template-columns: 1fr;
         }
       }
     }
-    &__events{
+    &__events {
       display: flex;
       flex-direction: column;
       row-gap: $space-2;
-      @include breakpoint("md"){
+      @include breakpoint("md") {
         row-gap: $space-4;
       }
-      &__list{
+      &__list {
         display: flex;
         flex-direction: column;
         gap: $space-3;
       }
     }
-    &:before{
+    &:before {
       @include horizontalLine;
       top: calc(-2 * $margin);
 
-      @include breakpoint("xl"){
+      @include breakpoint("xl") {
         width: 2px;
         height: 100%;
         margin: 0;

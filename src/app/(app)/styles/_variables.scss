@@ -20,7 +20,6 @@ $space-1: 8px;
 $radius-1: 4px;
 $radius-2: 8px;
 
-
 $z-content: 2;
 $z-footer: 5;
 $z-header: 9;
@@ -29,13 +28,13 @@ $z-transition: 100;
 
 $dotPath: "/img/dot.svg";
 
-@mixin ignoreMarginWidth{
+@mixin ignoreMarginWidth {
   width: calc(100% + 2 * $margin + 5px);
   margin: 0 calc(-1 * $margin);
 }
 
-@mixin horizontalLine{
-  content: '';
+@mixin horizontalLine {
+  content: "";
   display: block;
   @include ignoreMarginWidth;
   height: 2px;

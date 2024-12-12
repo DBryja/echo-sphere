@@ -1,7 +1,7 @@
 @import "@globals/colors.module";
 @import "@globals/variables";
 
-.transitionBox{
+.transitionBox {
   position: fixed;
   top: 100%;
   left: 0;
@@ -10,7 +10,7 @@
   z-index: $z-transition;
   background-color: $red;
   display: block;
-  &.initial{
+  &.initial {
     display: none;
   }
 }

@@ -1,7 +1,7 @@
 @import "@globals/variables";
 @import "@globals/colors.module";
 @import "@globals/typography";
-.nav{
+.nav {
   display: flex;
   align-self: center;
   flex-direction: row;
@@ -9,17 +9,17 @@
   justify-content: center;
   column-gap: $space-3;
 
-  &__item{
+  &__item {
     @include typo-btn-small;
     text-transform: uppercase;
     cursor: pointer;
     color: $black;
 
-    @include hoverable(){
+    @include hoverable() {
       transition: color 0.1s ease;
-        &:hover{
-            color: $gray-600;
-        }
+      &:hover {
+        color: $gray-600;
+      }
     }
   }
 }

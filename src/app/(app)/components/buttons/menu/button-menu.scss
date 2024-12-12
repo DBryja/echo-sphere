@@ -2,9 +2,9 @@
 @import "@globals/variables";
 @import "@globals/mixins";
 @import "@globals/typography";
-$smoothEase: cubic-bezier(.79,-0.01,.13,1);
+$smoothEase: cubic-bezier(0.79, -0.01, 0.13, 1);
 
-.menu-button{
+.menu-button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -18,7 +18,7 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
   overflow: hidden;
   z-index: $z-header;
   @include typo-btn-small;
-  cursor:pointer;
+  cursor: pointer;
 
   &.active {
     background-color: transparent;
@@ -27,24 +27,28 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       pointer-events: none;
     }
     .menu-button__dot {
-      @include breakpoint("lg"){
+      @include breakpoint("lg") {
         animation: dot__red-to-black-lg 0.3s $smoothEase both;
       }
       transform-origin: center;
       // <---BURGER CROSS ROTATE
-      &:hover{
-        .menu-button__dot__item{
-          @media (hover: hover) and (pointer: fine){
+      &:hover {
+        .menu-button__dot__item {
+          @media (hover: hover) and (pointer: fine) {
             &:nth-child(1) {
-              transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg + 180deg));
-              @include breakpoint("lg"){
-                transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg + 180deg));
+              transform: scale(1) translateY(calc(6px / 1))
+                rotate(calc(45deg + 180deg));
+              @include breakpoint("lg") {
+                transform: scale(1.25) translateY(calc(6px / 1.25))
+                  rotate(calc(45deg + 180deg));
               }
             }
             &:nth-child(3) {
-              transform: scale(1) translateY(calc(-6px/1)) rotate(calc(-45deg + 180deg));
-              @include breakpoint("lg"){
-                transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg + 180deg));
+              transform: scale(1) translateY(calc(-6px / 1))
+                rotate(calc(-45deg + 180deg));
+              @include breakpoint("lg") {
+                transform: scale(1.25) translateY(calc(-6px / 1.25))
+                  rotate(calc(-45deg + 180deg));
               }
             }
           }
@@ -55,18 +59,20 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       // <--- BURGER CROSS DEFAULT
       &__item {
         &:nth-child(1) {
-          transform: scale(1) translateY(calc(6px/1)) rotate(calc(45deg ));
-          @include breakpoint("lg"){
-            transform: scale(1.25) translateY(calc(6px/1.25)) rotate(calc(45deg ));
+          transform: scale(1) translateY(calc(6px / 1)) rotate(calc(45deg));
+          @include breakpoint("lg") {
+            transform: scale(1.25) translateY(calc(6px / 1.25))
+              rotate(calc(45deg));
           }
         }
         &:nth-child(2) {
           transform: scale(0) translateY(-50%) rotate(45deg);
         }
         &:nth-child(3) {
-          transform: scale(1) translateY(calc(-6px/1)) rotate(calc(-45deg ));
-          @include breakpoint("lg"){
-            transform: scale(1.25) translateY(calc(-6px/1.25)) rotate(calc(-45deg));
+          transform: scale(1) translateY(calc(-6px / 1)) rotate(calc(-45deg));
+          @include breakpoint("lg") {
+            transform: scale(1.25) translateY(calc(-6px / 1.25))
+              rotate(calc(-45deg));
           }
         }
       }
@@ -74,9 +80,9 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     }
   }
 
-  span{
+  span {
     display: none;
-    @include breakpoint("lg"){
+    @include breakpoint("lg") {
       display: inline;
       left: $margin;
       position: absolute;
@@ -84,12 +90,14 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       z-index: 1;
     }
   }
-  &__dot{
+  &__dot {
     width: 100%;
     height: 100%;
     border-radius: $radius-1;
     background-color: $black;
-    transition: width 0.4s $smoothEase, height 0.4s $smoothEase;
+    transition:
+      width 0.4s $smoothEase,
+      height 0.4s $smoothEase;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,7 +106,7 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
     position: absolute;
     transform: translateX(50%);
     right: 50%;
-    @include breakpoint("lg"){
+    @include breakpoint("lg") {
       background-color: $red;
       border-radius: 50%;
       right: $margin;
@@ -106,7 +114,7 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       height: $space-2;
     }
 
-    &__item{
+    &__item {
       width: 18px;
       height: 2px;
       background-color: $white;
@@ -120,19 +128,18 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
       }
     }
   }
-  &:not(.active):hover{
-    @media (hover: hover) and (pointer: fine){
+  &:not(.active):hover {
+    @media (hover: hover) and (pointer: fine) {
       color: $white !important;
-      .menu-button__dot{
+      .menu-button__dot {
         width: 280px;
         height: 280px;
-        &__item{
+        &__item {
           transform: scaleX(1);
         }
       }
     }
   }
-
 }
 @keyframes dot__red-to-black-lg {
   0% {
@@ -152,6 +159,5 @@ $smoothEase: cubic-bezier(.79,-0.01,.13,1);
   }
 }
 
-@mixin burger-active{
-
+@mixin burger-active {
 }

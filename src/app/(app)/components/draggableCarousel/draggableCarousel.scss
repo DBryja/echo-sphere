@@ -1,5 +1,5 @@
 .carousel-container:not(.carousel-container--releases) {
-  width:100vw !important;
+  width: 100vw !important;
   overflow: hidden;
   position: relative;
   user-select: none;
@@ -25,7 +25,7 @@
 
   background-color: lightblue;
 
-  &:nth-child(2n){
+  &:nth-child(2n) {
     background-color: lightcoral;
   }
 }

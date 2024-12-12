@@ -1,13 +1,13 @@
-@import  "@globals/colors.module";
+@import "@globals/colors.module";
 
-.logoSVG{
+.logoSVG {
   --logo-text-color: #040404;
-  --logo-icon-color: #FF4820;
+  --logo-icon-color: #ff4820;
 
-  &__text{
+  &__text {
     fill: var(--logo-text-color);
   }
-  &__icon{
+  &__icon {
     fill: var(--logo-icon-color);
   }
 }
