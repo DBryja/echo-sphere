@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useShoppingCart, DebugCart } from "use-shopping-cart";
+import { useShoppingCart } from "use-shopping-cart";
 
 //TODO: Add items validation
 export default function CartButton() {
@@ -8,9 +8,9 @@ export default function CartButton() {
   const { cartDetails, cartCount, redirectToCheckout } = useShoppingCart();
 
   //TODO: Move it to a custom hook, post to Orders API,
-  async function handleClick(event) {
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    if (cartCount > 0) {
+    if (cartCount != null && cartCount > 0) {
       setStatus("loading");
       try {
         // Create a Checkout Session on the server
@@ -27,10 +27,11 @@ export default function CartButton() {
 
         if (!response.ok) {
           //update order status to cancelled
-          throw new Error("Network response was not ok");
+          console.error("Network response was not ok");
+          return;
         }
 
-        const { sessionId, orderId } = await response.json();
+        const { sessionId } = await response.json();
         // Redirect to Checkout
         const result = await redirectToCheckout(sessionId);
 

@@ -1,10 +1,13 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 
 export default function OpenCart({ isStore }: { isStore: boolean }) {
   const { handleCartClick, shouldDisplayCart, cartDetails } = useShoppingCart();
   const qty = useRef<number>(0);
+
+  if (!cartDetails) return null;
+
   qty.current = Object.values(cartDetails).reduce(
     (total, item) => total + item.quantity,
     0,

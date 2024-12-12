@@ -50,7 +50,7 @@ export default function SideCart() {
     return () => {
       window.removeEventListener("click", handleClickOutisde);
     };
-  }, [cartRef, shouldDisplayCart]);
+  }, [cartRef, shouldDisplayCart, handleCloseCart]);
 
   return (
     <div style={{ ...styles.cart }} id={"cart"} ref={cartRef}>
@@ -62,9 +62,10 @@ export default function SideCart() {
             //@ts-ignore
             Object.values(cartDetails).map((item, i) => (
               <li key={i} style={{ display: "flex" }}>
-                {/*//@ts-ignore*/}
                 <Image
+                  //@ts-ignore
                   src={item.product_data.image.url}
+                  //@ts-ignore
                   alt={item.product_data.image.alt}
                   width={150}
                   height={150}

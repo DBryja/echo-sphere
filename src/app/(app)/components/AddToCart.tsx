@@ -1,9 +1,14 @@
 "use client";
 import { useShoppingCart } from "use-shopping-cart";
 import type { Product } from "use-shopping-cart/core";
-import { useEffect, useState } from "react";
 
-export default function AddToCart({ product, disabled }: { product: Product }) {
+export default function AddToCart({
+  product,
+  disabled,
+}: {
+  product: Product;
+  disabled: boolean;
+}) {
   const { addItem, clearCart, cartDetails } = useShoppingCart();
 
   return (

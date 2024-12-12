@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import AddToCart from "@/app/(app)/components/AddToCart";
-import type { Product as CartItem } from "use-shopping-cart/core";
-import type { Product } from "@/payload-types";
+import type {  Product } from "@/payload-types";
 
 export default function ProductConfigurator({ product }: { product: Product }) {
   const [selectedSku, setSelectedSku] = useState<string>(() => {
@@ -44,16 +43,20 @@ export default function ProductConfigurator({ product }: { product: Product }) {
           price: product.price,
           currency: "usd",
           product_data: {
+            // @ts-ignore
             image: product.images[0].img,
             id: product.id,
           },
           price_data: {
             product_data: {
+              // @ts-ignore
               images: [`${originPath + product.images[0].img.url}`],
             },
           },
         }}
+        disabled={selectedVariant.stock <= 0}
       />
     </>
   );
 }
+// TODO: Correct the images embedding

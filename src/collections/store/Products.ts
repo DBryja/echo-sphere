@@ -1,9 +1,12 @@
-import type { CollectionConfig, Field } from "payload";
+import { CollectionConfig, getPayload } from "payload";
+import config from "@payload-config";
 import { v7 } from "uuid";
 const currencyRegex = /^\d+(\.\d{1,2})?$/;
-const colorHexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+// const colorHexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 import colorField from "@/fields/ColorPickerInput/field";
-import ColorPickerInput from "@/fields/ColorPickerInput/component";
+import { ProductCategory, ProductType } from "@/payload-types";
+
+const payload = await getPayload({ config });
 
 export const Products: CollectionConfig = {
   slug: "products",
@@ -71,7 +74,7 @@ export const Products: CollectionConfig = {
           name: "type",
           type: "relationship",
           relationTo: "product-types",
-          filterOptions: ({ value, siblingData }) => {
+          filterOptions: ({ siblingData }: { siblingData: any }) => {
             if (siblingData.categories && siblingData.categories.length > 0) {
               return {
                 "related-categories": {
@@ -79,9 +82,10 @@ export const Products: CollectionConfig = {
                 },
               };
             }
-            return {};
+            return true;
           },
-          validate: async (value, { payload, siblingData }) => {
+
+          validate: async (value, { siblingData }) => {
             const typedSiblingData = siblingData as {
               categories?: string[] | undefined;
             };
@@ -91,19 +95,22 @@ export const Products: CollectionConfig = {
               return "Please select at least one category before selecting a type.";
 
             if (typeof payload === "undefined") {
-              return false;
+              return "An error occurred while validating the product type.";
             }
 
             if (value) {
               try {
-                const productType = await payload.findByID({
+                const productType: ProductType = await payload.findByID({
                   collection: "product-types",
                   id: value,
                 });
 
                 const selectedCategories = categories;
-                const productTypeCategories = productType.categories.map(
-                  (cat) => cat.id || cat,
+                // eslint-disable-next-line
+                const productTypeCategories = (
+                  productType["related-categories"] || []
+                ).map((cat: ProductCategory | string) =>
+                  typeof cat === "string" ? cat : cat.id,
                 );
                 const hasAllCategories = selectedCategories.every((cat) =>
                   productTypeCategories.includes(cat),
@@ -118,7 +125,6 @@ export const Products: CollectionConfig = {
             }
             return true;
           },
-          required: true,
         },
       ],
     },
@@ -222,7 +228,7 @@ export const Products: CollectionConfig = {
               ],
               hooks: {
                 beforeChange: [
-                  ({ value, data, siblingData }) => {
+                  ({ value, siblingData }) => {
                     const parts = siblingData.sku.split("_");
                     parts.pop();
                     const baseSkuPart = siblingData.sku
@@ -262,6 +268,9 @@ export const Products: CollectionConfig = {
       hooks: {
         beforeDuplicate: [
           ({ data }) => {
+            if (!data) {
+              return data;
+            }
             return {
               ...data,
               sku: `${data.sku}_copy`,
@@ -311,6 +320,7 @@ export const Products: CollectionConfig = {
                 return { id: { not_equals: id } };
               },
             },
+            // @ts-ignore
             {
               ...colorField,
               admin: {

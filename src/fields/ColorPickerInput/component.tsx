@@ -1,34 +1,36 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import { debounce } from "@app/utils";
 import { TextInput } from "@payloadcms/ui";
 import { useField } from "@payloadcms/ui";
 
-const debounce = (func, delay) => {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
-};
-
-const ColorPickerInput = ({ path, label, required }) => {
-  const { value = "", setValue } = useField({ path });
-  const [color, setColor] = useState(value);
+const ColorPickerInput = ({
+  path,
+  label,
+  required,
+}: {
+  path: string;
+  label: "string";
+  required: boolean;
+}) => {
+  const { value = "", setValue }: { value: string; setValue: any } = useField({
+    path,
+  });
+  const [color, setColor] = useState<string>(value);
 
   useEffect(() => {
     if (value !== color) setColor(value);
   }, [value, color]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setColor(newValue);
     debouncedSetValue(newValue);
   };
 
   // Create a debounced version of setValue using useCallback to preserve reference
-  const debouncedSetValue = useCallback(debounce(setValue, 300), []);
+  // eslint-disable-next-line
+  const debouncedSetValue = useCallback(debounce(setValue, 300), [setValue]);
 
   return (
     <div className="field-type text">
@@ -39,7 +41,7 @@ const ColorPickerInput = ({ path, label, required }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <TextInput
           path={path}
-          name={path}
+          // name={path}
           value={color.startsWith("#") ? color : `#${color}`}
           onChange={setValue}
           placeholder="#FF00FF"

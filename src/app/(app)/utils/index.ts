@@ -1,5 +1,5 @@
 import type { Product } from "use-shopping-cart/core";
-import type { Media, MenuItem } from "@/payload-types";
+import type { Media } from "@/payload-types";
 export type CartItem = {
   size: string;
   quantity: number;
@@ -36,8 +36,11 @@ export function formatCurrencyString({
 
 export const validateItem = (
   cartItem: CartItem,
-  templateItem: TemplateItem,
+  templateItem: TemplateItem | undefined,
 ) => {
+  if (!templateItem) {
+    throw new Error(`Invalid cart item: No template item found`);
+  }
   if (cartItem.id !== templateItem.id) {
     throw new Error(
       `Invalid cart item: ID mismatch (expected ${templateItem.id}, got ${cartItem.id})`,
@@ -110,4 +113,17 @@ export const getImgAlt = (img: Media | string): string => {
 
 export const sanitizeBreakpointVariable = (variable: string) => {
   return parseInt(variable.replace(/["px\s]/g, ""));
+};
+
+export const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number,
+): ((...args: Parameters<T>) => void) => {
+  let timer: ReturnType<typeof setTimeout>;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
 };

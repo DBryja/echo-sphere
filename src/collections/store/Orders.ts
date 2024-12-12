@@ -1,7 +1,9 @@
 import type { CollectionConfig } from "payload";
 import type { Product } from "@/payload-types";
+import type { BasePayload } from "payload";
+
 const updateStock = async (
-  payload,
+  payload: BasePayload,
   items: Array<{ product: { id: string }; sku: string; quantity: number }>,
   increment: boolean = false,
 ) => {
@@ -27,7 +29,8 @@ const updateStock = async (
         });
 
         if (!product) {
-          throw new Error(`Product not found: ${productId}`);
+          console.error(`Product not found: ${productId}`);
+          return;
         }
 
         // Update all relevant variants' stock

@@ -2,7 +2,19 @@ import { Field } from "payload";
 
 const colorHexRegex = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
-const colorField: Field = {
+type CustomField = Field & {
+  admin: {
+    components: {
+      Field: {
+        path: string;
+        label: string;
+        required: boolean;
+      };
+    };
+  };
+};
+
+const colorField: CustomField = {
   name: "colorHEX",
   type: "text",
   admin: {

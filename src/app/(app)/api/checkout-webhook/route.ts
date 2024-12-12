@@ -1,24 +1,25 @@
 import { NextResponse } from "next/server";
-import { getStripe } from "../../lib/stripe";
+import { getStripe } from "@app/lib/stripe";
 import { headers } from "next/headers";
 import config from "@payload-config";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 
 const stripe = getStripe();
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-export async function POST(req) {
+export async function POST(req: { text: () => any }) {
   const body = await req.text();
-  const signature = headers().get("stripe-signature");
+  const signature = headers().get("stripe-signature") as string;
 
   let event;
 
   try {
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (err) {
-    console.error(`Webhook Error: ${err.message}`);
+    const errorMessage = (err as Error).message;
+    console.error(`Webhook Error: ${errorMessage}`);
     return NextResponse.json(
-      { message: `Webhook Error: ${err.message}` },
+      { message: `Webhook Error: ${errorMessage}` },
       { status: 400 },
     );
   }

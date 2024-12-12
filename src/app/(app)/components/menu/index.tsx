@@ -64,12 +64,12 @@ export default function Menu({
   isOpen,
   contactData,
   navItems,
-  onItemClick,
+  onItemClickAction,
 }: {
   isOpen: boolean;
   contactData: ContactDatum;
   navItems: MenuItem[];
-  onItemClick: () => void;
+  onItemClickAction: () => void;
 }) {
   const { email, "phone-number": phoneNumber, address } = contactData;
   const containerRef = useRef<HTMLElement | null>(null);
@@ -297,7 +297,7 @@ export default function Menu({
             key={index}
             isMenu
             href={item.path.startsWith("/") ? item.path : `/${item.path}`}
-            onItemClick={onItemClick}
+            onItemClick={onItemClickAction}
             className="enter-anim"
           >
             {item.name}

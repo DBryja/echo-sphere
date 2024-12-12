@@ -6,7 +6,8 @@ let stripeInstance: Stripe | null = null;
 export function getStripe() {
   if (!stripeInstance) {
     stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-      apiVersion: process.env.STRIPE_API_VERSION,
+      // @ts-ignore
+      apiVersion: process.env.STRIPE_API_VERSION!,
       appInfo: {
         name: "Echo-Sphere",
         url:

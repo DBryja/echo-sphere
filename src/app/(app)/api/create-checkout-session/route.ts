@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-import { validateCartItems } from "use-shopping-cart/utilities";
 import { getPayloadHMR } from "@payloadcms/next/utilities";
 import config from "@payload-config";
-import { validateItem } from "../../utils";
-import { getStripe } from "../../lib/stripe"; //stripe singleton
+import { CartItem, TemplateItem, validateItem } from "@app/utils";
+import { getStripe } from "@app/lib/stripe"; //stripe singleton
 
 const stripe = getStripe();
-const formatSize = (size) => {
+const formatSize = (size: string) => {
   switch (size) {
     case "sm":
       return "Small";
@@ -25,7 +23,10 @@ const formatSize = (size) => {
   }
 };
 
-export async function POST(req) {
+export async function POST(req: {
+  json: () => PromiseLike<{ cartDetails: any }> | { cartDetails: any };
+  headers: { get: (arg0: string) => any };
+}) {
   try {
     const { cartDetails } = await req.json();
     // <<< get product variants from database
@@ -33,11 +34,7 @@ export async function POST(req) {
     const payloadItems = await payload.find({
       collection: "products",
       where: {
-        variants: {
-          id: {
-            in: Object.keys(cartDetails),
-          },
-        },
+        "variants.id": { in: Object.keys(cartDetails) },
       },
       pagination: false,
     });
@@ -51,24 +48,27 @@ export async function POST(req) {
     // get product variants from database >>>
     // <<< Convert cart items to Stripe line items
     const lineItems = Object.values(cartDetails).map((item) => {
-      const templateItem = variants.find((variant) => variant.id === item.id);
-      if (!validateItem(item, templateItem)) {
+      const cartItem = item as CartItem;
+      const templateItem = variants.find(
+        (variant) => variant.id === cartItem.id,
+      ) as TemplateItem | undefined;
+      if (!validateItem(cartItem, templateItem)) {
         throw new Error("Invalid cart item");
       }
 
       return {
         price_data: {
-          unit_amount: item.price,
+          unit_amount: cartItem.price,
           currency: "usd",
           product_data: {
-            name: item.name,
-            description: `Size: ${formatSize(item.size)}`,
+            name: cartItem.name,
+            description: `Size: ${formatSize(cartItem.size)}`,
             // images: item.price_data.product_data.images,
             // TODO: Change this after uploading on vercel
-            images: [`https://picsum.photos/seed/${item.id}/100/100`],
+            images: [`https://picsum.photos/seed/${cartItem.id}/100/100`],
           },
         },
-        quantity: item.quantity,
+        quantity: cartItem.quantity,
       };
     });
     const totalAmount = lineItems.reduce(
@@ -121,15 +121,18 @@ export async function POST(req) {
       data: {
         date: new Date().toISOString(),
         session_id: session.id,
-        items: Object.values(cartDetails).map((item) => ({
-          product: item.product_data.id,
-          sku: item.sku,
-          sku_id: item.sku_id,
-          quantity: item.quantity,
-          price: item.price,
-          value: item.value,
-          size: item.size,
-        })),
+        items: Object.values(cartDetails).map((item) => {
+          const cartItem = item as CartItem;
+          return {
+            product: cartItem.product_data.id,
+            sku: cartItem.sku,
+            sku_id: cartItem.sku_id,
+            quantity: cartItem.quantity,
+            price: cartItem.price,
+            value: cartItem.value,
+            size: cartItem.size,
+          };
+        }),
         total: totalAmount,
         status: "pending",
       },
@@ -141,9 +144,9 @@ export async function POST(req) {
 
     return NextResponse.json({ sessionId: session.id, orderId: order.id });
   } catch (err) {
-    console.log(err);
+    const error = err as Error;
     return NextResponse.json(
-      { statusCode: 500, message: err.message },
+      { statusCode: 500, message: error.message },
       { status: 500 },
     );
   }

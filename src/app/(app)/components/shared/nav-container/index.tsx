@@ -229,7 +229,7 @@ export default function NavButtonContainer({
         isOpen={isMenuOpen}
         navItems={navItems}
         contactData={contactData}
-        onItemClick={toggleMenu}
+        onItemClickAction={toggleMenu}
       />
       <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen} />
     </div>

@@ -65,6 +65,6 @@ export const ShippingAddresses: CollectionConfig = {
     useAsTitle: "email",
     defaultColumns: ["email", "name", "phone"],
     group: "Store",
-    readOnly: true,
+    // readOnly: true,
   },
 };
