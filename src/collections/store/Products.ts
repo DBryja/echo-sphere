@@ -1,12 +1,9 @@
-import { CollectionConfig, getPayload } from "payload";
-import config from "@payload-config";
+import { CollectionConfig } from "payload";
 import { v7 } from "uuid";
 const currencyRegex = /^\d+(\.\d{1,2})?$/;
 // const colorHexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 import colorField from "@/fields/ColorPickerInput/field";
 import { ProductCategory, ProductType } from "@/payload-types";
-
-const payload = await getPayload({ config });
 
 export const Products: CollectionConfig = {
   slug: "products",
@@ -85,7 +82,7 @@ export const Products: CollectionConfig = {
             return true;
           },
 
-          validate: async (value, { siblingData }) => {
+          validate: async (value, { siblingData, req: { payload } }) => {
             const typedSiblingData = siblingData as {
               categories?: string[] | undefined;
             };
