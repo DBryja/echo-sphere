@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import AddToCart from "@/app/(app)/components/AddToCart";
-import type {  Product } from "@/payload-types";
+import type { Product } from "@/payload-types";
 
 export default function ProductConfigurator({ product }: { product: Product }) {
   const [selectedSku, setSelectedSku] = useState<string>(() => {

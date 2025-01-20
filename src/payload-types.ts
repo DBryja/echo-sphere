@@ -16,18 +16,18 @@ export interface Config {
     events: Event;
     products: Product;
     orders: Order;
-    "shipping-addresses": ShippingAddress;
-    "product-tags": ProductTag;
-    "product-types": ProductType;
-    "product-categories": ProductCategory;
+    'shipping-addresses': ShippingAddress;
+    'product-tags': ProductTag;
+    'product-types': ProductType;
+    'product-categories': ProductCategory;
     colors: Color;
     media: Media;
     users: User;
     artistsArchive: ArtistsArchive;
-    "contact-data": ContactDatum;
-    "menu-items": MenuItem;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'contact-data': ContactDatum;
+    'menu-items': MenuItem;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   db: {
     defaultIDType: string;
@@ -35,7 +35,7 @@ export interface Config {
   globals: {};
   locale: null;
   user: User & {
-    collection: "users";
+    collection: 'users';
   };
 }
 export interface UserAuthOperations {
@@ -67,8 +67,8 @@ export interface Artist {
   genre?: string | null;
   description: string;
   extra?: string | null;
-  "img-profile": string | Media;
-  "img-banner": string | Media;
+  'img-profile': string | Media;
+  'img-banner': string | Media;
   socials?: {
     youtube?: string | null;
     tidal?: string | null;
@@ -103,9 +103,9 @@ export interface Media {
 export interface Release {
   id: string;
   name: string;
-  type: "album" | "ep" | "single";
-  "img-cover": string | Media;
-  "release-date": string;
+  type: 'album' | 'ep' | 'single';
+  'img-cover': string | Media;
+  'release-date': string;
   authors?: string | null;
   artists: (string | Artist)[];
   links?: {
@@ -122,14 +122,14 @@ export interface Release {
  */
 export interface Event {
   id: string;
-  type: "concert" | "festival" | "tour";
+  type: 'concert' | 'festival' | 'tour';
   heading: string;
   subheading?: string | null;
   date: string;
   dateEnd?: string | null;
   address?: string | null;
-  "img-poster"?: (string | null) | Media;
-  "related-artists"?: (string | Artist)[] | null;
+  'img-poster'?: (string | null) | Media;
+  'related-artists'?: (string | Artist)[] | null;
   links?: {
     website?: string | null;
     tickets?: string | null;
@@ -147,7 +147,7 @@ export interface Product {
   name: string;
   colorHEX?: string | null;
   categories: (string | ProductCategory)[];
-  type: string | ProductType;
+  type?: (string | null) | ProductType;
   description: string;
   unique_name: string;
   price: number;
@@ -159,7 +159,7 @@ export interface Product {
     | null;
   variants: {
     stock: number;
-    size: "s" | "m" | "l" | "xl" | "os";
+    size: 's' | 'm' | 'l' | 'xl' | 'os';
     sku: string;
     sku_id: string;
     price_id: string;
@@ -167,7 +167,7 @@ export interface Product {
   }[];
   relatedProducts?:
     | {
-        relationType: "colorway" | "recommended";
+        relationType: 'colorway' | 'recommended';
         item?: (string | null) | Product;
         colorHEX?: string | null;
         id?: string | null;
@@ -196,7 +196,7 @@ export interface ProductCategory {
 export interface ProductType {
   id: string;
   name: string;
-  "related-categories"?: (string | ProductCategory)[] | null;
+  'related-categories'?: (string | ProductCategory)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -218,17 +218,7 @@ export interface ProductTag {
 export interface Order {
   id: string;
   date?: string | null;
-  status?:
-    | (
-        | "pending"
-        | "cancelled"
-        | "paid"
-        | "shipped"
-        | "delivered"
-        | "return-requested"
-        | "returned"
-      )
-    | null;
+  status?: ('pending' | 'cancelled' | 'paid' | 'shipped' | 'delivered' | 'return-requested' | 'returned') | null;
   items: {
     product: string | Product;
     sku: string;
@@ -312,7 +302,7 @@ export interface ArtistsArchive {
 export interface ContactDatum {
   id: string;
   email: string;
-  "phone-number": string;
+  'phone-number': string;
   address: string;
   socials?: {
     facebook?: string | null;
@@ -343,7 +333,7 @@ export interface MenuItem {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: string | User;
   };
   key?: string | null;
@@ -378,6 +368,7 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }
