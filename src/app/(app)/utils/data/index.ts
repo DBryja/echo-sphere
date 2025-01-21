@@ -40,11 +40,10 @@ export const fetchContactData = cache(async (): Promise<ContactDatum> => {
 });
 
 export const fetchArtistById = cache(async (slug: string): Promise<Artist> => {
-  const artist: Artist = await payload.findByID({
+  return await payload.findByID({
     collection: "artists",
     id: slug,
   });
-  return artist;
 });
 
 export const fetchReleasesByArtistId = cache(
@@ -97,6 +96,16 @@ export const fetchReleases = cache(async (): Promise<Release[]> => {
     await payload.find({
       collection: "releases",
       pagination: false,
+    })
+  ).docs;
+});
+
+export const fetchEvents = cache(async (): Promise<Event[]> => {
+  return (
+    await payload.find({
+      collection: "events",
+      pagination: false,
+      sort: "date",
     })
   ).docs;
 });

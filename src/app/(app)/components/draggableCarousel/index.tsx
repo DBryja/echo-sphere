@@ -24,6 +24,9 @@ interface InfiniteSliderProps {
   sticky?: boolean;
   className?: string;
   id?: string;
+  breakpoints?: {
+    [key: number]: { slidesPerView?: number; spaceBetween?: number };
+  };
   onSlideChange?: (swiper: SwiperType) => void;
   onSwiper?: (swiper: SwiperType) => void;
 }
@@ -37,6 +40,7 @@ const DraggableCarousel: React.FC<InfiniteSliderProps> = ({
   sticky = false,
   className = "",
   id = "",
+  breakpoints,
   onSlideChange,
   onSwiper,
 }) => {
@@ -55,6 +59,7 @@ const DraggableCarousel: React.FC<InfiniteSliderProps> = ({
       }}
       className={className}
       id={id}
+      breakpoints={breakpoints}
       onSlideChange={onSlideChange}
       onSwiper={onSwiper}
     >

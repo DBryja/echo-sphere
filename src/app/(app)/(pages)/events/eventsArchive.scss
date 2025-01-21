@@ -1,0 +1,84 @@
+@import "@globals/variables";
+@import "@globals/colors.module";
+@import "@globals/typography";
+@import "@globals/mixins";
+
+.events {
+  &__wrapper {
+    padding-top: calc($headerTop * 3 + $buttonHeight);
+    grid-column: 1 / -1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: repeat(auto-fill, auto);
+
+    .swiper{
+      overflow: visible;
+    }
+    .swiper-wrapper{
+      height: 100%;
+
+      .swiper-slide{
+        height: auto;
+        margin-right: -1px;
+      }
+    }
+
+    @include breakpoint("md") {
+      padding-top: calc($headerTop * 2);
+    }
+
+    @include breakpoint("lg") {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-row: 2;
+      min-height: 150vh;
+    }
+  }
+
+  &__cover__wrapper{
+    grid-column: 1/-1;
+    width: 100%;
+    position: relative;
+    &:after{
+      content: "";
+      display: block;
+      position: absolute;
+      @include ignoreMarginWidth;
+      height: calc(100% - 1px);
+      top: 0;
+      border: 1px solid $gray-200;
+      border-left: none;
+      border-right: none;
+    }
+  }
+
+  &__banner{
+    display: none;
+  }
+  &__heading {
+    @include typo-sub1;
+    color: $red;
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+    grid-row: 1;
+    grid-column: 1 / -1;
+
+    @include breakpoint("md") {
+      margin-top: $space-3;
+      @include typo-h2;
+    }
+
+    @include breakpoint("lg") {
+      @include typo-display;
+      color: $red;
+      margin: 0 auto;
+      font-size: 200px;
+      h1{
+        font-size: 200px;
+      }
+    }
+  }
+}
