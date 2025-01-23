@@ -3,6 +3,8 @@ import { Media } from "@/payload-types";
 import { Event } from "@/payload-types";
 import "./eventsArchive.scss";
 import EventsCarousel from "@components/events/EventsCarousel";
+import { extractDate } from "@app/utils";
+import ButtonsRow from "@components/shared/buttonsRow";
 
 export const revalidate = 86400;
 
@@ -30,12 +32,31 @@ export default async function Events() {
         <EventsCarousel events={eventsWithCover} />
       </section>
       <section className={"events__concert__wrapper events__concert"}>
-        {otherEvents.map((event, i) => (
-          <div key={i} className={"events__concert__item"}>
-            <p>{event.address}</p>
-            <p>{event.subheading}</p>
-          </div>
-        ))}
+        <h3 className={"events__type-heading"}>CONCERTS</h3>
+        {otherEvents.map((event, i) => {
+          const { day, monthShorthand: month, time } = extractDate(event.date);
+          return (
+            <div key={i} className={"events__concert__item"}>
+              <p className={"events__concert__item__date"}>
+                <span className={"day"}>{day}</span>
+                <span className={"month"}>{month}</span>
+                <span className={"time"}>{time}</span>
+              </p>
+              <p className={"events__concert__item__title"}>{event.heading}</p>
+              <p className={"events__concert__item__address"}>
+                {event.address}
+              </p>
+              <ButtonsRow
+                className={"events__concert__item__buttons"}
+                primaryLink={event.links?.website}
+                primaryText="About Event"
+                secondaryLink={event.links?.tickets}
+                secondaryText="Buy Tickets"
+                reverse={true}
+              />
+            </div>
+          );
+        })}
       </section>
     </div>
   );

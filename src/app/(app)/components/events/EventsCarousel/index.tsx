@@ -4,8 +4,7 @@ import DraggableCarousel from "@components/draggableCarousel";
 import "./eventsCarousel.scss";
 import Image from "@components/Image";
 import { getImageUrl, getImgAlt } from "@app/utils";
-import Link from "@components/Link";
-import Button from "@components/buttons/deafult";
+import ButtonsRow from "@components/shared/buttonsRow";
 
 export default function EventsCarousel({
   events,
@@ -30,18 +29,13 @@ export default function EventsCarousel({
           <h2>{event.heading}</h2>
           <h3>{event.subheading}</h3>
         </div>
-        <div className={"events__cover__item__buttons"}>
-          {event.links?.website && (
-            <Button className={"events__cover__item__button"} color={"white"}>
-              <Link href={event.links.website}>About Event</Link>
-            </Button>
-          )}
-          {event.links?.tickets && (
-            <Button className={"events__cover__item__button"} color={"black"}>
-              <Link href={event.links.tickets}>Buy Tickets</Link>
-            </Button>
-          )}
-        </div>
+        <ButtonsRow
+          className={"events__cover__item__buttons"}
+          primaryLink={event.links?.website}
+          primaryText="About Event"
+          secondaryLink={event.links?.tickets}
+          secondaryText="Buy Tickets"
+        />
       </div>
     ),
   }));
