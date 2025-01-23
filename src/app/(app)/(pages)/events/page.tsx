@@ -4,7 +4,8 @@ import { Event } from "@/payload-types";
 import "./eventsArchive.scss";
 import EventsCarousel from "@components/events/EventsCarousel";
 import { extractDate } from "@app/utils";
-import ButtonsRow from "@components/shared/buttonsRow";
+import Button from "@components/buttons/deafult";
+import Link from "@components/Link";
 
 export const revalidate = 86400;
 
@@ -34,26 +35,35 @@ export default async function Events() {
       <section className={"events__concert__wrapper events__concert"}>
         <h3 className={"events__type-heading"}>CONCERTS</h3>
         {otherEvents.map((event, i) => {
-          const { day, monthShorthand: month, time } = extractDate(event.date);
+          const { day, monthShorthand, time, month, year } = extractDate(
+            event.date,
+          );
           return (
             <div key={i} className={"events__concert__item"}>
               <p className={"events__concert__item__date"}>
+                <span className={"fullDate"}>
+                  {day}/{month}/{year % 100}
+                </span>
                 <span className={"day"}>{day}</span>
-                <span className={"month"}>{month}</span>
+                <span className={"month"}>{monthShorthand}</span>
                 <span className={"time"}>{time}</span>
               </p>
               <p className={"events__concert__item__title"}>{event.heading}</p>
               <p className={"events__concert__item__address"}>
                 {event.address}
               </p>
-              <ButtonsRow
-                className={"events__concert__item__buttons"}
-                primaryLink={event.links?.website}
-                primaryText="About Event"
-                secondaryLink={event.links?.tickets}
-                secondaryText="Buy Tickets"
-                reverse={true}
-              />
+              <div className={"events__concert__item__buttons"}>
+                {event.links?.tickets && (
+                  <Button color={"black"}>
+                    <Link href={event.links.tickets}>BUY TICKETS</Link>
+                  </Button>
+                )}
+                {event.links?.website && (
+                  <Button color={"white"}>
+                    <Link href={event.links.website}>ABOUT EVENT</Link>
+                  </Button>
+                )}
+              </div>
             </div>
           );
         })}
