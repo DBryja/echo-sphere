@@ -43,8 +43,7 @@ export function useWindowWidth() {
       window.removeEventListener("resize", handleResize);
       subscribers.delete(setWidth);
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [width]);
 
   return width;
 }
