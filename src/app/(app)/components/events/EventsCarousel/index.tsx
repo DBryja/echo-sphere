@@ -48,7 +48,7 @@ export default function EventsCarousel({
       loop={false}
       breakpoints={{
         0: {
-          slidesPerView: 1,
+          slidesPerView: 1.05,
         },
         767: {
           slidesPerView: 2.05,

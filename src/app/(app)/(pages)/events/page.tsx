@@ -6,6 +6,8 @@ import EventsCarousel from "@components/events/EventsCarousel";
 import { extractDate } from "@app/utils";
 import Button from "@components/buttons/deafult";
 import Link from "@components/Link";
+import Image from "next/image";
+import ScrollBanner from "@components/events/ScrollBanner";
 
 export const revalidate = 86400;
 
@@ -27,13 +29,29 @@ export default async function Events() {
 
   return (
     <div className={"events__wrapper"}>
-      {/*<div className={"events__banner"}></div>*/}
-      <h1 className={"events__heading"}>EVENTS</h1>
+      <h1 id="events__title" className={"events__heading"}>
+        EVENTS
+      </h1>
+      <div id="events__banner" className={"events__banner"}>
+        <Image
+          src="/img/events-banner.webp"
+          alt="Concert crowd"
+          fill
+          sizes="100vw"
+        />
+        <ScrollBanner bannerId={"events__banner"} titleId={"events__title"} />
+      </div>
+      <h3 className={"events__type-heading events__type-heading--festivals"}>
+        <span>FESTIVALS</span>
+        <span>&TOURS</span>
+      </h3>
       <section className={"events__cover__wrapper events__cover"}>
         <EventsCarousel events={eventsWithCover} />
       </section>
       <section className={"events__concert__wrapper events__concert"}>
-        <h3 className={"events__type-heading"}>CONCERTS</h3>
+        <h3 className={"events__type-heading events__type-heading--concerts"}>
+          CONCERTS
+        </h3>
         {otherEvents.map((event, i) => {
           const { day, monthShorthand, time, month, year } = extractDate(
             event.date,
