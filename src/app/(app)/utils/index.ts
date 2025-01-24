@@ -127,3 +127,40 @@ export const debounce = <T extends (...args: any[]) => void>(
     }, delay);
   };
 };
+
+export const formatTime = (date: Date) => {
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const amppm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const hoursStr = hours < 10 ? `0${hours}` : hours;
+  const minutesStr = minutes < 10 ? `0${minutes}` : minutes;
+  return `${hoursStr}:${minutesStr} ${amppm}`;
+};
+
+const months = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEPT",
+  "OCT",
+  "NOV",
+  "DEC",
+];
+export const extractDate = (date: string) => {
+  const dateObj = new Date(date);
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth();
+  const monthShorthand = months[month];
+  const year = dateObj.getFullYear();
+  const hour = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const time = formatTime(dateObj);
+  return { time, minutes, hour, day, month, monthShorthand, year };
+};

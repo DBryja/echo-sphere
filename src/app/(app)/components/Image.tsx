@@ -29,8 +29,8 @@ const ImageWithFallback = ({
     </linearGradient>
       </defs>
       <rect width="${width}" height="${height}" fill="url(#g)"/>
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="32px" fill="#FFF">
-        ${alt}
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="12px" fill="#FFF">
+        ${alt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}
       </text>
     </svg>
   `);
