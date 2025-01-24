@@ -26,24 +26,28 @@ function updateWindowWidth() {
 }
 
 export function useWindowWidth() {
-  const [width, setWidth] = useState(getWindowWidth());
+  const [width, setWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
       updateWindowWidth();
     };
 
-    setWidth(getWindowWidth());
-    updateFooterMargin(width);
+    // Ensure this only runs client-side
+    if (typeof window !== "undefined") {
+      const initialWidth = getWindowWidth();
+      setWidth(initialWidth);
+      updateFooterMargin(initialWidth);
 
-    window.addEventListener("resize", handleResize);
-    subscribers.add(setWidth);
+      window.addEventListener("resize", handleResize);
+      subscribers.add(setWidth);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      subscribers.delete(setWidth);
-    };
-  }, [width]);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        subscribers.delete(setWidth);
+      };
+    }
+  }, []);
 
   return width;
 }
