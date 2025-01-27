@@ -8,6 +8,7 @@ import {
   ContactDatum,
   Release,
   Event,
+  AboutUs,
 } from "@/payload-types";
 import { PaginatedDocs } from "payload";
 
@@ -90,6 +91,15 @@ export const fetchArtistsArchiveCopy = cache(
     ).docs[0];
   },
 );
+
+export const fetchAboutUsCopy = cache(async (): Promise<AboutUs> => {
+  return (
+    await payload.find({
+      collection: "aboutUs",
+      pagination: false,
+    })
+  ).docs[0];
+});
 
 export const fetchReleases = cache(async (): Promise<Release[]> => {
   return (
