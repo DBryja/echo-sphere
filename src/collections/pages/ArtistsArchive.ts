@@ -1,13 +1,12 @@
 import type { CollectionConfig } from "payload";
 import { limitToOneRecord } from "@/collectionHooks";
-import payload from "payload";
 
 export let ArtistsArchive: CollectionConfig;
 ArtistsArchive = {
   slug: "artistsArchive",
   labels: {
-    singular: "artistsArchive",
-    plural: "artistsArchive",
+    singular: "ArtistsArchive",
+    plural: "ArtistsArchive",
   },
   admin: {
     group: "Pages",

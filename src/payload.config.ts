@@ -25,6 +25,7 @@ import { Orders } from "@/collections/store/Orders";
 import { ContactData } from "@/collections/siteData/ContactData";
 import { MenuItems } from "@/collections/siteData/MenuItems";
 import { ArtistsArchive } from "@/collections/pages/ArtistsArchive";
+import { AboutUs } from "@/collections/pages/AboutUs";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -56,6 +57,7 @@ export default buildConfig({
     Users,
     //pages
     ArtistsArchive,
+    AboutUs,
     //site data
     ContactData,
     MenuItems,

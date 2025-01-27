@@ -24,6 +24,7 @@ export interface Config {
     media: Media;
     users: User;
     artistsArchive: ArtistsArchive;
+    aboutUs: AboutUs;
     'contact-data': ContactDatum;
     'menu-items': MenuItem;
     'payload-preferences': PayloadPreference;
@@ -292,6 +293,41 @@ export interface ArtistsArchive {
   desc1?: string | null;
   desc2?: string | null;
   desc3?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutUs".
+ */
+export interface AboutUs {
+  id: string;
+  banner_copy?: string | null;
+  heading?: string | null;
+  origins?: {
+    origins_heading?: string | null;
+    origins_subheading?: string | null;
+    origins_desc?: string | null;
+    origins_images?:
+      | {
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  values?: {
+    values_heading?: string | null;
+    values_desc1?: string | null;
+    values_desc2?: string | null;
+  };
+  about?: {
+    about_desc1?: string | null;
+    about_desc2?: string | null;
+  };
+  summary?: {
+    summary_desc1?: string | null;
+    summary_desc2?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
