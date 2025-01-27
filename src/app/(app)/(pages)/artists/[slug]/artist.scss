@@ -177,7 +177,7 @@ body:has(.artist__wrapper) {
         //top: calc(150px + 80px + $space-5); //margin of heading + heading height + 40px space
         top: 0;
         left: calc((100vw / 6 + $gutter));
-        width: calc((100vw / 6) * 2 - $gutter);
+        width: calc(((100vw - var(--sb-width)) / 6) * 2 - $gutter);
         background: $white;
         height: calc($headerTop * 2 + $buttonHeight + 150px + 80px + $space-5);
         z-index: 1;

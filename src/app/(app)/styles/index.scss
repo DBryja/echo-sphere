@@ -73,6 +73,7 @@ main {
   --button-width: 48px;
   --button-height: 48px;
   --header-top: 20px;
+  --sb-width: calc(100vw - 100%);
   @include breakpoint("md") {
     --gutter: 16px;
     --margin: 24px;
