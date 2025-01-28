@@ -327,6 +327,7 @@ export interface AboutUs {
   summary?: {
     summary_desc1?: string | null;
     summary_desc2?: string | null;
+    summary_desc3?: string | null;
   };
   updatedAt: string;
   createdAt: string;

@@ -100,6 +100,10 @@ AboutUs = {
           name: "summary_desc2",
           type: "text",
         },
+        {
+          name: "summary_desc3",
+          type: "text",
+        },
       ],
     },
   ],
