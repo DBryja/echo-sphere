@@ -49,52 +49,126 @@
         height: 100%;
         object-fit: cover;
       }
+
+    }
+    @include breakpoint(md){
+      &__heading{
+        @include typo-h2;
+        margin: 0 auto 192px auto;
+      }
+      &__desc{
+        @include typo-sub1;
+        text-wrap: balance;
+        padding-bottom: 112px;
+        &:before{
+          @include beforeDot;
+          bottom: calc(100% + $space-4);
+          width: $space-8;
+          height: $space-8;
+        }
+      }
     }
   }
 
-  &__origins{
+  &__origins {
     position: relative;
     padding-top: calc($space-4 - 4px);
     display: grid;
     grid-template-areas: "heading" "subheading" "images" "desc";
 
-    &__heading{
+
+    &__heading {
       @include typo-sub3;
       font-weight: 400;
       text-transform: uppercase;
       line-height: 120%;
       grid-area: heading;
     }
-    &__subheading{
+
+    &__subheading {
       @include typo-sub4;
       font-weight: 400;
       color: $gray-600;
       margin-top: $space-2;
       grid-area: subheading;
     }
-    &__desc{
+
+    &__desc {
       @include typo-body-small;
       grid-area: desc;
     }
-    &__images{
+
+    &__images {
       width: 140%;
       margin: $space-5 calc(-1 * ($margin + 20%)) $space-5 calc(-1 * ($margin + 20%));
       display: flex;
       flex-direction: row;
       grid-area: images;
       column-gap: $space-2;
-      div{
+
+      div {
         flex-basis: 50%;
         position: relative;
         aspect-ratio: 1;
-        box-shadow:0 0 0 4px $red inset;
-        img{
+        box-shadow: 0 0 0 4px $red inset;
+
+        img {
           z-index: -1;
         }
       }
     }
-    &:before{
-        @include separator;
+
+    &:before {
+      @include separator;
+    }
+
+    @include breakpoint(md) {
+      grid-template-areas:
+              "heading heading"
+              "subheading images"
+              "desc images";
+      grid-template-columns: 1fr 256px;
+      row-gap: $space-5;
+
+      &__heading{
+        @include typo-sub1;
+        line-height: 90%;
+        padding-bottom: $space-5;
+      }
+      &__subheading{
+        @include typo-sub3;
+      }
+      &__desc{
+        @include typo-body-small;
+      }
+      &__images{
+        flex-direction: column;
+        width: 100%;
+        column-gap: 0;
+        margin: 0;
+        align-items: center;
+        div{
+          flex-basis: unset;
+          position: relative;
+          z-index: 2;
+          box-shadow: none;
+          &:first-of-type{
+            width: 60%;
+            transform: rotate(15deg);
+          }
+          &:last-of-type{
+            width: 70%;
+            transform: rotate(-15deg);
+          }
+          &:after{
+            position: absolute;
+            content: "";
+            display: block;
+            inset: 0;
+            border: 6px solid $red;
+          }
+        }
+      }
     }
   }
 
@@ -138,10 +212,28 @@
         color: $red;
       }
     }
-
-
     &:before{
       @include separator;
+    }
+    @include breakpoint(md){
+      grid-template-areas: "heading" "desc1"  "desc2" "image";
+      &__heading{
+        @include typo-sub1;
+      }
+      &__desc{
+        max-width: 64ch;
+      }
+      &__image{
+        width: 500px;
+        margin: 0 auto;
+        &:before{
+          @include typo-h2;
+          z-index: 1;
+          line-height: 60%;
+          letter-spacing: -7.2px;
+          bottom: -48px;
+        }
+      }
     }
   }
 
@@ -220,6 +312,51 @@
     &:before{
       @include separator;
     }
+
+    @include breakpoint(md){
+      grid-template-areas: "heading" "banner" "desc1" "desc2" "team" "slogan";
+      margin-top: $space-8;
+      &__heading{
+        visibility: hidden;
+        height: 1px;
+      }
+      &__banner{
+        @include ignoreMarginWidth;
+        justify-content: start;
+        align-items: flex-end;
+        aspect-ratio: 1.75;
+        padding: $space-2 $margin;
+        img{
+          object-position: center;
+        }
+        p{
+          @include typo-sub1;
+          text-align: right;
+          line-height: 75%;
+          &:nth-child(2){
+            letter-spacing: 2px;
+          }
+          &:last-of-type{
+            margin-top: auto;
+            display: block;
+            text-align: left;
+            color: $red;
+            @include typo-h2;
+            line-height: 60%;
+            letter-spacing: -7.2px;
+          }
+        }
+      }
+      &__team{
+        aspect-ratio: 1.4;
+        max-width: 450px;
+        margin: 0 auto;
+        border: 6px solid $red;
+      }
+      &__slogan{
+        display: none;
+      }
+    }
   }
 
   &__impact{
@@ -266,6 +403,59 @@
     }
     &:before{
       @include separator;
+    }
+
+    @include breakpoint(md){
+      display: grid;
+      grid-template-areas: "headers" "desc" "image";
+      row-gap: $space-8;
+      &__image{
+        position: relative;
+        grid-area: image;
+        aspect-ratio: 1.75;
+      }
+      &__headers{
+        position: relative;
+        grid-area: headers;
+        display: flex;
+        margin: 0;
+        flex-wrap: nowrap;
+        justify-content: center;
+        column-gap: $space-3;
+        h2,h3{
+          @include typo-h2;
+          letter-spacing: -7.2px;
+          line-height: 60%;
+          text-wrap: nowrap;
+          font-size: 11rem;
+          width: fit-content;
+          margin: 0;
+        }
+        h3{
+          opacity: 0.5;
+        }
+      }
+      &__desc{
+        padding: 0 $margin;
+        grid-area: desc;
+        background-color: unset;
+        max-width: 64ch;
+        p{
+          color: $black;
+          text-align: left;
+          display: inline;
+          @include typo-body;
+          &:first-child{
+            margin: 0;
+          }
+          &:last-of-type{
+            display: inline-block;
+            height: unset;
+            visibility: visible;
+            margin-top: $space-2;
+          }
+        }
+      }
     }
   }
 }

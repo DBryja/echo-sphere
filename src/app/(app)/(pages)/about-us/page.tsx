@@ -77,7 +77,7 @@ export default async function AboutUs() {
         <div className={"about-us__studio__banner"}>
           <p>More than room</p>
           <p>More than work</p>
-          <p>It`s the people</p>
+          <p>It’s the people</p>
           <Image
             src={"/img/about-us/studio.png"}
             alt={"Studio"}

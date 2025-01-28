@@ -55,4 +55,8 @@ $dotPath: "/img/dot.svg";
   left: 0;
   right: 0;
   border-top: 2px solid $gray-200;
+  @include breakpoint(md){
+    width: 100%;
+    margin: 0 auto;
+  }
 }
