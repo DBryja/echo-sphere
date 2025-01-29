@@ -4,7 +4,7 @@ $breakpoints: (
   lg: "1024px",
   xl: "1280px",
   2xl: "1536px",
-  3xl: "1920px",
+  3xl: "1921px",
 );
 $dotPath: "/img/dot.svg";
 
@@ -44,4 +44,20 @@ $dotPath: "/img/dot.svg";
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+}
+
+@mixin separator {
+  content:"";
+  display: block;
+  position: absolute;
+  @include ignoreMarginWidth;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px solid $gray-200;
+  z-index: -1;
+  @include breakpoint(md){
+    width: 100%;
+    margin: 0 auto;
+  }
 }

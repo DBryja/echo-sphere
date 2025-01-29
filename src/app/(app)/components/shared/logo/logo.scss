@@ -1,8 +1,8 @@
 @import "@globals/colors.module";
 
 .logoSVG {
-  --logo-text-color: #040404;
-  --logo-icon-color: #ff4820;
+  --logo-text-color: #{$black};
+  --logo-icon-color: #{$red};
 
   &__text {
     fill: var(--logo-text-color);

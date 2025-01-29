@@ -33,6 +33,7 @@
     "react": "19.0.0-rc-d1afcb43-20240903",
     "react-color": "^2.19.3",
     "react-dom": "19.0.0-rc-d1afcb43-20240903",
+    "split-type": "^0.3.4",
     "stripe": "14.8.0",
     "swiper": "^11.1.14",
     "use-shopping-cart": "^3.2.0",

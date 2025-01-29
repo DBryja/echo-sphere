@@ -8,7 +8,11 @@ function getWindowWidth() {
 }
 
 function updateFooterMargin(width: number) {
-  if (width < 768) return;
+  if (width < 768) {
+    document.querySelector("main")?.setAttribute("style", `margin-bottom: 0px`);
+    return;
+  }
+
   const footerHeight = document.querySelector("footer")?.clientHeight;
   document
     .querySelector("main")
