@@ -3,6 +3,8 @@
 @import "@globals/typography";
 @import "@globals/mixins";
 
+$maskUrl: "/img/about-us/mask.svg";
+
 @include breakpoint(lg){
   body:has(.about-us__wrapper){
     .logoSVG{
@@ -70,6 +72,9 @@
       }
     }
     &__bg{
+      --mask-size: 790px;
+      --mask-x: 50%;
+      --opacity: 1;
       position: absolute;
       inset: 0;
       width: 100%;
@@ -80,12 +85,41 @@
         height: 100%;
         object-fit: cover;
       }
-
+      mask-repeat: no-repeat;
+      mask-image: url($maskUrl);
+      mask-size: var(--mask-size);
+      mask-position: var(--mask-x) 38%;
+      &:before{
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+        background-color: $red;
+        z-index: 1;
+        opacity: var(--opacity);
+      }
+    }
+    &__extra{
+      @include typo-sub2;
+      color: $white;
+      max-width: 800px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      margin-top: 200px;
     }
     @include breakpoint(md){
+      grid-column: 1/-1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: $black;
+      row-gap: $space-6;
+      height: 100vh;
       &__heading{
-        @include typo-h2;
-        margin: 0 auto 192px auto;
+        @include typo-display;
+        color: $red;
       }
       &__desc{
         @include typo-sub1;
@@ -105,17 +139,37 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      &__heading{
-        display: none;
+      &__bg{
+        z-index: 0;
       }
       &__desc{
-        margin-top: 160px;
-        padding: 0;
         @include typo-h3;
+        position: absolute;
+        opacity: 0;
+        padding: 0;
         font-size: 6.4rem;
         text-transform: uppercase;
         max-width: 970px;
         text-wrap: stable;
+        .line{
+          --inset-r: 100%;
+          background-color: $white;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          clip-path: inset(0 var(--inset-r) 0 0);
+        }
+      }
+      &__heading{
+        position: absolute;
+        left: 0;
+        top: 0;
+        visibility: hidden;
+        height: 1px;
+      }
+    }
+    @include breakpoint-max(md){
+      &__extra{
+        display: none;
       }
     }
   }
@@ -682,7 +736,15 @@
     @include breakpoint(2xl){
       &__headers{
         h2,h3 {
-          @include typo-display;
+          font-size: 22rem;
+          letter-spacing: -15px;
+        }
+      }
+    }
+    @include breakpoint(3xl){
+      &__headers{
+        h2,h3 {
+          font-size: 25rem;
         }
       }
     }

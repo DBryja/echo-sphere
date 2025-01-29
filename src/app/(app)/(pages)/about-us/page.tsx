@@ -1,6 +1,7 @@
 import { fetchAboutUsCopy } from "@utils/data";
 import Image from "next/image";
 import "./AboutUs.scss";
+import HeroAnim from "@components/about-us/hero-anim";
 
 export const revalidate = 86400;
 
@@ -10,19 +11,22 @@ export default async function AboutUs() {
   return (
     <div className={"about-us__wrapper"}>
       <section className={"about-us__hero"}>
-        <h1 className={"about-us__hero__heading"}>ABOUT US</h1>
-        <p className={"about-us__hero__desc"}>{copyData.heading}</p>
         <div className={"about-us__hero__bg"}>
           <Image
             src={"/img/about-us/hero.png"}
             alt={
               "A picture of an empty, dark stage with a microphone and lights"
             }
+            quality={100}
             fill
             sizes={"100vw"}
           />
         </div>
+        <h1 className={"about-us__hero__heading"}>ABOUT US</h1>
+        <p className={"about-us__hero__extra"}>{copyData.banner_copy}</p>
+        <p className={"about-us__hero__desc"}>{copyData.heading}</p>
       </section>
+      <HeroAnim />
       <section className={"about-us__origins"}>
         <h2 className={"about-us__origins__heading"}>
           {copyData.origins?.origins_heading}
