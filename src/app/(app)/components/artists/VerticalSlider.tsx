@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
-//@ts-ignore
+
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function VerticalSlider({ qty }: { qty: number }) {

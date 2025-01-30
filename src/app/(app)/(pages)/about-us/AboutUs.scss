@@ -57,6 +57,8 @@ $maskUrl: "/img/about-us/mask.svg";
       text-align: center;
       margin: 0 auto 144px auto;
       display: block;
+      z-index: 1;
+      position: relative;
     }
     &__desc{
       @include typo-sub4;
@@ -64,6 +66,10 @@ $maskUrl: "/img/about-us/mask.svg";
       color: $white;
       text-align: center;
       position: relative;
+      .line {
+        --inset-r: 100%;
+        color: $white;
+      }
       &:before{
         @include beforeDot;
         bottom: calc(100% + $space-1);
@@ -79,24 +85,11 @@ $maskUrl: "/img/about-us/mask.svg";
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
+      z-index: 0;
       img{
         width: 100%;
         height: 100%;
         object-fit: cover;
-      }
-      mask-repeat: no-repeat;
-      mask-image: url($maskUrl);
-      mask-size: var(--mask-size);
-      mask-position: var(--mask-x) 38%;
-      &:before{
-        content: "";
-        display: block;
-        position: absolute;
-        inset: 0;
-        background-color: $red;
-        z-index: 1;
-        opacity: var(--opacity);
       }
     }
     &__extra{
@@ -118,7 +111,7 @@ $maskUrl: "/img/about-us/mask.svg";
       row-gap: $space-6;
       height: 100vh;
       &__heading{
-        @include typo-display;
+        @include typo-h2;
         color: $red;
       }
       &__desc{
@@ -139,8 +132,30 @@ $maskUrl: "/img/about-us/mask.svg";
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    @include breakpoint(xl){
+      &__heading{
+        position: absolute;
+        left: 0;
+        top: 0;
+        visibility: hidden;
+        height: 1px;
+      }
       &__bg{
         z-index: 0;
+        mask-repeat: no-repeat;
+        mask-image: url($maskUrl);
+        mask-size: var(--mask-size);
+        mask-position: var(--mask-x) 38%;
+        &:before{
+          content: "";
+          display: block;
+          position: absolute;
+          inset: 0;
+          background-color: $red;
+          z-index: 1;
+          opacity: var(--opacity);
+        }
       }
       &__desc{
         @include typo-h3;
@@ -152,22 +167,14 @@ $maskUrl: "/img/about-us/mask.svg";
         max-width: 970px;
         text-wrap: stable;
         .line{
-          --inset-r: 100%;
           background-color: $white;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           clip-path: inset(0 var(--inset-r) 0 0);
         }
       }
-      &__heading{
-        position: absolute;
-        left: 0;
-        top: 0;
-        visibility: hidden;
-        height: 1px;
-      }
     }
-    @include breakpoint-max(md){
+    @include breakpoint-max(xl){
       &__extra{
         display: none;
       }
@@ -237,6 +244,7 @@ $maskUrl: "/img/about-us/mask.svg";
       }
       &__desc{
         @include typo-body-small;
+        max-width: 64ch;
       }
       &__images{
         flex-direction: column;
@@ -382,6 +390,36 @@ $maskUrl: "/img/about-us/mask.svg";
         @include typo-sub1;
         color: $red;
       }
+      .founder-label{
+        @include typo-sub3;
+        position: absolute;
+        background-color: $red;
+        width: fit-content;
+        text-wrap: nowrap;
+        &:nth-of-type(1){
+          left: 0;
+          top: 50%;
+          writing-mode: vertical-lr;
+          text-orientation: sideways;
+          padding: $space-2 8px $space-2 $space-2;
+          transform: translate(-50%, -50%);
+        };
+        &:nth-of-type(2){
+          bottom: -16px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 6px $space-2;
+        };
+        &:nth-of-type(3){
+          left: 100%;
+          top: 50%;
+          writing-mode: vertical-rl;
+          text-orientation: sideways;
+          padding: $space-2 8px $space-2 $space-2;
+          transform: translate(-50%, -50%) rotate(180deg);
+          z-index: 3;
+        };
+      }
     }
     &:before{
       @include separator;
@@ -403,6 +441,25 @@ $maskUrl: "/img/about-us/mask.svg";
           line-height: 60%;
           letter-spacing: -7.2px;
           bottom: -48px;
+        }
+        .founder-label{
+          &:nth-of-type(1), &:nth-of-type(3){
+            max-width: 42px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: $space-2;
+          }
+          &:nth-of-type(1){
+            transform: translate(-50%, -50%) rotate(180deg);
+          }
+          &:nth-of-type(2){
+            bottom: unset;
+            top: -16px;
+          }
+          &:nth-of-type(3){
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
         }
       }
     }
@@ -435,6 +492,11 @@ $maskUrl: "/img/about-us/mask.svg";
           left: 50%;
           transform: translateX(-50%);
         }
+      }
+    }
+    @include breakpoint(2xl){
+      &__desc{
+        max-width: 680px;
       }
     }
   }
@@ -599,6 +661,38 @@ $maskUrl: "/img/about-us/mask.svg";
         background-color: $black;
       }
     }
+    @include breakpoint(xl){
+      &__banner{
+        height: 100vh !important;
+        overflow: hidden;
+        p.room,p.work,p.people{
+          position: absolute;
+          width: fit-content;
+          text-wrap: nowrap;
+          @include typo-display;
+          color: $red;
+          font-size: 17rem;
+          text-align: center;
+          margin: unset;
+          display: block;
+        }
+        p.people{
+          font-size: 22rem;
+        }
+        &__team{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 50vw;
+          aspect-ratio: 1.6;
+        }
+      }
+    }
+    @include breakpoint-max(xl){
+      &__banner__team{
+        display: none;
+      }
+    }
   }
 
   &__impact{
@@ -732,6 +826,24 @@ $maskUrl: "/img/about-us/mask.svg";
       h2,h3{
         font-size: 17rem;
       }
+      h3 {
+        position: relative;
+        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        &:after{
+          left: 0;
+          position: absolute;
+          content: "";
+          height: 100%;
+          width: 100%;
+          overflow: visible;
+          background-image: radial-gradient(
+                          circle at 50% 100%,
+                          rgba(255,255,255,0.5) 0%,
+                          rgba(255,255,255,0) 100%
+          );
+          animation: fogMove 3s ease-in-out infinite alternate;
+        }
+      }
     }
     @include breakpoint(2xl){
       &__headers{
@@ -748,5 +860,14 @@ $maskUrl: "/img/about-us/mask.svg";
         }
       }
     }
+  }
+}
+
+@keyframes fogMove {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(50%);
   }
 }

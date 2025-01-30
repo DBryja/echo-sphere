@@ -11,7 +11,7 @@ export default function HeroAnim() {
   const titleRef = useRef<HTMLDivElement | null>(null);
   const extraRef = useRef<HTMLDivElement | null>(null);
   const descRef = useRef<HTMLDivElement | null>(null);
-  const isDesktop = useWindowWidth() > 1024;
+  const isDesktop = useWindowWidth() > 1279;
 
   // Set up references to the DOM elements
   useEffect(() => {
@@ -34,8 +34,9 @@ export default function HeroAnim() {
       descRef.current = document.querySelector(
         ".about-us__hero__desc",
       ) as HTMLDivElement;
-      new SplitType(".about-us__hero__desc", { types: "lines" });
     }
+
+    if (descRef.current) new SplitType(descRef.current, { types: "lines" });
   }, []);
 
   useGSAP(() => {
@@ -49,7 +50,6 @@ export default function HeroAnim() {
       return;
     }
 
-    gsap.registerPlugin(ScrollTrigger);
     if (
       !bannerRef.current ||
       !titleRef.current ||
@@ -58,7 +58,7 @@ export default function HeroAnim() {
     )
       return;
 
-    const tlMaskAnimLength = (window.innerHeight * 3).toString();
+    const tlMaskAnimLength = (window.innerHeight * 3.5).toString();
     const tlMaskAnim = gsap.timeline({
       scrollTrigger: {
         trigger: ".about-us__hero",
@@ -81,17 +81,21 @@ export default function HeroAnim() {
         '--mask-x': "46.3%",
       }, "<")
       .to(bannerRef.current, {
-        "--mask-size": "1000vw",
+        "--mask-size": "500vw",
         "--opacity": 0.95,
       })
       .to(bannerRef.current, {
-        "--mask-size": "3000vw",
-        "--opacity": 0.4,
+        "--mask-size": "1500vw",
+        "--opacity": 0.65,
       })
       .to(bannerRef.current, {
-        "--mask-size": "6000vw",
+        "--mask-size": "3000vw",
+        "--opacity": 0.3,
+      })
+      .to(bannerRef.current, {
+        "--mask-size": "4500vw",
         "--opacity": 0,
-      }) // 5 ELEMENTÓW
+      })
       .to(descRef.current, {
         opacity: 1
       })
@@ -99,6 +103,7 @@ export default function HeroAnim() {
         "--inset-r": "0%",
         stagger: 0.32,
       })
+      .to(descRef.current, {})
   }, [
     bannerRef.current,
     titleRef.current,
