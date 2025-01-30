@@ -17,7 +17,6 @@ import { ContactDatum, MenuItem } from "@/payload-types";
 import { sanitizeBreakpointVariable } from "@app/utils";
 
 gsap.registerPlugin(ScrollTrigger);
-
 export default function NavButtonContainer({
   navItems,
   contactData,

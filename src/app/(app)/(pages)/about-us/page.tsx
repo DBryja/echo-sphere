@@ -2,6 +2,8 @@ import { fetchAboutUsCopy } from "@utils/data";
 import Image from "next/image";
 import "./AboutUs.scss";
 import HeroAnim from "@components/about-us/hero-anim";
+import OriginsAnim from "@components/about-us/origins-anim";
+import StudioAnim from "@components/about-us/studio-anim";
 
 export const revalidate = 86400;
 
@@ -56,6 +58,7 @@ export default async function AboutUs() {
           </div>
         </div>
       </section>
+      <OriginsAnim />
       {/*<div className={"about-us__slider"}></div>*/}
       <section className={"about-us__values"}>
         <h2 className={"about-us__values__heading"}>
@@ -74,20 +77,32 @@ export default async function AboutUs() {
             src={"/img/about-us/founders.png"}
             alt={"People in a circle"}
           />
+          <span className={"founder-label"}>MAX SPENCER</span>
+          <span className={"founder-label"}>JAXON HARPER</span>
+          <span className={"founder-label"}>RILEY MONROE</span>
         </div>
       </section>
       <section className={"about-us__studio"}>
         <h2 className={"about-us__studio__heading"}>OUR STUDIO</h2>
         <div className={"about-us__studio__banner"}>
-          <p>More than room</p>
-          <p>More than work</p>
-          <p>It’s the people</p>
+          <p className={"room"}>More than room</p>
+          <p className={"work"}>More than work</p>
+          <p className={"people"}>It’s the people</p>
           <Image
+            className={"about-us__studio__banner__image"}
             src={"/img/about-us/studio.png"}
             alt={"Studio"}
             fill
             sizes={"100vw"}
           />
+          <div className={"about-us__studio__banner__team"}>
+            <Image
+              src={"/img/about-us/team.png"}
+              alt={"Studio"}
+              fill
+              sizes={"100vw"}
+            />
+          </div>
         </div>
         <p className={"about-us__studio__desc"}>
           {copyData.about?.about_desc1}
@@ -105,13 +120,14 @@ export default async function AboutUs() {
           />
         </div>
       </section>
+      <StudioAnim />
       <section className={"about-us__impact"}>
         <div className={"about-us__impact__image"}>
           <Image
             src={"/img/about-us/hands-crowd.png"}
             alt={"Studio"}
             fill
-            sizes={"100vw"}
+            sizes={"(max-width: 1024): 100vw, 50vw"}
           />
         </div>
         <div className={"about-us__impact__headers"}>
@@ -124,6 +140,9 @@ export default async function AboutUs() {
           <p>{copyData.summary?.summary_desc3}</p>
         </div>
       </section>
+      {/*<ImpactAnim />*/}
+
+      {/*<LogoColorAnim />*/}
     </div>
   );
 }

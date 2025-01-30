@@ -33,7 +33,6 @@ export default function ScrollBanner({
       return;
     }
 
-    gsap.registerPlugin(ScrollTrigger);
     const endHeight = window.innerHeight * 0.75;
     if (bannerRef.current) {
       gsap.to(bannerRef.current, {
