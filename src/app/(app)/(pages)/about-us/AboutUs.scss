@@ -349,6 +349,11 @@ $maskUrl: "/img/about-us/mask.svg";
         overflow: visible;
       }
     }
+    @include breakpoint(3xl){
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
   }
 
   &__values{
@@ -499,6 +504,11 @@ $maskUrl: "/img/about-us/mask.svg";
         max-width: 680px;
       }
     }
+    @include breakpoint(3xl){
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
   }
 
   &__studio{
@@ -575,6 +585,7 @@ $maskUrl: "/img/about-us/mask.svg";
     }
     &:before{
       @include separator;
+      max-width: 1800px;
     }
 
     @include breakpoint(md){
