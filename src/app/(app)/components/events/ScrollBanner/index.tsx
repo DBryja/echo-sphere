@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 
 export default function ScrollBanner({
@@ -27,7 +26,6 @@ export default function ScrollBanner({
 
   useGSAP(() => {
     if (!isDesktop) {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       gsap.killTweensOf(bannerRef.current);
       gsap.killTweensOf(titleRef.current);
       return;

@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 
 export default function HeroAnim() {
@@ -31,7 +30,6 @@ export default function HeroAnim() {
 
   useGSAP(() => {
     if (!isDesktop) {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       gsap.killTweensOf(containerRef.current);
       gsap.killTweensOf(img1Ref.current);
       gsap.killTweensOf(img2Ref.current);

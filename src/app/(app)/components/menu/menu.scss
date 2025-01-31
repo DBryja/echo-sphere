@@ -2,10 +2,15 @@
 @import "@globals/colors.module";
 @import "@globals/typography";
 
+@keyframes loadingBG {
+  100% {background-position: top left}
+}
+
 body:has(.menu.active) {
   overflow: hidden;
 }
 .menu {
+  //--loading-animation-state: paused;
   inset: 0;
   position: fixed;
   opacity: 0;
@@ -48,11 +53,21 @@ body:has(.menu.active) {
     inset: calc($headerTop + 2px) 0
       calc(100% - $buttonHeight - $headerTop - 2px) calc(100% - $buttonWidth);
     border-radius: $radius-1;
-    background-color: $red;
+    background:
+            linear-gradient(-55deg ,rgba(#ff7253, 0) 45%, lighten($red, 5%) 50%,rgba(#ff7253, 0)  55%)
+            bottom right/calc(200% + 80px) calc(200% + 80px)
+            $red;
     transition: inset 0.5s ease-in-out 0.1s;
+    animation: none;
     @include breakpoint("lg") {
       inset: 12px 0 calc(100% - $buttonHeight - 12px) calc(100% - $buttonWidth);
       transition: inset 0.5s cubic-bezier(0.89, 0, 0.35, 1);
+    }
+  }
+  &.loading{
+    &:before{
+      animation: loadingBG 1.2s ease-in-out infinite 0.2s;
+      //animation-play-state: var(--loading-animation-state);
     }
   }
   &.active {
@@ -181,6 +196,11 @@ body:has(.menu.active) {
     @include breakpoint("lg") {
       height: 64px;
       top: 8px;
+    }
+    @include breakpoint(xl) {
+      height: 80px;
+      top: 0;
+      scale: 1.0001
     }
   }
 }

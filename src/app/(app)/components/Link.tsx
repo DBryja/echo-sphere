@@ -40,7 +40,10 @@ export default function Link({
       setTimeout(() => {
         router.push(props.href.toString());
       }, transitionDuration * 1000);
-    } else router.push(props.href.toString());
+    } else {
+      document.querySelector(".menu")?.classList.add("loading");
+      router.push(props.href.toString());
+    }
   };
 
   const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

@@ -22,6 +22,9 @@
   & > * {
     pointer-events: auto;
   }
+  & > a{
+    transform-origin: bottom;
+  }
 
   @include breakpoint("md") {
     background-color: transparent;
@@ -29,6 +32,8 @@
   }
 
   @include breakpoint("lg") {
+    background-color: transparent;
+    box-shadow: none;
     height: calc($headerTop * 2 + $space-8);
     margin: 0 calc(-1 * $margin) 0 calc(-1 * $margin);
   }
