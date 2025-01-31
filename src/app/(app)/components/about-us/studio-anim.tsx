@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import { useWindowWidth } from "@hooks/useWindowWidth";
 
 export default function StudioAnim() {
@@ -43,7 +42,6 @@ export default function StudioAnim() {
 
   useGSAP(() => {
     if (!isDesktop) {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       gsap.killTweensOf(wrapperRef.current);
       gsap.killTweensOf(roomRef.current);
       gsap.killTweensOf(workRef.current);

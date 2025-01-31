@@ -95,14 +95,25 @@ export default function Menu({
   const logoTimeline = useRef<GSAPTimeline | null>(null);
   const isFirstRender = useRef(true);
   const hasBeenOpened = useRef(false);
-  let selectors = [".menu__links .enter-anim", ".menu__logo"];
+  let selectors = [
+    ".menu__corner-logo",
+    ".menu__links .enter-anim",
+    ".menu__logo",
+  ];
   if (isTablet)
     selectors = [
+      ".menu__corner-logo",
       ".menu__links .enter-anim",
       ".menu__contact .enter-anim",
       ".menu__logo",
     ];
 
+  useEffect(() => {
+    if (isOpen) {
+      const menu = containerRef.current as HTMLDivElement | null;
+      menu?.classList.remove("loading");
+    }
+  }, [isOpen]);
   // Menu items animation
   useGSAP(
     () => {
@@ -121,8 +132,13 @@ export default function Menu({
       const tl = gsap.timeline();
       menuItemsTimeline.current = tl;
 
+      // If scroll is at the top, corner logo is already visible so we only animate its color, otherwise we animate the entrance
+      const filteredSelectors = selectors.filter((el) => {
+        return window.scrollY < 20 ? el !== ".menu__corner-logo" : el;
+      });
+
       if (isOpen) {
-        selectors.forEach((selector) => {
+        filteredSelectors.forEach((selector) => {
           tl.from(
             selector,
             {
@@ -139,7 +155,9 @@ export default function Menu({
           );
         });
       } else {
-        const backingSelectors = isDesktop ? selectors : selectors.toReversed();
+        const backingSelectors = isDesktop
+          ? filteredSelectors
+          : filteredSelectors.toReversed();
         backingSelectors.forEach((selector) => {
           tl.to(
             selector,
@@ -323,7 +341,7 @@ export default function Menu({
         </div>
       </div>
 
-      <div className={"menu__corner-logo"}>
+      <div className={"menu__corner-logo enter-anim"}>
         <Logo />
       </div>
     </section>
