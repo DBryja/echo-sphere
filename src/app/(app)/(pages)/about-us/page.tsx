@@ -140,9 +140,6 @@ export default async function AboutUs() {
           <p>{copyData.summary?.summary_desc3}</p>
         </div>
       </section>
-      {/*<ImpactAnim />*/}
-
-      {/*<LogoColorAnim />*/}
     </div>
   );
 }

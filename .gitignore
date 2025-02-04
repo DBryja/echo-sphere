@@ -39,3 +39,5 @@ next-env.d.ts
 workspace.xml
 yarn.lock
 /.idea
+
+__*.*

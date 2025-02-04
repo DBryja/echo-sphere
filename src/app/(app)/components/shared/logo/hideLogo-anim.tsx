@@ -13,7 +13,6 @@ export default function HideLogoAnim() {
         start: "top top",
         end: "+=80",
         scrub: true,
-        markers: true,
       },
       y: -25,
       opacity: 0,
