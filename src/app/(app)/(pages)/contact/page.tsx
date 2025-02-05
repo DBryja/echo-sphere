@@ -94,8 +94,10 @@ export default async function Contact() {
         {contactPairs.map(([title, value]) => {
           return (
             <div className={"contact__data__row"} key={title}>
-              <div className={"contact__data__title"}>{title}</div>
-              <p className={"contact__data__item"}>
+              <div className={"contact__data__row__title"}>{title}</div>
+              <p
+                className={`contact__data__row__item  contact__data__row__item--${title}`}
+              >
                 {escapeContactData(value)}
               </p>
             </div>

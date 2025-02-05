@@ -8,7 +8,7 @@
     padding-top: calc($headerTop * 2 + $buttonHeight);
     margin-top: $space-6;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: subgrid;
     grid-column: 1/-1;
     row-gap: $space-4;
     @include breakpoint(md){
@@ -18,6 +18,7 @@
 
   &__form{
     display: grid;
+    grid-column: 1/-1;
     grid-template-areas: "decor" 'heading' "form";
 
     &__decor{
@@ -97,6 +98,12 @@
       margin-top: $space-6;
       row-gap: $space-3;
       position: relative;
+      // only when the fields are invalid and not empty
+      &:has(.input__field:placeholder-shown) .submit input,
+      &:has(.input__field:invalid) .submit input {
+        background-color: $gray-600;
+        pointer-events: none;
+      }
 
       .submit{
         width: 100%;
@@ -104,13 +111,17 @@
           width: 100%;
         }
       }
-
+    }
+    &__arrow{
+      position: absolute;
+      right: 0;
+      bottom: $space-10;
+      width: 80px;
+      height: 80px;
+    }
+    @include breakpoint-max(xl){
       &__arrow{
-        position: absolute;
-        right: 0;
-        bottom: $space-10;
-        width: 80px;
-        height: 80px;
+        display: none;
       }
     }
     @include breakpoint(lg){
@@ -138,7 +149,7 @@
         justify-content: center;
         max-width: 800px;
         h1{
-          font-size: 16rem;
+          font-size: 12rem;
         }
       }
       &__arrow{
@@ -147,10 +158,89 @@
     }
     @include breakpoint(2xl){
       grid-template-areas:  "heading decor"  "form decor";
-      row-gap: 0;
       &__heading p{
         max-width: 100%;
       }
+      &__decor{
+        max-width: 600px;
+        h1{
+          font-size: 16rem;
+        }
+      }
+    }
+  }
+
+  &__data{
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: subgrid;
+    background-color: $red;
+    position: relative;
+    padding: $space-3 0;
+
+    &__row{
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-rows: auto auto;
+      row-gap: $space-2;
+      &:not(:first-of-type){
+        padding-top: $space-3;
+      }
+      &:not(:last-of-type){
+        padding-bottom: $space-3;
+        border-bottom: 1.5px solid $black;
+      }
+      &__title{
+        @include typo-label;
+        text-transform: uppercase;
+      }
+      &__item{
+        @include typo-sub2;
+        word-break: break-word;
+        line-height: 80%;
+        @media (max-width: 418px) {
+          max-width: 16ch;
+        }
+        &--socials{
+          display: flex;
+          flex-direction: row;
+          column-gap: $space-2;
+        }
+      }
+      @include breakpoint(md){
+        grid-template-columns: subgrid;
+        &__title{
+          grid-column: 1/3;
+        }
+        &__item{
+          grid-column: 3/-1;
+        }
+      }
+      @include breakpoint(lg){
+        &__title{
+          grid-column: 1/3;
+        }
+        &__item{
+          grid-column:4/-1;
+        }
+      }
+      @include breakpoint(xl){
+        &__title{
+          @include typo-sub3;
+        }
+        &__item{
+          @include typo-h3;
+          text-transform: uppercase;
+        }
+      }
+    }
+    &:before{
+      display: block;
+      position: absolute;
+      content: "";
+      background-color: $red;
+      inset: 0 calc(-1 * $margin);
+      z-index: -1;
     }
   }
 }

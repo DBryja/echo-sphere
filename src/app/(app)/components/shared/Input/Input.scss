@@ -11,7 +11,7 @@
    @include typo-sub3;
    text-transform: uppercase;
   }
- &__field{
+  &__field{
    @include typo-label;
    border: none;
    outline: none;
@@ -35,6 +35,8 @@
      background-color: $black;
      border-radius: 4px;
      margin: 0 auto;
+     border: none;
+     transition: background-color 150ms;
    }
   }
   @include breakpoint(md){
