@@ -66,6 +66,22 @@ main {
     text-transform: uppercase;
   }
 }
+@include breakpoint-max(md){
+  .hide-on-sm{
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+  }
+}
+@include breakpoint(md){
+  .hide-on-md{
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+  }
+}
 
 :root {
   --gutter: 8px;

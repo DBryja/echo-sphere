@@ -1,0 +1,57 @@
+@import "@globals/typography";
+
+.input{
+  &__wrapper{
+   width: 100%;
+   display: grid;
+   grid-template-columns: 1fr;
+    row-gap: $space-1;
+  }
+  &__label{
+   @include typo-sub3;
+   text-transform: uppercase;
+  }
+ &__field{
+   @include typo-label;
+   border: none;
+   outline: none;
+   background-color: transparent;
+   border-bottom: 2px solid rgba($black, 0.5);
+   height: 3.2rem;
+   margin-top: 4px;
+   transition: border-bottom-color 0.15s;
+   &:active, &:focus, &:valid:not(:placeholder-shown){
+     border-color: $black;
+   }
+   &::placeholder{
+     text-transform: uppercase;
+   }
+   &[type=submit]{
+     width: fit-content;
+     height: auto;
+     padding: $space-1 $space-4;
+     @include typo-btn-small;
+     color: $white;
+     background-color: $black;
+     border-radius: 4px;
+     margin: 0 auto;
+   }
+  }
+  @include breakpoint(md){
+    &__label{
+      @include typo-sub2;
+    }
+    &__field{
+      @include typo-sub3;
+      height: 4.2rem;
+      &[type=submit] {
+        @include typo-sub3;
+      }
+    }
+  }
+  textarea.input__field{
+    height: unset;
+    min-height: 144px;
+  }
+}
+
