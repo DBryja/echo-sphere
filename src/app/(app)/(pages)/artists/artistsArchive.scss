@@ -156,20 +156,6 @@ body:has(.artists__wrapper.isDesktop) {
       display: flex;
       justify-content: end;
       top: 100%;
-      &__icon {
-        width: 80px;
-        height: 80px;
-        background-color: $black;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        right: calc(2px);
-        top: 100%;
-        svg {
-          animation: subtleLevitate 3s infinite linear;
-        }
-      }
     }
   }
 
@@ -355,14 +341,4 @@ body:has(.artists__wrapper.isDesktop) {
   }
 }
 
-@keyframes subtleLevitate {
-  0% {
-    transform: translateY(-2px);
-  }
-  50% {
-    transform: translateY(2px);
-  }
-  100% {
-    transform: translateY(-2px);
-  }
-}
+
