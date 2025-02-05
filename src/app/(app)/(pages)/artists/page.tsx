@@ -1,6 +1,5 @@
 import type { Artist } from "@/payload-types";
 import Image from "@components/Image";
-import { headers } from "next/headers";
 import { fetchArtistsArchiveCopy, fetchArtistsData } from "@app/utils/data";
 import { getImageUrl, getImgAlt } from "@app/utils";
 import "./artistsArchive.scss";
@@ -8,9 +7,10 @@ import VerticalSlider from "@components/artists/VerticalSlider";
 import Link from "@components/Link";
 import DraggableCarousel from "@components/draggableCarousel";
 import MobileArtist from "@components/artists/MobileArtist";
-import ScrollAnimation from "@components/artists/ScrollAnimation";
+import HideArrowAnim from "@components/shared/ArrowIcon/hideArrow-anim";
 import AnimatedRow from "@components/artists/AnimatedRow";
 import getDevice from "@utils/get-device";
+import ArrowIcon from "@components/shared/ArrowIcon";
 
 export const revalidate = 86400;
 export default async function Artists() {
@@ -95,23 +95,7 @@ export default async function Artists() {
             )}
             {isDesktop && (
               <div className={"artists__copy__arrow"}>
-                <div className={"artists__copy__arrow__icon"}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="48"
-                    height="48"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                  >
-                    <path
-                      d="M24.5 11L24.5 36M24.5 36L12.5 24M24.5 36L36.5 24"
-                      stroke="#F2F2F2"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
+                <ArrowIcon />
               </div>
             )}
           </div>
@@ -150,7 +134,7 @@ export default async function Artists() {
         )}
       </div>
       {isDesktop && <VerticalSlider qty={artists.length} />}
-      {isDesktop && <ScrollAnimation />}
+      {isDesktop && <HideArrowAnim selector={".artists__copy__arrow"} />}
     </>
   );
 }

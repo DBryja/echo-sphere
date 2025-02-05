@@ -1,0 +1,29 @@
+@import "@globals/colors.module";
+
+.arrow-icon {
+   width: 80px;
+   height: 80px;
+   background-color: $black;
+   border-radius: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   right: calc(2px);
+   top: 100%;
+
+   svg {
+     animation: subtleLevitate 2s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55);
+   }
+ }
+
+@keyframes subtleLevitate {
+  0% {
+    transform: translateY(-4px) scale(0.97);
+  }
+  50% {
+    transform: translateY(4px) scale(1.03);
+  }
+  100% {
+    transform: translateY(-4px) scale(0.97);
+  }
+}

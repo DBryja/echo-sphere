@@ -1,13 +1,30 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { useWindowWidth } from "@hooks/useWindowWidth";
 
+gsap.registerPlugin(ScrollTrigger);
 export default function HideLogoAnim() {
   const triggerRef = useRef<HTMLSpanElement>(null);
+  const tlRef = useRef<GSAPTimeline | null>(null);
+  const isMobile = useWindowWidth() < 768;
 
   useGSAP(() => {
-    gsap.to(".header > a", {
+    if (isMobile) {
+      if (tlRef.current) {
+        tlRef.current.kill();
+        ScrollTrigger.getAll()
+          .filter((st) => st.trigger?.matches(".hide-logo-trigger"))
+          .forEach((st) => st.kill());
+        tlRef.current = null;
+      }
+      return;
+    }
+
+    tlRef.current = gsap.timeline();
+    tlRef.current.to(".header > a", {
       scrollTrigger: {
         trigger: ".hide-logo-trigger",
         start: "top top",
@@ -20,7 +37,7 @@ export default function HideLogoAnim() {
       skewX: 5,
       zIndex: 100,
     });
-  }, []);
+  }, [isMobile]);
 
   return (
     <span
