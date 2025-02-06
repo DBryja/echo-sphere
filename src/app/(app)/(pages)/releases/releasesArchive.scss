@@ -117,12 +117,20 @@
   &__carousel {
     //.releases__carousel
     @include ignoreMarginWidth;
+    position: relative;
     margin-top: $space-5;
+
+    &__info{
+      position: absolute;
+      bottom: $space-10;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      @include typo-label;
+    }
 
     @include breakpoint("md") {
       margin-top: $space-10;
     }
-
     @include breakpoint("lg") {
       width: 100%;
       position: relative;
@@ -146,7 +154,6 @@
         width: 160%;
       }
     }
-
     .carousel {
       //.releases__carousel .carousel - components/releases/carousel
       &__bar {

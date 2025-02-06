@@ -101,6 +101,9 @@ $maskUrl: "/img/about-us/mask.svg";
       z-index: 2;
       margin-top: 200px;
     }
+    &__arrow{
+      display: none;
+    }
     @include breakpoint(md){
       grid-column: 1/-1;
       display: flex;
@@ -132,6 +135,14 @@ $maskUrl: "/img/about-us/mask.svg";
       display: flex;
       justify-content: center;
       align-items: center;
+      &__arrow{
+        display: block;
+        position: absolute;
+        bottom: $space-6;
+        .arrow-icon{
+          background: none;
+        }
+      }
     }
     @include breakpoint(xl){
       &__heading{

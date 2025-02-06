@@ -134,7 +134,7 @@ export default async function Artists() {
         )}
       </div>
       {isDesktop && <VerticalSlider qty={artists.length} />}
-      {isDesktop && <HideArrowAnim selector={".artists__copy__arrow"} />}
+      {isDesktop && <HideArrowAnim selector={".arrow-icon"} />}
     </>
   );
 }

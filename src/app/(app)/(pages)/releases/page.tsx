@@ -42,6 +42,7 @@ export default async function Releases() {
       </p>
       <div className={"releases__carousel"}>
         <Carousel slides={slides} />
+        <p className={"releases__carousel__info"}>drag or click to navigate</p>
       </div>
     </div>
   );

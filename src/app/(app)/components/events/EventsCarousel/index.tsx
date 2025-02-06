@@ -48,13 +48,16 @@ export default function EventsCarousel({
       loop={false}
       breakpoints={{
         0: {
-          slidesPerView: 1.05,
+          slidesPerView: 1.25,
         },
         767: {
-          slidesPerView: 2.05,
+          slidesPerView: 2.1,
+        },
+        1024: {
+          slidesPerView: 2.8,
         },
         1600: {
-          slidesPerView: 3.1,
+          slidesPerView: 3.6,
         },
       }}
       className={`events-carousel ${className}`}

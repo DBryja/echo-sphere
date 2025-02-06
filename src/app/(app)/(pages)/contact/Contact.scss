@@ -242,5 +242,22 @@
       inset: 0 calc(-1 * $margin);
       z-index: -1;
     }
+
+    @include breakpoint(lg){
+      margin-top: $space-6;
+      padding: $space-6 0;
+      &__row{
+        padding: $space-4 0;
+        border-bottom: 2px solid $black;
+        &:not(:last-of-type){
+          padding: $space-4 0;
+          border-bottom-width: 2px;
+        }
+        &:first-of-type{
+          padding-top: $space-3;
+          border-top: 2px solid $black;
+        }
+      }
+    }
   }
 }

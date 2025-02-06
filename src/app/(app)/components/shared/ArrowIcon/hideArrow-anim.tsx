@@ -9,12 +9,14 @@ interface HideArrowProps {
   trigger?: string;
   start?: string;
   end?: string;
+  markers?: boolean;
 }
 export default function HideArrowAnim({
   selector,
   trigger,
   start,
   end,
+  markers,
 }: HideArrowProps) {
   const arrowRef = useRef<HTMLDivElement | null>(null);
   const windowWidth = useWindowWidth();
@@ -29,9 +31,12 @@ export default function HideArrowAnim({
         start: start ? start : "top 80%",
         end: end ? end : "+=80px",
         toggleActions: "play play reverse reverse",
+        markers: markers,
       },
       opacity: 0,
-      duration: 0.15,
+      duration: 0.2,
+      y: -10,
+      scale: 0.9,
     });
   }, [windowWidth]);
 

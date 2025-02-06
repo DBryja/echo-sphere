@@ -4,6 +4,8 @@ import "./AboutUs.scss";
 import HeroAnim from "@components/about-us/hero-anim";
 import OriginsAnim from "@components/about-us/origins-anim";
 import StudioAnim from "@components/about-us/studio-anim";
+import ArrowIcon from "@components/shared/ArrowIcon";
+import HideArrowAnim from "@components/shared/ArrowIcon/hideArrow-anim";
 
 export const revalidate = 86400;
 
@@ -27,6 +29,13 @@ export default async function AboutUs() {
         <h1 className={"about-us__hero__heading"}>ABOUT US</h1>
         <p className={"about-us__hero__extra"}>{copyData.banner_copy}</p>
         <p className={"about-us__hero__desc"}>{copyData.heading}</p>
+        <div className={"about-us__hero__arrow"}>
+          <ArrowIcon />
+          <HideArrowAnim
+            selector={".about-us__hero__arrow"}
+            start={"top 60%"}
+          />
+        </div>
       </section>
       <HeroAnim />
       <section className={"about-us__origins"}>
