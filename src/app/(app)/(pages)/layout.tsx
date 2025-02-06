@@ -35,7 +35,6 @@ export default async function RootLayout({ children }: LayoutProps) {
   return (
     <TransitionProvider>
       <html lang="en">
-        {/*<LenisGsap>*/}
         <body
           className={`${natsRegular.variable} ${kokoroRegular.variable} bg-gray-300`}
         >
@@ -43,11 +42,12 @@ export default async function RootLayout({ children }: LayoutProps) {
           <TransitionHandler />
           <Cart>
             <Header />
-            <main>{children}</main>
-            <Footer />
+            <LenisGsap>
+              <main>{children}</main>
+              <Footer />
+            </LenisGsap>
           </Cart>
         </body>
-        {/*</LenisGsap>*/}
       </html>
     </TransitionProvider>
   );
