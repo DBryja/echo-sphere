@@ -34,7 +34,12 @@ export default async function Home() {
         </div>
       </section>
       <section className="home__revolution">
-        <h2 className={"home__revolution__title"}>
+        <h2 className={"home__revolution__title hide-on-md"}>
+          <span>Together,</span>
+          <span>we are music</span>
+          <span>revolutionaries</span>
+        </h2>
+        <h2 className={"home__revolution__title hide-on-sm"}>
           Together, we are music revolutionaries
         </h2>
         <p className={"home__revolution__desc"}>
@@ -52,13 +57,10 @@ export default async function Home() {
           />
           <p className={"home__revolution__decor__text"}>
             <span>Music</span>
-            <span>Revolution</span>
+            <span className={"hide-on-md"}>Revolution</span>
+            <span className={"hide-on-sm"}>Revolutionaries</span>
           </p>
         </div>
-        <p className={"home__revolution__desc"}>
-          In Echo Sphere, we support artists who define their generations and
-          push creative boundaries.
-        </p>
       </section>
       <section className={"home__us"}>
         <h2 className={"home__us__title"}>Who are we</h2>
