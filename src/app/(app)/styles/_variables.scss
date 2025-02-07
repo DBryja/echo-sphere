@@ -29,7 +29,7 @@ $z-transition: 100;
 $dotPath: "/img/dot.svg";
 
 @mixin ignoreMarginWidth {
-  width: calc(100% + 2 * $margin + 5px);
+  width: calc(100% + 2 * $margin);
   margin: 0 calc(-1 * $margin);
 }
 
