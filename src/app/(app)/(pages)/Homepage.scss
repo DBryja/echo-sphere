@@ -1,0 +1,213 @@
+@import "@globals/variables";
+@import "@globals/colors.module";
+@import "@globals/mixins";
+@import "@globals/typography";
+
+main:has(.home__hero){
+  min-height: 150vh;
+  section:not(.home__hero){
+    display: none;
+  }
+}
+.home {
+  &__hero {
+    position: relative;
+    --decor-height: #{$space-6};
+    --aspect-ratio: 10/9;
+    margin-top: calc($headerTop * 2 + $buttonHeight);
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-areas:
+            "t1 t1"
+            "t2 t3"
+            "desc desc"
+            "decor decor";
+    justify-content: end;
+    grid-template-rows: 1fr repeat(3, min-content);
+    grid-template-columns: min-content 1fr;
+    height: calc((var(--aspect-ratio)) * 100dvw + var(--decor-height));
+
+    &__bg {
+      position: absolute;
+      @include ignoreMarginWidth;
+      aspect-ratio: 9/10;
+      z-index: -1;
+
+      img {
+        object-fit: cover;
+        object-position: 40%;
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(180deg, rgba($black, 0), rgba($black, 0.5));
+      }
+    }
+    &__title {
+      text-transform: uppercase;
+
+      &--t1 {
+        grid-area: t1;
+        @include typo-sub3;
+        color: $white;
+        align-self: end;
+      }
+
+      &--t2 {
+        grid-area: t2;
+        display: block;
+        padding-right: $space-2;
+      }
+
+      &--t3 {
+        grid-area: t3;
+      }
+
+      &--t2, &--t3 {
+        @include typo-sub1;
+        color: $red;
+      }
+    }
+    &__desc {
+      grid-area: desc;
+      @include typo-sub4;
+      color: $white;
+      padding-bottom: $space-3;
+    }
+    &__decor {
+      grid-area: decor;
+      @include ignoreMarginWidth;
+      align-self: end;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      height: var(--decor-height);
+      background-color: $black;
+
+      span {
+        @include typo-sub3;
+        color: $gray-400;
+        transform: translateY(15%);
+      }
+    }
+
+    @include breakpoint(md) {
+      --decor-height: #{$space-10};
+      &__title {
+        &--t1 {
+          font-size: 10rem;
+          line-height: 80%;
+        }
+
+        &--t2, &--t3 {
+          font-size: 12rem;
+          line-height: 80%;
+        }
+      }
+      &__desc {
+        @include typo-sub3;
+        text-transform: uppercase;
+        padding: $space-3 0 $space-6 $space-10;
+
+        &:before {
+          @include beforeDot;
+          width: $space-8;
+          height: $space-8;
+          right: calc(100% - $space-8)
+        }
+      }
+      &__decor {
+        span {
+          font-size: 6rem;
+        }
+      }
+    }
+    @include breakpoint(lg){
+      --aspect-ratio: 5/6;
+      &__bg {
+        aspect-ratio: 6/5;
+     }
+    }
+    @include breakpoint(xl) {
+      --aspect-ratio: 5/11;
+      --decor-height: #{$space-8};
+      padding: 0 $space-8;
+      grid-template-areas:
+            "t1 t1 t1 t2"
+            "desc desc t3 t3"
+            "decor decor decor decor";
+      grid-template-rows: 1fr repeat(2, min-content);
+      grid-template-columns: repeat(3, min-content) 1fr;
+      //row-gap: $space-2;
+      &__bg {
+        aspect-ratio: unset;
+        height: calc(100% - var(--decor-height));
+        width: 100%;
+        margin: unset;
+        &:after{
+          display: none;
+        }
+      }
+      &__title {
+        &--t1 {
+          font-size: 12rem;
+          text-wrap: nowrap;
+          width: min-content;
+        }
+
+        &--t2 {
+          font-size: 8rem;
+          color: $white;
+          align-self: end;
+          width: 100%;
+          padding-left: $space-2;
+        }
+
+        &--t3 {
+          font-size: 20rem;
+          line-height: 55%;
+          padding-bottom: $space-6;
+        }
+      }
+      &__desc {
+        min-width: 516px;
+        padding: 0;
+        text-align: right;
+        margin-right: $space-2;
+
+        &:before {
+          display: none;
+        }
+      }
+      &__decor {
+        width: calc(100% + 2 * $space-8);
+        margin: 0 calc(-1 * $space-8);
+        overflow: hidden;
+        flex-direction: row-reverse;
+
+        span {
+          font-size: 10rem;
+          text-wrap: nowrap;
+
+          &:first-of-type {
+            transform: translate(10px, 30%);
+          }
+
+          &:last-of-type {
+            transform: translate(-10px, 30%);
+          }
+        }
+      }
+    }
+    @include breakpoint(2xl) {
+      --aspect-ratio: 10/27;
+    }
+    @include breakpoint(3xl){
+      --aspect-ratio: 1/3;
+    }
+  }
+
+}

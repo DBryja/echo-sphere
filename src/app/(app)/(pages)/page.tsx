@@ -2,12 +2,21 @@ import Link from "next/link";
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import { fetchArtistsData } from "@utils/data";
+import "./Homepage.scss";
 
 export default async function Home() {
   const [artists] = await Promise.all([fetchArtistsData()]);
   return (
     <>
       <section className="home__hero">
+        <div className={"home__hero__bg"}>
+          <Image
+            src={"/img/home/hero.png"}
+            fill
+            sizes={"100vw"}
+            alt={"a photo of a woman on stage singing"}
+          />
+        </div>
         <span className={"home__hero__title home__hero__title--t1"}>
           listen to echoes
         </span>
@@ -123,7 +132,7 @@ export default async function Home() {
         </p>
         <div className={"home__impact__bg"}>
           <Image
-            src={"/img/home/microphone"}
+            src={"/img/home/microphone.png"}
             fill
             sizes={"100vw"}
             alt={"photo of a microphone in a music studio"}
