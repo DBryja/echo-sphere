@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
+import ArtistFrame from "@components/home/ArtistFrame";
 import { fetchArtistsData } from "@utils/data";
 import "./Homepage.scss";
 
+const ARTISTS_PER_PAGE = 3;
 export default async function Home() {
   const [artists] = await Promise.all([fetchArtistsData()]);
   return (
@@ -93,31 +95,45 @@ export default async function Home() {
         <Link href={"/about-us"} className={"home__us__cta cta-button"}>
           See our history
         </Link>
-        {/*  TODO: CTA button*/}
       </section>
-      <section className={"home__artists"}>
-        <div className={"home__artists__frame"}>
-          <h2 className={"home__artists__title"}>Our Artists</h2>
-          <p className={"home__artists__desc"}>
-            <span>
-              Our label is about people who elevate creativity by facing and
-              breaking life’s and music barriers.
-            </span>
-            <span>
-              Music of our artist is like an echo, spreading fresh perspectives
-              and impactful change.
-            </span>
-          </p>
-          <p className={"home__artists__quote"}>
-            “Each artist we work with is a collaborator in our mission to
-            reshape the industry with values of equality, innovation, and true
-            emotion.”
-          </p>
-          <div>
-            <ArtistsCarousel artists={artists.docs} />
-          </div>
-        </div>
-        {/*  TODO: CTA button*/}
+      <section className={"home__artists hide-on-sm"}>
+        <h2 className={"home__artists__title"}>Our Artists</h2>
+        <p className={"home__artists__desc"}>
+          Our label is about people who elevate creativity by facing and
+          breaking life’s and music barriers. Music of our artist is like an
+          echo, spreading fresh perspectives and impactful change.
+        </p>
+        <p className={"home__artists__quote"}>
+          “Each artist we work with is a collaborator in our mission to reshape
+          the industry with values of equality, innovation, and true emotion.”
+        </p>
+        <ArtistsCarousel
+          artists={artists.docs}
+          className={"home__artists__carousel"}
+          breakpoints={{
+            767: { slidesPerView: 3.1 },
+            1024: { slidesPerView: 4.1 },
+          }}
+        />
+        <Link href={"/artists"} className={"home__artists__cta cta-button"}>
+          Meet echo artists
+        </Link>
+      </section>
+      <section className={"home__artists hide-on-md"}>
+        <h2 className={"home__artists__title"}>Our Artists</h2>
+        <p className={"home__artists__quote"}>
+          “Each artist we work with is a collaborator in our mission to reshape
+          the industry with values of <b>equality</b>, <b>innovation</b>, and{" "}
+          <b>true emotion</b>.”
+        </p>
+        <>
+          {artists.docs.slice(0, ARTISTS_PER_PAGE).map((artist) => (
+            <ArtistFrame key={artist.id} Artist={artist} />
+          ))}
+        </>
+        <Link href={"/artists"} className={"home__artists__cta cta-button"}>
+          Meet echo artists
+        </Link>
       </section>
       <section className={"home__releases"}>
         <h2>New Releases</h2>

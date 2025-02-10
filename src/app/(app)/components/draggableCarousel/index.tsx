@@ -15,7 +15,7 @@ interface Slide {
   content: React.ReactNode;
 }
 
-interface InfiniteSliderProps {
+export interface DraggableCarouselProps {
   slides: Slide[];
   slidesPerView?: number | "auto";
   spaceBetween?: number;
@@ -31,7 +31,7 @@ interface InfiniteSliderProps {
   onSwiper?: (swiper: SwiperType) => void;
 }
 
-const DraggableCarousel: React.FC<InfiniteSliderProps> = ({
+const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   slides,
   slidesPerView = "auto",
   spaceBetween = 0,

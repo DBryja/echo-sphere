@@ -1,19 +1,23 @@
 "use client";
 import { Artist } from "@/payload-types";
-import DraggableCarousel from "@components/draggableCarousel";
+import DraggableCarousel, {
+  DraggableCarouselProps,
+} from "@components/draggableCarousel";
 
 import "./artistsCarousel.scss";
 import Image from "@components/Image";
 import { getImageUrl, getImgAlt } from "@app/utils";
 import Link from "@components/Link";
 
+interface ArtistsCarouselProps extends Omit<DraggableCarouselProps, "slides"> {
+  artists: Artist[];
+}
+
 export default function ArtistsCarousel({
   artists,
   className = "",
-}: {
-  artists: Artist[];
-  className?: string;
-}) {
+  ...rest
+}: ArtistsCarouselProps) {
   const slides = artists.map((artist, i) => ({
     id: i,
     content: (
@@ -40,6 +44,7 @@ export default function ArtistsCarousel({
       <DraggableCarousel
         slides={slides}
         className={"artists-carousel__swiper"}
+        {...rest}
       />
     </div>
   );
