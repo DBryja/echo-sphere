@@ -4,12 +4,25 @@
 @import "@globals/typography";
 
 main:has(.home__hero){
+  --rowGap: #{$space-5};
   min-height: 150vh;
-  .home__us, .home__artists, .home__releases, .home__events, .home__impact, .home__newsletter{
+  .home__artists, .home__releases, .home__events, .home__impact, .home__newsletter{
     display: none;
   }
   margin-top: calc($headerTop * 2 + $buttonHeight);
   background-color: $white;
+  section{
+    padding: var(--rowGap) 0;
+    &:not(:first-of-type){
+      position: relative;
+      &:before{
+        @include separator;
+      }
+    }
+  }
+  @include breakpoint(md){
+    --rowGap: #{$space-8};
+  }
   @include breakpoint(xl){
     row-gap: $space-8;
   }
@@ -138,7 +151,7 @@ main:has(.home__hero){
     @include breakpoint(xl) {
       --aspect-ratio: 5/11;
       --decor-height: #{$space-8};
-      padding: 0 $space-8;
+      padding: 0 $space-8 !important;
       grid-template-areas:
             "t1 t1 t1 t2"
             "desc desc t3 t3"
@@ -218,6 +231,7 @@ main:has(.home__hero){
     position: relative;
     grid-column: 1/-1;
     width: 100%;
+    padding-top: calc(var(--rowGap) - 6px) !important;
     display: grid;
     grid-template-columns: 100%;
     grid-template-areas: "title" "decor" "desc";
@@ -271,7 +285,7 @@ main:has(.home__hero){
           color: $gray-200;
           line-height: 65%;
         }
-        span:last-of-type{
+        span:last-of-type, span:nth-of-type(2){
           @include typo-sub1;
           color: $red;
           line-height: 65%;
@@ -308,7 +322,7 @@ main:has(.home__hero){
       grid-template-rows: 1fr 1fr;
       row-gap: $space-1;
       column-gap: $space-3;
-      height: 60vw;
+      //height: 60vw;
 
       &__title{
         text-transform: uppercase;
@@ -395,5 +409,133 @@ main:has(.home__hero){
         max-width: 1600px;
       }
     }
+  }
+
+  &__us{
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-areas: "title" "desc" "image" "quote" "cta";
+    row-gap: $space-6;
+    &__title{
+      grid-area: title;
+      text-transform: uppercase;
+      @include typo-sub3;
+    }
+    &__desc{
+      grid-area: desc;
+      b{
+        color: $red;
+        text-transform: capitalize;
+      }
+    }
+    &__quote{
+      grid-area: quote;
+    }
+    &__image{
+      position: relative;
+      grid-area: image;
+      width: 100%;
+      aspect-ratio: 0.95;
+      border: 12px solid $black;
+      img{
+        object-fit: cover;
+      }
+      &:after{
+        position: absolute;
+        content: "OUR HQ";
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        bottom: 0;
+        transform: translateY(58%);
+        @include typo-h3;
+        color: $red;
+        letter-spacing: -7%;
+      }
+    }
+    &__cta{
+      grid-area: cta;
+      margin: 0 auto;
+    }
+
+    @include breakpoint(md){
+      grid-template-areas:
+              "title image"
+              "desc image"
+              "quote quote"
+              "cta cta";
+      grid-template-columns: 1fr 280px;
+      column-gap: $space-2;
+      &__title{
+        @include typo-h3;
+      }
+      &__desc{
+        display: flex;
+        flex-direction: column;
+        row-gap: $space-3;
+      }
+      &__image{
+        aspect-ratio: unset;
+        height: 100%;
+      }
+      &__quote{
+        @include typo-sub2;
+      }
+      &__cta{
+        margin: $space-4 auto;
+      }
+    }
+    @include breakpoint(xl){
+      grid-template-areas:
+              "title image"
+              "desc image"
+              "quote image"
+              "cta image";
+      grid-template-columns: 1fr 1fr;
+
+      &__image{
+        aspect-ratio: 1;
+        height: unset;
+        max-width: 80%;
+        justify-self: center;
+        align-self: center;
+        max-height: 750px;
+        &:after{
+          font-size: 16rem;
+          transform: translateY(52%);
+        }
+      }
+      &__title{
+        @include typo-sub1;
+      }
+      &__cta{
+        margin: 0;
+      }
+      &__desc, &__quote{
+        max-width: 680px;
+      }
+      &:after{
+        @include verticalSeparator;
+        left: 50%;
+      }
+    }
+  }
+}
+.cta-button{
+  @include typo-btn;
+  text-transform: uppercase;
+  display: block;
+  padding: $space-1 $space-4;
+  background-color: $black;
+  color: $white;
+  text-align: center;
+  width: fit-content;
+  border-radius: 4px;
+  height: fit-content;
+  &:hover{
+    background-color: $gray-400;
+    color: $black;
+    transition: color 0.15s, background-color 0.15s;
   }
 }

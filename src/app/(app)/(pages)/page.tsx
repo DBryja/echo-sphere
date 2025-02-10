@@ -64,26 +64,35 @@ export default async function Home() {
       </section>
       <section className={"home__us"}>
         <h2 className={"home__us__title"}>Who are we</h2>
-        <p className={"home__us__desc"}>
-          <span>
-            We are a music label from Chicago, founded by former musicians who
-            shared a vision to make music industry open to every creative soul.
-            Fueled by our own struggles in career, we help artists turning their
-            personal challenges into powerful music stories.
-          </span>
-          <span className={"hide-on-sm"}>
+        <div className={"home__us__desc"}>
+          <p>
+            We are a <b>music label</b> from <b>Chicago</b>, founded by former
+            musicians who shared a vision to make music industry open to every
+            creative soul. Fueled by our own struggles in career, we help
+            artists turning their personal challenges into powerful music
+            stories.
+          </p>
+          <p className={"hide-on-sm"}>
             Our core is guided by the values of equality, support, pioneering
             new directions, and making a real impact in building a better future
-          </span>
-        </p>
+          </p>
+        </div>
         <p className={"home__us__quote"}>
           “We knew firsthand the hardships of lacking financial resources,
           professional support, and technical skills, but our passion for music
           and helping others kept us going.”
         </p>
-        <div className={"home__us__slider"}>
-          {/* TODO: universal slider component for home and about-us*/}
+        <div className={"home__us__image"}>
+          <Image
+            src={"/img/home/house.jpg"}
+            alt={"a photo of a brick house"}
+            fill
+            sizes={"(max-width: 768px) 450px, 40vw"}
+          />
         </div>
+        <Link href={"/about-us"} className={"home__us__cta cta-button"}>
+          See our history
+        </Link>
         {/*  TODO: CTA button*/}
       </section>
       <section className={"home__artists"}>
