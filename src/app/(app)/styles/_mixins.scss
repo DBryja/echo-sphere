@@ -61,3 +61,11 @@ $dotPath: "/img/dot.svg";
     margin: 0 auto;
   }
 }
+
+@mixin verticalSeparator{
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-left: 2px solid $gray-200;
+}
