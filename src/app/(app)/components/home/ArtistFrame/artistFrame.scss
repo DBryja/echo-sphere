@@ -1,0 +1,42 @@
+@import "@globals/variables";
+@import "@globals/colors.module";
+@import "@globals/mixins";
+@import "@globals/typography";
+
+.artist-frame{
+  @include ignoreMarginWidth;
+  background-color: $red;
+  padding: $space-4 $space-7 $space-8 $space-7;
+  position: relative;
+  &__img{
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    object-fit: cover;
+    object-position: center;
+    padding: 0 $space-1;
+  }
+  &__name{
+    @include typo-sub1;
+    color: $white;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 65%;
+    position: absolute;
+    left: $margin;
+    bottom: 4px;
+    width: min-content;
+  }
+  &__cta{
+    position: absolute;
+    right: $margin;
+    bottom: 10px;
+    background-color: $black;
+    width: 50px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

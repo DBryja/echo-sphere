@@ -61,3 +61,29 @@ $dotPath: "/img/dot.svg";
     margin: 0 auto;
   }
 }
+
+@mixin topBottomLine {
+  content:"";
+  display: block;
+  position: absolute;
+  @include ignoreMarginWidth;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(100% - 2px);
+  border-top: 2px solid $gray-200;
+  border-bottom: 2px solid $gray-200;
+  z-index: -1;
+  @include breakpoint(md){
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@mixin verticalSeparator{
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-left: 2px solid $gray-200;
+}

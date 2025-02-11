@@ -13,14 +13,6 @@ $maskUrl: "/img/about-us/mask.svg";
   }
 }
 
-@mixin verticalSeparator{
-    content: "";
-    position: absolute;
-    top: 0;
-    height: calc(100%);
-    border-left: 2px solid $gray-200;
-}
-
 .about-us{
   &__wrapper{
     --pt: 32px;

@@ -1,24 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useTransition } from "@providers/TransitionContext";
 import { usePathname } from "next/navigation";
 
 export default function TransitionHandler() {
   const { endTransition, transitionBoxRef } = useTransition();
   const pathname = usePathname();
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const isInitialLoad = useRef(true);
+  const previousPathname = useRef<string | null>(null);
 
   useEffect(() => {
-    if (isInitialLoad) {
-      setIsInitialLoad(false);
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
       transitionBoxRef.current?.classList.remove("initial");
+      previousPathname.current = pathname;
       return;
     }
-    requestAnimationFrame(() => {
-      endTransition();
-    });
-  }, [isInitialLoad, transitionBoxRef, pathname, endTransition]);
+
+    if (previousPathname.current !== pathname) {
+      requestAnimationFrame(() => {
+        endTransition();
+      });
+      previousPathname.current = pathname;
+    }
+  }, [pathname, endTransition, transitionBoxRef]);
 
   return null;
 }

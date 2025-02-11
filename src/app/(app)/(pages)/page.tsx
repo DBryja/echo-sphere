@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
+import ArtistFrame from "@components/home/ArtistFrame";
 import { fetchArtistsData } from "@utils/data";
 import "./Homepage.scss";
 
+const ARTISTS_PER_PAGE = 3;
 export default async function Home() {
   const [artists] = await Promise.all([fetchArtistsData()]);
   return (
@@ -64,51 +66,81 @@ export default async function Home() {
       </section>
       <section className={"home__us"}>
         <h2 className={"home__us__title"}>Who are we</h2>
-        <p className={"home__us__desc"}>
-          <span>
-            We are a music label from Chicago, founded by former musicians who
-            shared a vision to make music industry open to every creative soul.
-            Fueled by our own struggles in career, we help artists turning their
-            personal challenges into powerful music stories.
-          </span>
-          <span className={"hide-on-sm"}>
+        <div className={"home__us__desc"}>
+          <p>
+            We are a <b>music label</b> from <b>Chicago</b>, founded by former
+            musicians who shared a vision to make music industry open to every
+            creative soul. Fueled by our own struggles in career, we help
+            artists turning their personal challenges into powerful music
+            stories.
+          </p>
+          <p className={"hide-on-sm"}>
             Our core is guided by the values of equality, support, pioneering
             new directions, and making a real impact in building a better future
-          </span>
-        </p>
+          </p>
+        </div>
         <p className={"home__us__quote"}>
           “We knew firsthand the hardships of lacking financial resources,
           professional support, and technical skills, but our passion for music
           and helping others kept us going.”
         </p>
-        <div className={"home__us__slider"}>
-          {/* TODO: universal slider component for home and about-us*/}
+        <div className={"home__us__image"}>
+          <Image
+            src={"/img/home/house.jpg"}
+            alt={"a photo of a brick house"}
+            fill
+            sizes={"(max-width: 768px) 450px, 40vw"}
+          />
         </div>
-        {/*  TODO: CTA button*/}
+        <Link href={"/about-us"} className={"home__us__cta cta-button"}>
+          See our history
+        </Link>
       </section>
-      <section className={"home__artists"}>
-        <div className={"home__artists__frame"}>
-          <h2 className={"home__artists__title"}>Our Artists</h2>
-          <p className={"home__artists__desc"}>
-            <span>
-              Our label is about people who elevate creativity by facing and
-              breaking life’s and music barriers.
-            </span>
-            <span>
-              Music of our artist is like an echo, spreading fresh perspectives
-              and impactful change.
-            </span>
+      <section className={"home__artists hide-on-sm"}>
+        <h2 className={"home__artists__title"}>Our Artists</h2>
+        <div className={"home__artists__desc"}>
+          <p>
+            Our label is about people who elevate creativity by facing and
+            breaking life’s and music barriers.
           </p>
-          <p className={"home__artists__quote"}>
-            “Each artist we work with is a collaborator in our mission to
-            reshape the industry with values of equality, innovation, and true
-            emotion.”
+          <p>
+            Music of our artist is like an echo, spreading fresh perspectives
+            and impactful change.
           </p>
-          <div>
-            <ArtistsCarousel artists={artists.docs} />
-          </div>
         </div>
-        {/*  TODO: CTA button*/}
+        <p className={"home__artists__quote"}>
+          “Each artist we work with is a collaborator in our mission to reshape
+          the industry with values of equality, innovation, and true emotion.”
+        </p>
+        <ArtistsCarousel
+          artists={artists.docs}
+          className={"home__artists__carousel"}
+          slidesPerView={2.5}
+          breakpoints={{
+            767: { slidesPerView: 3.3 },
+            1024: { slidesPerView: 4.1 },
+            1921: { slidesPerView: 5.1 },
+          }}
+        />
+        <Link href={"/artists"} className={"home__artists__cta cta-button"}>
+          Meet echo artists
+        </Link>
+      </section>
+      <section className={"home__artists hide-on-md"}>
+        <h2 className={"home__artists__title"}>Our Artists</h2>
+        <p className={"home__artists__quote"}>
+          “Each artist we work with is a collaborator in our mission to reshape
+          the industry with values of <b>equality</b>, <b>innovation</b>, and{" "}
+          <b>true emotion</b>.”
+        </p>
+        <>
+          {artists.docs.slice(0, ARTISTS_PER_PAGE).map((artist) => (
+            <ArtistFrame key={artist.id} Artist={artist} />
+          ))}
+        </>
+        <Link href={"/artists"} className={"home__artists__cta cta-button"}>
+          Meet echo artists
+        </Link>
       </section>
       <section className={"home__releases"}>
         <h2>New Releases</h2>
