@@ -9,16 +9,9 @@ main:has(.home__hero){
   .home__releases, .home__events, .home__impact, .home__newsletter{
     display: none;
   }
-  margin-top: calc($headerTop * 2 + $buttonHeight);
   background-color: $white;
   section{
     padding: var(--rowGap) 0;
-    &:not(:first-of-type){
-      position: relative;
-      &:before{
-        @include separator;
-      }
-    }
   }
   @include breakpoint(md){
     --rowGap: #{$space-8};
@@ -30,6 +23,7 @@ main:has(.home__hero){
 
 .home {
   &__hero {
+    margin-top: calc($headerTop * 2 + $buttonHeight);
     position: relative;
     --decor-height: #{$space-6};
     --aspect-ratio: 10/9;
@@ -442,21 +436,19 @@ main:has(.home__hero){
     display: grid;
     grid-template-areas: "title" "desc" "image" "quote" "cta";
     row-gap: $space-6;
+    position: relative;
 
     &__title {
       grid-area: title;
       text-transform: uppercase;
       @include typo-sub3;
     }
-
     &__desc {
       grid-area: desc;
     }
-
     &__quote {
       grid-area: quote;
     }
-
     &__image {
       position: relative;
       grid-area: image;
@@ -474,6 +466,7 @@ main:has(.home__hero){
         display: block;
         width: 100%;
         text-align: center;
+        text-wrap: nowrap;
         margin: 0 auto;
         bottom: 0;
         transform: translateY(58%);
@@ -482,10 +475,12 @@ main:has(.home__hero){
         letter-spacing: -7%;
       }
     }
-
     &__cta {
       grid-area: cta;
       margin: 0 auto;
+    }
+    &:before{
+      @include topBottomLine;
     }
 
     @include breakpoint(md) {
@@ -495,7 +490,7 @@ main:has(.home__hero){
               "quote quote"
               "cta cta";
       grid-template-columns: 1fr 280px;
-      column-gap: $space-2;
+      column-gap: 120px;
       &__title {
         @include typo-h3;
       }
@@ -556,6 +551,7 @@ main:has(.home__hero){
     grid-column: 1/-1;
     display: flex;
     flex-direction: column;
+    position: relative;
 
     &__quote {
       margin: $space-6 0;
@@ -574,6 +570,9 @@ main:has(.home__hero){
         height: 24px;
         background-color: $red;
       }
+    }
+    &:before{
+      @include separator;
     }
 
     @include breakpoint(md){
@@ -594,12 +593,43 @@ main:has(.home__hero){
       &__desc{
         grid-area: desc;
         max-width: 680px;
+        p{
+          display: inline;
+        }
       }
       &__carousel{
         grid-area: carousel;
       }
       &__cta{
         grid-area: cta;
+      }
+    }
+    @include breakpoint(xl){
+      display: grid;
+      grid-template-areas: "title desc" "title quote" "carousel carousel" "cta cta";
+      grid-template-columns: 1fr 1fr;
+      column-gap: 120px;
+      &__title{
+        @include typo-sub1;
+        text-transform: uppercase;
+      }
+      &__desc{
+        display: flex;
+        flex-direction: column;
+        row-gap: $space-4;
+        padding-right: $space-4;
+        p{
+          display: block;
+        }
+      }
+      &__quote{
+        padding-right: $space-4;
+      }
+      &:after{
+        @include verticalSeparator;
+        left: 50%;
+        height: calc(2 * var(--rowGap) + 450px);
+        z-index: -1;
       }
     }
 

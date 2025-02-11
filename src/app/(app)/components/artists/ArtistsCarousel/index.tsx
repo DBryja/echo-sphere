@@ -44,6 +44,15 @@ export default function ArtistsCarousel({
       <DraggableCarousel
         slides={slides}
         className={"artists-carousel__swiper"}
+        breakpoints={
+          rest.breakpoints
+            ? rest.breakpoints
+            : {
+                0: { slidesPerView: 2.2 },
+                767: { slidesPerView: 3.3 },
+                1024: { slidesPerView: 4.5 },
+              }
+        }
         {...rest}
       />
     </div>

@@ -98,11 +98,16 @@ export default async function Home() {
       </section>
       <section className={"home__artists hide-on-sm"}>
         <h2 className={"home__artists__title"}>Our Artists</h2>
-        <p className={"home__artists__desc"}>
-          Our label is about people who elevate creativity by facing and
-          breaking life’s and music barriers. Music of our artist is like an
-          echo, spreading fresh perspectives and impactful change.
-        </p>
+        <div className={"home__artists__desc"}>
+          <p>
+            Our label is about people who elevate creativity by facing and
+            breaking life’s and music barriers.
+          </p>
+          <p>
+            Music of our artist is like an echo, spreading fresh perspectives
+            and impactful change.
+          </p>
+        </div>
         <p className={"home__artists__quote"}>
           “Each artist we work with is a collaborator in our mission to reshape
           the industry with values of equality, innovation, and true emotion.”
@@ -110,9 +115,11 @@ export default async function Home() {
         <ArtistsCarousel
           artists={artists.docs}
           className={"home__artists__carousel"}
+          slidesPerView={2.5}
           breakpoints={{
-            767: { slidesPerView: 3.1 },
+            767: { slidesPerView: 3.3 },
             1024: { slidesPerView: 4.1 },
+            1921: { slidesPerView: 5.1 },
           }}
         />
         <Link href={"/artists"} className={"home__artists__cta cta-button"}>
