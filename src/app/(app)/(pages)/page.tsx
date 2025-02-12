@@ -2,12 +2,17 @@ import Link from "next/link";
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import ArtistFrame from "@components/home/ArtistFrame";
-import { fetchArtistsData } from "@utils/data";
+import { fetchArtistsData, fetchLatestReleases } from "@utils/data";
 import "./Homepage.scss";
+import ReleaseRow from "@components/home/ReleaseRow";
 
+export const revalidate = 86400;
 const ARTISTS_PER_PAGE = 3;
 export default async function Home() {
-  const [artists] = await Promise.all([fetchArtistsData()]);
+  const [artists, releases] = await Promise.all([
+    fetchArtistsData(),
+    fetchLatestReleases(),
+  ]);
   return (
     <>
       <section className="home__hero">
@@ -143,10 +148,22 @@ export default async function Home() {
         </Link>
       </section>
       <section className={"home__releases"}>
-        <h2>New Releases</h2>
-        {/*TODO: Fetch 3 latest releases and put them here*/}
-        <div className={"home__releases__list"}></div>
-        {/*  TODO: CTA button*/}
+        <h2 className={"home__releases__title"}>New Releases</h2>
+        <div className={"home__releases__list"}>
+          {releases.map((release) => (
+            <ReleaseRow
+              key={release.id}
+              release={release}
+              className={"home__releases__list__item"}
+            />
+          ))}
+        </div>
+        <Link href={"/releases"} className={"home__releases__cta cta-button"}>
+          <span className={"hide-on-sm"} style={{ color: "inherit" }}>
+            CHECK&nbsp;
+          </span>
+          Latest Releases
+        </Link>
       </section>
       <section className={"home__events"}>
         <h2>New Releases</h2>

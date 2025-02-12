@@ -23,13 +23,16 @@
     font-weight: 400;
     line-height: 65%;
     position: absolute;
-    left: $margin;
+    left: 0;
+    // Sitck to the $margin left when on default viewport(375) and move corresponding to enlargement of vw
+    transform: translateX(calc(#{$margin} + (100vw - 375px) / 2));
     bottom: 4px;
     width: min-content;
   }
   &__cta{
     position: absolute;
-    right: $margin;
+    right: 50%;
+    transform: translateX(143px);
     bottom: 10px;
     background-color: $black;
     width: 50px;

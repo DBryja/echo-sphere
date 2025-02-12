@@ -64,6 +64,16 @@ export const fetchReleasesByArtistId = cache(
   },
 );
 
+export const fetchLatestReleases = cache(async (): Promise<Release[]> => {
+  const releases = await payload.find({
+    collection: "releases",
+    sort: "-release-date",
+    limit: 3,
+    pagination: false,
+  });
+  return releases.docs as Release[];
+});
+
 export const fetchEventsByArtistId = cache(
   async (artistId: string): Promise<Event[]> => {
     const events = await payload.find({
