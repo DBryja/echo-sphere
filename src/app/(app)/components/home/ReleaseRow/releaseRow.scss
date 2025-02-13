@@ -1,0 +1,78 @@
+@import "@globals/variables";
+@import "@globals/typography";
+@import "@globals/mixins";
+
+.release-row{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: $space-1;
+
+  &__img{
+    grid-area: img;
+    width: 128px;
+    aspect-ratio: 1;
+  }
+  &__title{
+    grid-area: title;
+    @include typo-sub1;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: $space-1;
+    line-height: 65%;
+  }
+  &__name{
+    grid-area: name;
+    text-transform: uppercase;
+    @include typo-sub3;
+    line-height: 65%;
+  }
+  &__prod{
+    grid-area: prod;
+    @include typo-label;
+    text-transform: uppercase;
+    color: $gray-600;
+  }
+  &__links{
+    grid-area: links;
+  }
+
+  @include breakpoint(md) {
+    display: grid;
+    grid-template-areas:
+            "img title links"
+            "img name links"
+            "img prod links";
+    grid-template-columns: min-content 1fr min-content;
+    column-gap: $space-2;
+    padding: $space-2 0 !important;
+    row-gap: 0;
+    &__title{
+      margin: 0;
+      text-align: left;
+    }
+    &__links{
+      height: 100%;
+      padding: 0 $space-3;
+      position: relative;
+      &:before{
+        @include verticalSeparator;
+        left: 0;
+        top: - #{$space-2};
+        height: calc(100% + 2 * #{$space-2});
+      }
+    }
+  }
+  @include breakpoint(xl) {
+    &__img{
+      --leftCol: 2;
+      margin-left: calc(((100vw - 2 * $margin)/6) * var(--leftCol));
+    }
+  }
+  @include breakpoint(2xl) {
+    &__img{
+      --leftCol: 3;
+    }
+  }
+}

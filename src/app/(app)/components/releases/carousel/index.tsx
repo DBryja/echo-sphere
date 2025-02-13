@@ -9,7 +9,7 @@ import gsap from "gsap";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
-import Icon, { Socials } from "@components/shared/socialIcon";
+import StreamingLinks from "@components/shared/StreamingLinks";
 
 export default function Carousel({ slides }: { slides: ISlide[] }) {
   const [currentSlide, setCurrentSlide] = useState<ISlide | null>(null);
@@ -100,20 +100,10 @@ export default function Carousel({ slides }: { slides: ISlide[] }) {
         {currentSlide && (
           <>
             <div className={"carousel__bar__name"}>{currentSlide.title}</div>
-            <div className={"carousel__bar__icons"}>
-              {currentSlide.links &&
-                Object.entries(currentSlide.links).map(
-                  ([key, value]) =>
-                    value && (
-                      <Icon
-                        href={value}
-                        social={key as Socials}
-                        key={key}
-                        red
-                      />
-                    ),
-                )}
-            </div>
+            <StreamingLinks
+              links={currentSlide.links}
+              className={"carousel__bar__icons"}
+            />
           </>
         )}
       </div>

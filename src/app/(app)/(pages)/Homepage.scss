@@ -4,9 +4,10 @@
 @import "@globals/typography";
 
 main:has(.home__hero){
+  grid-auto-flow: column;
   --rowGap: #{$space-5};
   min-height: 150vh;
-  .home__releases, .home__events, .home__impact, .home__newsletter{
+ .home__impact, .home__newsletter{
     display: none;
   }
   background-color: $white;
@@ -101,6 +102,7 @@ main:has(.home__hero){
       align-items: end;
       height: var(--decor-height);
       background-color: $black;
+      box-shadow: 0 10px 16px 0 rgba($black, 0.3);
 
       span {
         @include typo-sub3;
@@ -552,12 +554,18 @@ main:has(.home__hero){
     display: flex;
     flex-direction: column;
     position: relative;
-
+    &__title{
+      @include typo-sub3;
+      text-transform: uppercase;
+    }
     &__quote {
       margin: $space-6 0;
     }
     &__cta{
-      margin: $space-8 auto $space-6 auto;
+      margin: $space-8 auto 0 auto;
+    }
+    .artist-frame{
+      padding: 32px calc((100vw - 300px) / 2) 64px calc((100vw - 300px) / 2);
     }
     .artist-frame:last-of-type{
       position: relative;
@@ -599,8 +607,10 @@ main:has(.home__hero){
       }
       &__carousel{
         grid-area: carousel;
+        box-shadow: $boxShadow-gray;
       }
       &__cta{
+        margin: $space-2 auto;
         grid-area: cta;
       }
     }
@@ -631,6 +641,8 @@ main:has(.home__hero){
         height: calc(2 * var(--rowGap) + 450px);
         z-index: -1;
       }
+
+      padding-bottom: 0 !important;
     }
 
     &.hide-on-sm {
@@ -647,6 +659,181 @@ main:has(.home__hero){
       }
     }
   }
+
+  &__releases{
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    &__title{
+      @include typo-sub3;
+      text-transform: uppercase;
+      margin-bottom: $space-2;
+    }
+    &__list{
+      display: flex;
+      flex-direction: column;
+      &__item{
+        position: relative;
+        padding: $space-8 0;
+        &:first-of-type{
+          padding: $space-4 0 $space-8 0;
+        }
+        &:not(:last-of-type):before{
+          @include separator;
+          width: 100%;
+          margin: 0;
+          top: unset;
+          bottom: 0;
+        }
+      }
+      @include breakpoint(md){
+        &__item:first-of-type:before{
+          top: 0;
+          bottom: unset;
+        }
+        &__item:nth-of-type(2):before{
+          @include topBottomLine;
+        }
+        &__item:last-of-type:before{
+          @include separator;
+          width: 100%;
+          margin: 0;
+          bottom: 0;
+          top: unset;
+        }
+      }
+    }
+    &__cta{
+      margin: 0 auto;
+    }
+    &:before{
+      @include topBottomLine;
+    }
+
+    @include breakpoint(md){
+      row-gap: $space-6;
+    }
+    @include breakpoint(xl) {
+      row-gap: $space-8;
+      &:before{
+        content: none;
+      }
+      padding: 0 !important;
+      &__title{
+        @include typo-display;
+        margin-bottom: unset;
+        user-select: none;
+        pointer-events: none;
+        font-size: 20rem;
+        text-align: center;
+      }
+    }
+    @include breakpoint(2xl){
+      &__title{
+        grid-column: 1/-1;
+        font-size: 25rem;
+      }
+    }
+  }
+
+  &__events{
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    row-gap: $space-6;
+    &__title{
+      @include typo-sub3;
+      text-transform: uppercase;
+    }
+    &__list{
+      @include ignoreMarginWidth;
+      box-shadow: $boxShadow-gray;
+      .event-row{
+        background-color: $gray-200;
+      }
+    }
+    &__cta{
+      margin: 0 auto;
+    }
+
+    @include breakpoint-max(md){
+      &__list .event-row{
+        &.mobile-hidden {
+          display: none;
+        }
+        &.last-visible {
+          border-bottom: none;
+        }
+      }
+    }
+    @include breakpoint(md){
+      &__list .event-row{
+        &:last-of-type{
+          display: grid;
+          border-bottom: none;
+        }
+      }
+    }
+    @include breakpoint-max(xl){
+      &.min-xl{
+        display: none;
+      }
+    }
+
+    @include breakpoint(xl){
+      --headingOffset: -6vw;
+      display: flex;
+      flex-direction: column;
+      row-gap: $space-8;
+      justify-content: center;
+      align-items: center;
+      h2{
+        display: block;
+        position: absolute;
+        @include typo-display;
+        font-size: 20rem;
+        text-transform: uppercase;
+        color: $red;
+        z-index: 0;
+        &:first-of-type{
+          bottom: 96%;
+          right: var(--headingOffset);
+        }
+        &:last-of-type{
+          top: 94%;
+          left: calc(var(--headingOffset) * 1.5);
+        }
+      }
+      &__list{
+        position: relative;
+        margin: 120px auto;
+        box-shadow: none;
+        max-width: 1200px;
+        &__item button:hover{
+          color: $white;
+          background-color: $black;
+        }
+      }
+      &.min-xl{
+        display: grid;
+      }
+      &.max-xl{
+        display: none;
+      }
+    }
+    @include breakpoint(2xl){
+      --headingOffset: -9vw;
+     &__list{
+      max-width: 1400px;
+       margin: 160px auto;
+       h2{
+         font-size: 25rem;
+       }
+     }
+    }
+  }
 }
 .cta-button{
   @include typo-btn;
@@ -659,10 +846,11 @@ main:has(.home__hero){
   width: fit-content;
   border-radius: 4px;
   height: fit-content;
+  box-shadow: $boxShadow-black;
+  transition: color 0.15s, background-color 0.15s;
   &:hover{
     background-color: $gray-400;
     color: $black;
-    transition: color 0.15s, background-color 0.15s;
   }
 }
 b{

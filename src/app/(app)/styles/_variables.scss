@@ -1,4 +1,5 @@
 @import "mixins";
+@import "colors.module";
 
 $gutter: var(--gutter);
 $margin: var(--margin);
@@ -28,16 +29,5 @@ $z-transition: 100;
 
 $dotPath: "/img/dot.svg";
 
-@mixin ignoreMarginWidth {
-  width: calc(100% + 2 * $margin);
-  margin: 0 calc(-1 * $margin);
-}
-
-@mixin horizontalLine {
-  content: "";
-  display: block;
-  @include ignoreMarginWidth;
-  height: 2px;
-  position: absolute;
-  background-color: $gray-400;
-}
+$boxShadow-gray: 0 10px 16px 0 rgba($gray-400, 0.3);
+$boxShadow-black: 0 0 10px 0 rgba($black, 0.5);

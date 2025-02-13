@@ -35,6 +35,20 @@ $dotPath: "/img/dot.svg";
   }
 }
 
+@mixin ignoreMarginWidth {
+  width: calc(100% + 2 * $margin);
+  margin: 0 calc(-1 * $margin);
+}
+
+@mixin horizontalLine {
+  content: "";
+  display: block;
+  @include ignoreMarginWidth;
+  height: 2px;
+  position: absolute;
+  background-color: $gray-400;
+}
+
 @mixin beforeDot {
   width: 32px;
   height: 32px;

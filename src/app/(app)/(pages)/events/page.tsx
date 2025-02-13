@@ -3,11 +3,9 @@ import { Media } from "@/payload-types";
 import { Event } from "@/payload-types";
 import "./eventsArchive.scss";
 import EventsCarousel from "@components/events/EventsCarousel";
-import { extractDate } from "@app/utils";
-import Button from "@components/buttons/deafult";
-import Link from "@components/Link";
 import Image from "next/image";
 import ScrollBanner from "@components/events/ScrollBanner";
+import EventRow from "@components/events/EventRow";
 
 export const revalidate = 86400;
 
@@ -52,39 +50,9 @@ export default async function Events() {
         <h3 className={"events__type-heading events__type-heading--concerts"}>
           CONCERTS
         </h3>
-        {otherEvents.map((event, i) => {
-          const { day, monthShorthand, time, month, year } = extractDate(
-            event.date,
-          );
-          return (
-            <div key={i} className={"events__concert__item"}>
-              <p className={"events__concert__item__date"}>
-                <span className={"fullDate"}>
-                  {day}/{month}/{year % 100}
-                </span>
-                <span className={"day"}>{day}</span>
-                <span className={"month"}>{monthShorthand}</span>
-                <span className={"time"}>{time}</span>
-              </p>
-              <p className={"events__concert__item__title"}>{event.heading}</p>
-              <p className={"events__concert__item__address"}>
-                {event.address}
-              </p>
-              <div className={"events__concert__item__buttons"}>
-                {event.links?.tickets && (
-                  <Button color={"black"}>
-                    <Link href={event.links.tickets}>BUY TICKETS</Link>
-                  </Button>
-                )}
-                {event.links?.website && (
-                  <Button color={"white"}>
-                    <Link href={event.links.website}>ABOUT EVENT</Link>
-                  </Button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+        {otherEvents.map((event, i) => (
+          <EventRow event={event} key={i} />
+        ))}
       </section>
     </div>
   );

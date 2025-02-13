@@ -121,10 +121,14 @@
     margin-top: $space-5;
 
     &__info{
+      @include breakpoint-max(lg){
+        display: none;
+      }
       position: absolute;
       bottom: $space-10;
       left: 50%;
       transform: translate(-50%, -100%);
+      text-wrap: nowrap;
       @include typo-label;
     }
 
@@ -205,29 +209,6 @@
           @include breakpoint(2xl) {
             @include typo-h3;
             font-size: 7.5rem;
-          }
-        }
-
-        &__icons {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-top: $space-1;
-          width: 100%;
-          column-gap: $space-3;
-          @include breakpoint("md") {
-            margin: 0;
-            width: min-content;
-            a img {
-              width: 40px;
-              height: 40px;
-            }
-          }
-          @include breakpoint("lg") {
-            a img {
-              width: 48px;
-              height: 48px;
-            }
           }
         }
       }
