@@ -47,6 +47,7 @@
   }
 
   @include hoverable {
+    transition: color 0.15s ease, background-color 0.15s ease;
     &:hover {
       color: $black;
       background-color: $gray-200;

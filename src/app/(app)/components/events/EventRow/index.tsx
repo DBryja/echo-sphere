@@ -1,45 +1,43 @@
-import type { Event } from "@/payload-types";
-import Button from "@components/buttons/deafult";
 import "./eventRow.scss";
+import Button from "@components/buttons/deafult";
+import Link from "@components/Link";
+import { Event } from "@/payload-types";
+import { extractDate } from "@app/utils";
 
-function formatDate(dateStart: string, dateEnd?: string): string {
-  const startDate = new Date(dateStart);
-  const startDay = startDate.getDate();
-  const startMonth = (startDate.getMonth() + 1).toString().padStart(2, "0");
-  const startYear = startDate.getFullYear() % 2000;
-
-  if (!dateEnd) {
-    return `${startDay}/${startMonth}/${startYear}`;
-  }
-
-  const endDate = new Date(dateEnd);
-  const endDay = endDate.getDate();
-  const endMonth = (endDate.getMonth() + 1).toString().padStart(2, "0");
-  const endYear = endDate.getFullYear() % 2000;
-
-  if (startYear === endYear) {
-    return `${startDay}.${startMonth}-${endDay}.${endMonth}/${startYear}`;
-  } else {
-    return `${startDay}.${startMonth}.${startYear}-${endDay}.${endMonth}.${endYear}`;
-  }
+interface EventRowProps {
+  event: Event;
+  className?: string;
 }
-
-export default function EventRow({ event }: { event: Event }) {
-  const { date, dateEnd, heading, subheading, links } = event;
-  const formattedDate = dateEnd ? formatDate(date, dateEnd) : formatDate(date);
-  const title = subheading ? subheading : heading;
-
+export default function EventRow({
+  event,
+  className = "",
+  ...rest
+}: EventRowProps) {
+  const { day, monthShorthand, time, month, year } = extractDate(event.date);
   return (
-    <div className="event-row">
-      <div>
-        <div className="event-row__date">{formattedDate}</div>
-        <div className="event-row__title">{title}</div>
+    <div {...rest} className={"event-row " + className}>
+      <p className={"event-row__date"}>
+        <span className={"fullDate"}>
+          {day}/{month}/{year % 100}
+        </span>
+        <span className={"day"}>{day}</span>
+        <span className={"month"}>{monthShorthand}</span>
+        <span className={"time"}>{time}</span>
+      </p>
+      <p className={"event-row__title"}>{event.heading}</p>
+      <p className={"event-row__address"}>{event.address}</p>
+      <div className={"event-row__buttons"}>
+        {event.links?.tickets && (
+          <Button color={"black"}>
+            <Link href={event.links.tickets}>BUY TICKETS</Link>
+          </Button>
+        )}
+        {event.links?.website && (
+          <Button color={"white"}>
+            <Link href={event.links.website}>ABOUT EVENT</Link>
+          </Button>
+        )}
       </div>
-      {links?.tickets && (
-        <Button className="event-row__button">
-          <a href={links?.tickets}>Buy Tickets</a>
-        </Button>
-      )}
     </div>
   );
 }

@@ -120,12 +120,31 @@ export const fetchReleases = cache(async (): Promise<Release[]> => {
   ).docs;
 });
 
-export const fetchEvents = cache(async (): Promise<Event[]> => {
-  return (
-    await payload.find({
-      collection: "events",
-      pagination: false,
-      sort: "date",
-    })
-  ).docs;
-});
+export const fetchEvents = cache(
+  async (
+    limit: number = 0,
+    type?: Event["type"] | Event["type"][],
+  ): Promise<Event[]> => {
+    let result;
+    if (type) {
+      result = await payload.find({
+        collection: "events",
+        pagination: false,
+        sort: "date",
+        limit,
+        where: {
+          type: { in: typeof type === "string" ? [type] : [...type] },
+        },
+      });
+    } else {
+      result = await payload.find({
+        collection: "events",
+        pagination: false,
+        sort: "date",
+        limit,
+      });
+    }
+
+    return result.docs as Event[];
+  },
+);

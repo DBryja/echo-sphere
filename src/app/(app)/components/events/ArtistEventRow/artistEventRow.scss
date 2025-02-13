@@ -1,0 +1,61 @@
+@import "@globals/variables";
+@import "@globals/typography";
+
+.event-row {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: calc(32px + 24px);
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  &__date {
+    @include typo-sub3;
+  }
+  &__title {
+    @include typo-label;
+    margin-bottom: $space-2;
+    //text-transform: uppercase;
+  }
+  &__button {
+    width: min-content;
+    height: min-content;
+  }
+
+  &:before {
+    @include beforeDot;
+    top: 0;
+    left: 2px;
+  }
+
+  @include breakpoint("md") {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+
+    &__date {
+      @include typo-sub2;
+    }
+    &__title {
+      @include typo-sub3;
+    }
+
+    &:before {
+      top: 8px;
+      //top: 0`;
+      //transform: translateY(-50%);
+    }
+  }
+  @include breakpoint("xl") {
+    grid-template-columns: 1fr;
+    &__date {
+      @include typo-label;
+    }
+    &__title {
+      @include typo-sub3;
+    }
+    &__button {
+      padding: 15px 32px;
+      @include typo-btn-small;
+    }
+  }
+}

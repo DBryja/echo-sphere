@@ -8,8 +8,11 @@
   right: 0;
   bottom: -100%;
   z-index: $z-transition;
-  background-color: $red;
-  display: block;
+  background:
+          linear-gradient(-55deg ,rgba(#ff7253, 0) 45%, lighten($red, 5%) 50%,rgba(#ff7253, 0)  55%)
+          bottom right/calc(200% + 80px) calc(200% + 80px)
+          $red;
+    animation: loadingBG 1.2s ease-in-out infinite 0.2s;
   &.initial {
     display: none;
   }

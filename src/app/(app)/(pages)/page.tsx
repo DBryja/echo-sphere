@@ -2,16 +2,23 @@ import Link from "next/link";
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import ArtistFrame from "@components/home/ArtistFrame";
-import { fetchArtistsData, fetchLatestReleases } from "@utils/data";
+import {
+  fetchArtistsData,
+  fetchEvents,
+  fetchLatestReleases,
+} from "@utils/data";
 import "./Homepage.scss";
 import ReleaseRow from "@components/home/ReleaseRow";
+import EventRow from "src/app/(app)/components/events/EventRow";
+import HomeEventRow from "@components/events/HomeEventRow";
 
 export const revalidate = 86400;
 const ARTISTS_PER_PAGE = 3;
 export default async function Home() {
-  const [artists, releases] = await Promise.all([
+  const [artists, releases, events] = await Promise.all([
     fetchArtistsData(),
     fetchLatestReleases(),
+    fetchEvents(4, "concert"),
   ]);
   return (
     <>
@@ -165,13 +172,51 @@ export default async function Home() {
           Latest Releases
         </Link>
       </section>
-      <section className={"home__events"}>
-        <h2>New Releases</h2>
-        <h3>Concerts</h3>
-        <h3>&amp;TOURS</h3>
-        {/*TODO: Fetch 3 latest events/concerts and put them here*/}
-        <div className={"home__events__list"}></div>
-        {/*  TODO: CTA button*/}
+      <section className={"home__events max-xl"}>
+        <h2 className={"home__events__title"}>Upcoming events</h2>
+        <div className={"home__events__list"}>
+          {events.map((event, i) => {
+            // Show max 3 elements on mobile,
+            // add a classname mobile-hidden to all above 3,
+            // add last-visible to the last not mobile-hidden element
+            const isHidden = events.length > 3 && i >= 3;
+            const isLastVisible =
+              events.length >= 3 ? i === 2 : i === events.length - 1;
+            return (
+              <EventRow
+                key={event.id}
+                event={event}
+                className={`${isHidden ? "mobile-hidden" : ""} ${isLastVisible ? "last-visible" : ""}`}
+              />
+            );
+          })}
+        </div>
+        <Link href={"/events"} className={"home__events__cta cta-button"}>
+          <span className={"hide-on-sm"} style={{ color: "inherit" }}>
+            SEE&nbsp;
+          </span>
+          MORE
+          <span className={"hide-on-sm"} style={{ color: "inherit" }}>
+            &nbsp;UPCOMING&nbsp;
+          </span>
+          EVENTS
+        </Link>
+      </section>
+      <section className={"home__events min-xl"}>
+        <div className={"home__events__list"}>
+          <h2>Concerts</h2>
+          <h2>&amp;TOURS</h2>
+          {events.map((event) => (
+            <HomeEventRow
+              key={event.id}
+              event={event}
+              className={"home__events__list__item"}
+            />
+          ))}
+        </div>
+        <Link href={"/events"} className={"home__events__cta cta-button"}>
+          SEE MORE UPCOMING EVENTS
+        </Link>
       </section>
       <section className={"home__impact"}>
         <h2 className={"home__impact__title hide-on-sm"}>

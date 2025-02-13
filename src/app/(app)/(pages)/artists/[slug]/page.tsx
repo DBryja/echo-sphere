@@ -6,7 +6,7 @@ import { getImageUrl, getImgAlt } from "@app/utils";
 import Icon from "@components/shared/socialIcon";
 import type { Socials } from "@components/shared/socialIcon";
 import Album from "@components/artists/Album";
-import EventRow from "@components/events/EventRow";
+import EventRow from "src/app/(app)/components/events/ArtistEventRow";
 import {
   fetchArtistById,
   fetchArtistsData,
