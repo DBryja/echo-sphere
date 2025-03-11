@@ -8,7 +8,8 @@ export default function HeroAnim() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const img1Ref = useRef<HTMLDivElement | null>(null);
   const img2Ref = useRef<HTMLDivElement | null>(null);
-  const isDesktop = useWindowWidth() > 1024;
+  const windowWidth = useWindowWidth();
+  const isDesktop = windowWidth > 1024;
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -50,7 +51,7 @@ export default function HeroAnim() {
     tl.from(img1Ref.current, { x: "20%", y: "20vh", rotate: "30deg", ease: "sine.in" });
     // prettier-ignore
     tl.from(img2Ref.current, { x: "-20%", y: "20vh", rotate: "-30deg", ease: "sine.in" }, "<");
-  }, [isDesktop, containerRef.current, img1Ref.current, img2Ref.current]);
+  }, [isDesktop, containerRef.current, img1Ref.current, img2Ref.current, windowWidth]);
 
   return <></>;
 }

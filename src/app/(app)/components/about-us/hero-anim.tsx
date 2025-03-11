@@ -56,13 +56,13 @@ export default function HeroAnim() {
     )
       return;
 
-    const tlMaskAnimLength = (window.innerHeight * 3.5).toString();
+    const tlMaskAnimLength =  (window.innerHeight * 3.5).toString();
     const tlMaskAnim = gsap.timeline({
       scrollTrigger: {
         trigger: ".about-us__hero",
         pin: ".about-us__hero",
         start: "top top",
-        end: "+=" + tlMaskAnimLength,
+        end: () => "+=" + tlMaskAnimLength,
         scrub: 1,
         // markers: true,
       },
