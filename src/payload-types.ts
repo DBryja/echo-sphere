@@ -6,10 +6,65 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     artists: Artist;
     releases: Release;
@@ -27,16 +82,49 @@ export interface Config {
     aboutUs: AboutUs;
     'contact-data': ContactDatum;
     'menu-items': MenuItem;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {
+    artists: {
+      events: 'events';
+      releases: 'releases';
+    };
+  };
+  collectionsSelect: {
+    artists: ArtistsSelect<false> | ArtistsSelect<true>;
+    releases: ReleasesSelect<false> | ReleasesSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
+    'shipping-addresses': ShippingAddressesSelect<false> | ShippingAddressesSelect<true>;
+    'product-tags': ProductTagsSelect<false> | ProductTagsSelect<true>;
+    'product-types': ProductTypesSelect<false> | ProductTypesSelect<true>;
+    'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
+    colors: ColorsSelect<false> | ColorsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    artistsArchive: ArtistsArchiveSelect<false> | ArtistsArchiveSelect<true>;
+    aboutUs: AboutUsSelect<false> | AboutUsSelect<true>;
+    'contact-data': ContactDataSelect<false> | ContactDataSelect<true>;
+    'menu-items': MenuItemsSelect<false> | MenuItemsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: string;
   };
   globals: {};
+  globalsSelect: {};
   locale: null;
   user: User & {
     collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -64,6 +152,9 @@ export interface UserAuthOperations {
 export interface Artist {
   id: string;
   name: string;
+  /**
+   * The order in which the artists will appear on the site. The lower the number the biggest priority
+   */
   order?: number | null;
   genre?: string | null;
   description: string;
@@ -74,6 +165,16 @@ export interface Artist {
     youtube?: string | null;
     tidal?: string | null;
     spotify?: string | null;
+  };
+  events?: {
+    docs?: (string | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  releases?: {
+    docs?: (string | Release)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
   };
   updatedAt: string;
   createdAt: string;
@@ -99,26 +200,6 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "releases".
- */
-export interface Release {
-  id: string;
-  name: string;
-  type: 'album' | 'ep' | 'single';
-  'img-cover': string | Media;
-  'release-date': string;
-  authors?: string | null;
-  artists: (string | Artist)[];
-  links?: {
-    spotify?: string | null;
-    tidal?: string | null;
-    youtube?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -127,6 +208,9 @@ export interface Event {
   heading: string;
   subheading?: string | null;
   date: string;
+  /**
+   * Optional field for end date of event if it spans multiple days
+   */
   dateEnd?: string | null;
   address?: string | null;
   'img-poster'?: (string | null) | Media;
@@ -140,17 +224,52 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "releases".
+ */
+export interface Release {
+  id: string;
+  name: string;
+  type: 'album' | 'ep' | 'single';
+  'img-cover': string | Media;
+  'release-date': string;
+  /**
+   * The authors of the release: Aaliyah & Ethan & Jack. If empty the authors will be equal to the assigned artists.
+   */
+  authors?: string | null;
+  /**
+   * The artists(from the label) that are part of this release. Used to query documents.
+   */
+  artists: (string | Artist)[];
+  links?: {
+    spotify?: string | null;
+    tidal?: string | null;
+    youtube?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
 export interface Product {
   id: string;
+  /**
+   * If unchecked, the product will not be visible on the front end.
+   */
   published?: boolean | null;
   name: string;
   colorHEX?: string | null;
   categories: (string | ProductCategory)[];
   type?: (string | null) | ProductType;
   description: string;
+  /**
+   * A unique name used to distinguish items with the same base name in admin panel
+   */
   unique_name: string;
+  /**
+   * The price of the product in USD (automatically converted to cents).
+   */
   price: number;
   images?:
     | {
@@ -161,6 +280,9 @@ export interface Product {
   variants: {
     stock: number;
     size: 's' | 'm' | 'l' | 'xl' | 'os';
+    /**
+     * NAME_COLOR_SIZE (s, m, l, xl, os)
+     */
     sku: string;
     sku_id: string;
     price_id: string;
@@ -175,6 +297,9 @@ export interface Product {
       }[]
     | null;
   tags?: (string | ProductTag)[] | null;
+  /**
+   * The total stock of all variants combined.
+   */
   stock?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -196,6 +321,9 @@ export interface ProductCategory {
  */
 export interface ProductType {
   id: string;
+  /**
+   * T-shirt, Hoodie, Hat, Mug, etc.
+   */
   name: string;
   'related-categories'?: (string | ProductCategory)[] | null;
   updatedAt: string;
@@ -208,6 +336,9 @@ export interface ProductType {
 export interface ProductTag {
   id: string;
   name: string;
+  /**
+   * The higher the number, the higher the item is on the shop homepage.
+   */
   importance?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -356,10 +487,92 @@ export interface ContactDatum {
 export interface MenuItem {
   id: string;
   name: string;
+  /**
+   * The order in which the menu items will appear on the site
+   */
   order: number;
   showInNav?: boolean | null;
   path: string;
   img: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'artists';
+        value: string | Artist;
+      } | null)
+    | ({
+        relationTo: 'releases';
+        value: string | Release;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: string | Order;
+      } | null)
+    | ({
+        relationTo: 'shipping-addresses';
+        value: string | ShippingAddress;
+      } | null)
+    | ({
+        relationTo: 'product-tags';
+        value: string | ProductTag;
+      } | null)
+    | ({
+        relationTo: 'product-types';
+        value: string | ProductType;
+      } | null)
+    | ({
+        relationTo: 'product-categories';
+        value: string | ProductCategory;
+      } | null)
+    | ({
+        relationTo: 'colors';
+        value: string | Color;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'artistsArchive';
+        value: string | ArtistsArchive;
+      } | null)
+    | ({
+        relationTo: 'aboutUs';
+        value: string | AboutUs;
+      } | null)
+    | ({
+        relationTo: 'contact-data';
+        value: string | ContactDatum;
+      } | null)
+    | ({
+        relationTo: 'menu-items';
+        value: string | MenuItem;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -396,6 +609,353 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artists_select".
+ */
+export interface ArtistsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  order?: T;
+  genre?: T;
+  description?: T;
+  extra?: T;
+  'img-profile'?: T;
+  'img-banner'?: T;
+  socials?:
+    | T
+    | {
+        youtube?: T;
+        tidal?: T;
+        spotify?: T;
+      };
+  events?: T;
+  releases?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "releases_select".
+ */
+export interface ReleasesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  type?: T;
+  'img-cover'?: T;
+  'release-date'?: T;
+  authors?: T;
+  artists?: T;
+  links?:
+    | T
+    | {
+        spotify?: T;
+        tidal?: T;
+        youtube?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  type?: T;
+  heading?: T;
+  subheading?: T;
+  date?: T;
+  dateEnd?: T;
+  address?: T;
+  'img-poster'?: T;
+  'related-artists'?: T;
+  links?:
+    | T
+    | {
+        website?: T;
+        tickets?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  published?: T;
+  name?: T;
+  colorHEX?: T;
+  categories?: T;
+  type?: T;
+  description?: T;
+  unique_name?: T;
+  price?: T;
+  images?:
+    | T
+    | {
+        img?: T;
+        id?: T;
+      };
+  variants?:
+    | T
+    | {
+        stock?: T;
+        size?: T;
+        sku?: T;
+        sku_id?: T;
+        price_id?: T;
+        id?: T;
+      };
+  relatedProducts?:
+    | T
+    | {
+        relationType?: T;
+        item?: T;
+        colorHEX?: T;
+        id?: T;
+      };
+  tags?: T;
+  stock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  date?: T;
+  status?: T;
+  items?:
+    | T
+    | {
+        product?: T;
+        sku?: T;
+        quantity?: T;
+        price?: T;
+        value?: T;
+        size?: T;
+        id?: T;
+      };
+  total?: T;
+  session_id?: T;
+  shippingAddress?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-addresses_select".
+ */
+export interface ShippingAddressesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  customer_details?:
+    | T
+    | {
+        line1?: T;
+        line2?: T;
+        city?: T;
+        country?: T;
+        state?: T;
+        postal_code?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-tags_select".
+ */
+export interface ProductTagsSelect<T extends boolean = true> {
+  name?: T;
+  importance?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-types_select".
+ */
+export interface ProductTypesSelect<T extends boolean = true> {
+  name?: T;
+  'related-categories'?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories_select".
+ */
+export interface ProductCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "colors_select".
+ */
+export interface ColorsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artistsArchive_select".
+ */
+export interface ArtistsArchiveSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  desc1?: T;
+  desc2?: T;
+  desc3?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutUs_select".
+ */
+export interface AboutUsSelect<T extends boolean = true> {
+  banner_copy?: T;
+  heading?: T;
+  origins?:
+    | T
+    | {
+        origins_heading?: T;
+        origins_subheading?: T;
+        origins_desc?: T;
+        origins_images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  values?:
+    | T
+    | {
+        values_heading?: T;
+        values_desc1?: T;
+        values_desc2?: T;
+      };
+  about?:
+    | T
+    | {
+        about_desc1?: T;
+        about_desc2?: T;
+      };
+  summary?:
+    | T
+    | {
+        summary_desc1?: T;
+        summary_desc2?: T;
+        summary_desc3?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-data_select".
+ */
+export interface ContactDataSelect<T extends boolean = true> {
+  email?: T;
+  'phone-number'?: T;
+  address?: T;
+  socials?:
+    | T
+    | {
+        facebook?: T;
+        instagram?: T;
+        youtube?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu-items_select".
+ */
+export interface MenuItemsSelect<T extends boolean = true> {
+  name?: T;
+  order?: T;
+  showInNav?: T;
+  path?: T;
+  img?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

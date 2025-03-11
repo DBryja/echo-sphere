@@ -79,5 +79,17 @@ export const Artists: CollectionConfig = {
         },
       ],
     },
+    {
+      name: "events",
+      type: "join",
+      on: "related-artists",
+      collection: "events",
+    },
+    {
+      name: "releases",
+      type: "join",
+      on: "artists",
+      collection: "releases",
+    },
   ],
 };
