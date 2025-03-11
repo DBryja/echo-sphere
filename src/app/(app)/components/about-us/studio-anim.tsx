@@ -99,6 +99,7 @@ export default function StudioAnim() {
       transformOrigin: "center",
       zIndex: 2,
       skewX: 10,
+      y: ()=> window.innerHeight * -0.15,
     });
     tlStudioAnim.set(imgRef.current, {
       opacity: 1,
@@ -141,7 +142,7 @@ export default function StudioAnim() {
       }, "<")
       .to(peopleRef.current, {
         scale: 1,
-        y: window.innerHeight * 0.1,
+        y: () => window.innerHeight * 0.1,
         skewX: 0,
       }, "<")
       .to(peopleRef.current, {});
