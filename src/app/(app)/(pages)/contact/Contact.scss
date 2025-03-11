@@ -197,6 +197,7 @@
       &__item{
         @include typo-sub2;
         word-break: break-word;
+        text-wrap: balance;
         line-height: 80%;
         @media (max-width: 418px) {
           max-width: 16ch;

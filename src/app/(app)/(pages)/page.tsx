@@ -176,9 +176,6 @@ export default async function Home() {
         <h2 className={"home__events__title"}>Upcoming events</h2>
         <div className={"home__events__list"}>
           {events.map((event, i) => {
-            // Show max 3 elements on mobile,
-            // add a classname mobile-hidden to all above 3,
-            // add last-visible to the last not mobile-hidden element
             const isHidden = events.length > 3 && i >= 3;
             const isLastVisible =
               events.length >= 3 ? i === 2 : i === events.length - 1;
@@ -197,9 +194,9 @@ export default async function Home() {
           </span>
           MORE
           <span className={"hide-on-sm"} style={{ color: "inherit" }}>
-            &nbsp;UPCOMING&nbsp;
+            &nbsp;UPCOMING
           </span>
-          EVENTS
+            &nbsp;EVENTS
         </Link>
       </section>
       <section className={"home__events min-xl"}>
@@ -219,9 +216,9 @@ export default async function Home() {
         </Link>
       </section>
       <section className={"home__impact"}>
-        <h2 className={"home__impact__title hide-on-sm"}>
+        <h3 className={"home__impact__title"}>
           Creating echoes of impact
-        </h2>
+        </h3>
         <p className={"home__impact__desc"}>
           We believe that music is a universal language that connects people
           regardless of their backgrounds or experiences.
@@ -233,8 +230,8 @@ export default async function Home() {
             sizes={"100vw"}
             alt={"photo of a microphone in a music studio"}
           />
+          <p>Echoes <span>of impact</span></p>
         </div>
-        <p>echoes of impact</p>
       </section>
       <section className={"home__newsletter"}>
         <h2>NEWSLETTER</h2>

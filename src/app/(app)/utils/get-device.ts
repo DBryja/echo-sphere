@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 
-export default function getDevice() {
-  const device = headers().get("x-device-type") || "";
+export default async function getDevice() {
+  const device = (await headers()).get("x-device-type") || "";
   const isDesktop = device === "desktop";
   const isPhone = device === "phone";
   const isTablet = device === "tablet";

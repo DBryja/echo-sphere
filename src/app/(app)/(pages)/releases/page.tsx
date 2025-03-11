@@ -16,7 +16,7 @@ export interface ISlide {
 export const revalidate = 86400;
 export default async function Releases() {
   const releases = await fetchReleases();
-  const { isPhone } = getDevice();
+  const { isPhone } = await getDevice();
 
   const slides: ISlide[] = releases.map((item, i) => ({
     id: i,
