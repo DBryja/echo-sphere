@@ -12,7 +12,8 @@
    text-transform: uppercase;
   }
   &__field{
-   @include typo-label;
+    font-family: $nats;
+    font-size: 24px;
    border: none;
    outline: none;
    background-color: transparent;
@@ -23,6 +24,9 @@
    &:active, &:focus, &:valid:not(:placeholder-shown){
      border-color: $black;
    }
+    &:not(:focus, :valid){
+      border-color: #FF0000;
+    }
    &::placeholder{
      text-transform: uppercase;
    }
@@ -44,8 +48,7 @@
       @include typo-sub2;
     }
     &__field{
-      @include typo-sub3;
-      height: 4.2rem;
+      //height: 4.2rem;
       &[type=submit] {
         @include typo-sub3;
       }
