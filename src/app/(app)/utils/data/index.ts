@@ -1,6 +1,6 @@
 import { cache } from "react";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
 import config from "@payload-config";
+import {getPayload} from "payload";
 import {
   ArtistsArchive,
   Artist,
@@ -12,7 +12,7 @@ import {
 } from "@/payload-types";
 import { PaginatedDocs } from "payload";
 
-const payload = await getPayloadHMR({ config });
+const payload = await getPayload({ config });
 
 export const fetchArtistsData = cache(async () => {
   const data: PaginatedDocs<Artist> = await payload.find({
