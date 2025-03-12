@@ -6,16 +6,12 @@
 main:has(.home__hero){
   grid-auto-flow: column;
   --rowGap: #{$space-5};
-  min-height: 150vh;
- .home__newsletter{
-    display: none;
-  }
   background-color: $white;
   section{
     padding: var(--rowGap) 0;
   }
   @include breakpoint(md){
-    --rowGap: #{$space-8};
+    --rowGap: #{$space-6};
   }
   @include breakpoint(xl){
     row-gap: $space-8;
@@ -266,7 +262,6 @@ main:has(.home__hero){
         }
       }
     }
-
     &__decor {
       grid-area: decor;
       position: relative;
@@ -326,7 +321,6 @@ main:has(.home__hero){
         top: 100%;
       }
     }
-
     &__desc {
       grid-area: desc;
       @include typo-sub4;
@@ -345,6 +339,7 @@ main:has(.home__hero){
         @include typo-sub1;
         line-height: 90%;
         font-weight: 400;
+        max-width: 400px;
         height: fit-content;
         align-self: end;
       }
@@ -357,7 +352,7 @@ main:has(.home__hero){
         align-self: flex-start;
       }
       &__decor {
-        aspect-ratio: 0.7;
+        aspect-ratio: 0.9;
         margin-left: 0;
         margin-top: 0;
         margin-bottom: 0;
@@ -771,10 +766,6 @@ main:has(.home__hero){
     &__cta{
       margin: 0 auto;
     }
-    &:before{
-      @include horizontalLine;
-      top: 100%;
-    }
 
     @include breakpoint-max(md){
       &__list .event-row{
@@ -850,9 +841,6 @@ main:has(.home__hero){
       &.max-xl{
         display: none;
       }
-      &:before{
-        display: none;
-      }
     }
     @include breakpoint(2xl){
       --headingOffset: -9vw;
@@ -901,18 +889,25 @@ main:has(.home__hero){
       }
     }
     &__desc{
-      margin-top: $space-1;
+      margin-top: $space-4;
       @include typo-sub4;
       color: $white;
     }
     &__title{
       display: none;
     }
+    &:before{
+      @include topBottomLine;
+      top: calc(var(--rowGap) * -1);
+      height: calc(100% + var(--rowGap) * 2 - 2px);
+    }
 
     @include breakpoint(md){
       grid-template-areas: "title" "desc" "bg";
       row-gap: $space-5;
-      background-color: $white;
+      background-color: transparent;
+      margin-top: 0;
+      padding: var(--rowGap) $space-2 !important;
       &__title{
         display: block;
         @include typo-sub1;
@@ -920,6 +915,7 @@ main:has(.home__hero){
         text-transform: uppercase;
       }
       &__desc{
+        margin-top: -16px;
         color: $black;
         @include typo-sub2;
         max-width: 90%;
@@ -942,13 +938,18 @@ main:has(.home__hero){
           }
         }
       }
+      &:before{
+        top: 0;
+        bottom: 0;
+        height: calc(100% + $space-2);
+      }
     }
     @include breakpoint(lg){
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       align-items: flex-start;
-      margin-top: 0;
+      margin-top: var(--rowGap);
       padding-left: 120px !important;
       row-gap: 0;
       aspect-ratio: 2.5;
@@ -971,11 +972,13 @@ main:has(.home__hero){
         z-index: 1;
         max-width: 600px;
         @include typo-h3;
+        line-height: 90%;
+        margin-bottom: $space-2;
         font-weight: 400;
         &:before{
           @include beforeDot;
           right: calc(100% + 20px);
-          top: 16px;
+          top: 8px;
           width: 64px;
           height: 64px;
         }
@@ -987,6 +990,138 @@ main:has(.home__hero){
         max-width: 400px;
         @include typo-body;
         backdrop-filter: blur(4px);
+      }
+      &:before{
+        display: none;
+      }
+    }
+  }
+
+  &__newsletter{
+    grid-column: 1/-1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: $space-2;
+    padding-bottom: 0 !important;
+    &__title{
+      @include typo-sub1;
+      text-align: center;
+      margin-top: 120px;
+      position: relative;
+      &:before{
+        @include beforeDot;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(100% + 8px);
+        width: 64px;
+        height: 64px;
+      }
+    }
+    &__desc{
+      @include typo-sub4;
+      text-align: center;
+      max-width: 340px;
+    }
+    &__form{
+      @include ignoreMarginWidth;
+      padding: $space-4 $space-2;
+      background-color: $red;
+      margin-top: $space-6;
+      form{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: $space-1;
+        margin-top: $space-2;
+        input{
+          width: 100%;
+          padding: 0 $space-2;
+          border: none;
+          outline: none;
+          height: $space-8;
+          @include typo-label;
+          font-size: 20px;
+          line-height: 80%;
+          font-family: $nats;
+          border-radius: $radius-2;
+          &[type="submit"]{
+            padding: 16px 0;
+            background-color: $black;
+            color: $white;
+            @include typo-btn;
+          }
+          &[type="email"]:not(:focus, :valid){
+            color: red;
+          }
+        }
+      }
+    }
+
+    @include breakpoint(md){
+      align-items: flex-start;
+      padding-bottom: var(--rowGap) !important;
+      &__title{
+        margin-top: 0;
+        @include typo-h2;
+        line-height: 80%;
+        &:before{
+          display: none;
+        }
+      }
+      &__form{
+        width: 100%;
+        margin: 0;
+        padding: $space-4 30px;
+        p{
+          @include typo-sub4;
+        }
+        form{
+          flex-direction: row;
+          column-gap: $space-1;
+          input[type="submit"]{
+            width: fit-content;
+            padding: 0 $space-4;
+          }
+        }
+      }
+    }
+    @include breakpoint(lg){
+      position: relative;
+      height: 280px;
+      justify-content: flex-end;
+      &__title{
+        @include typo-display;
+        font-size: 20rem;
+      }
+      &__form{
+        position: absolute;
+        right: 0;
+        top: -$space-4;
+        max-width: 700px;
+      }
+    }
+    @include breakpoint(xl){
+      padding-top: 0;
+      height: 200px;
+      &__form{
+        bottom: 60%;
+        top: unset;
+      }
+    }
+    @include breakpoint(2xl){
+      &__title{
+        font-size: 25rem;
+      }
+      &__form{
+        max-width: 900px;
+        p{
+          font-size: 2.4rem;
+        }
       }
     }
   }

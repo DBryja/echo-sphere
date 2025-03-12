@@ -234,15 +234,20 @@ export default async function Home() {
         </div>
       </section>
       <section className={"home__newsletter"}>
-        <h2>NEWSLETTER</h2>
+        <h2 className={"home__newsletter__title"}>NEWSLETTER</h2>
+        <p className={"home__newsletter__desc hide-on-md"}>
+          Don’t miss out! Receive emails about the latest releases, upcoming
+          tours and careers of our artists.
+        </p>
         <div className={"home__newsletter__form"}>
-          <p>
+          <p className={"hide-on-sm"}>
             Don’t miss out! Receive emails about the latest releases, upcoming
             tours and careers of our artists.
           </p>
           <form>
-            <input type={"email"} placeholder={"Enter your email"} />
-            <input type={"submit"} value={"Subscribe"} />
+            <input type={"email"} placeholder={"ENTER YOUR EMAIL"} />
+            <input type={"submit"} value={"JOIN TO ECHO NEWSLETTER"} className={"hide-on-md"}/>
+            <input type={"submit"} value={"SUBSCRIBE"} className="hide-on-sm"/>
           </form>
         </div>
       </section>
