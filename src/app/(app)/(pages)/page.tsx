@@ -11,6 +11,7 @@ import "./Homepage.scss";
 import ReleaseRow from "@components/home/ReleaseRow";
 import EventRow from "src/app/(app)/components/events/EventRow";
 import HomeEventRow from "@components/events/HomeEventRow";
+import ScrollAnims from "@components/home/Scroll-anims";
 
 export const revalidate = 86400;
 const ARTISTS_PER_PAGE = 3;
@@ -29,6 +30,8 @@ export default async function Home() {
             fill
             sizes={"100vw"}
             alt={"a photo of a woman on stage singing"}
+            loading={"eager"}
+            fetchPriority={"high"}
           />
         </div>
         <span className={"home__hero__title home__hero__title--t1"}>
@@ -47,6 +50,7 @@ export default async function Home() {
           <span>RECORD STUDIO</span>
         </div>
       </section>
+      <ScrollAnims/>
       <section className="home__revolution">
         <h2 className={"home__revolution__title hide-on-md"}>
           <span>Together,</span>
@@ -54,7 +58,9 @@ export default async function Home() {
           <span>revolutionaries</span>
         </h2>
         <h2 className={"home__revolution__title hide-on-sm"}>
-          Together, we are music revolutionaries
+          <span>Together, we</span>
+          <span>are music</span>
+          <span>revolutionaries</span>
         </h2>
         <p className={"home__revolution__desc"}>
           In Echo Sphere, we support artists who define their generations and
