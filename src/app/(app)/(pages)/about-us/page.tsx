@@ -1,9 +1,9 @@
 import { fetchAboutUsCopy } from "@utils/data";
 import Image from "next/image";
 import "./AboutUs.scss";
-import HeroAnim from "@components/about-us/hero-anim";
-import OriginsAnim from "@components/about-us/origins-anim";
-import StudioAnim from "@components/about-us/studio-anim";
+import HeroAnim from "@components/about-us/Hero-anim";
+import OriginsAnim from "@components/about-us/Origins-anim";
+import StudioAnim from "@components/about-us/Studio-anim";
 import ArrowIcon from "@components/shared/ArrowIcon";
 import HideArrowAnim from "@components/shared/ArrowIcon/hideArrow-anim";
 
