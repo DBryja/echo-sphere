@@ -18,9 +18,9 @@ import { sanitizeBreakpointVariable } from "@app/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 export default function NavButtonContainer({
-  navItems,
-  contactData,
-}: {
+                                             navItems,
+                                             contactData,
+                                           }: {
   navItems: MenuItem[];
   contactData: ContactDatum;
 }) {
@@ -31,13 +31,21 @@ export default function NavButtonContainer({
   const basketTimeline = useRef<GSAPTimeline | null>(null);
   const breakpoint = sanitizeBreakpointVariable(variables["bpLg"]);
 
+  // Add a ref to track if component has mounted
+  const hasMounted = useRef(false);
+
   const pathname = usePathname();
   const isStore = pathname?.startsWith("/store");
   const isHome = pathname === "/";
-  // Simplified state: we only need showNav, headerState can be derived
-  const [showNav, setShowNav] = useState<boolean>(isHome);
 
   const windowWidth = useWindowWidth();
+
+  // Determine initial state based on conditions
+  const [showNav, setShowNav] = useState<boolean>(() => {
+    // Only show Nav on homepage and above breakpoint
+    return isHome && (typeof window !== 'undefined' ? window.innerWidth >= breakpoint : true);
+  });
+
   const headerState =
     showNav && isHome && windowWidth >= breakpoint ? "nav" : "button";
 
@@ -47,6 +55,11 @@ export default function NavButtonContainer({
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
+
+  // Mark component as mounted
+  useEffect(() => {
+    hasMounted.current = true;
+  }, []);
 
   useEffect(() => {
     const headerElement = document.querySelector(".header") as HTMLElement;
@@ -211,6 +224,43 @@ export default function NavButtonContainer({
     { dependencies: [showNav, windowWidth, headerState, breakpoint, isHome] },
   );
 
+  // Add initial styling via useEffect to handle SSR properly
+  useEffect(() => {
+    if (!hasMounted.current) return;
+
+    // Set initial styles directly for immediate effect
+    if (isHome && windowWidth >= breakpoint) {
+      // Initial nav styles
+      const navElement = document.querySelector(".header__nav");
+      if (navElement) {
+        (navElement as HTMLElement).style.visibility = "visible";
+        (navElement as HTMLElement).style.display = "flex";
+      }
+
+      // Hide menu initially
+      const menuElement = document.querySelector(".header__menu");
+      if (menuElement) {
+        (menuElement as HTMLElement).style.visibility = "hidden";
+        (menuElement as HTMLElement).style.display = "none";
+      }
+    } else {
+      // Hide nav initially
+      const navElement = document.querySelector(".header__nav");
+      if (navElement) {
+        (navElement as HTMLElement).style.visibility = "hidden";
+        (navElement as HTMLElement).style.display = "none";
+      }
+
+      // Show menu initially
+      const menuElement = document.querySelector(".header__menu");
+      if (menuElement) {
+        (menuElement as HTMLElement).style.visibility = "visible";
+        (menuElement as HTMLElement).style.display = "flex";
+      }
+    }
+  }, [isHome, windowWidth, breakpoint]);
+
+  // Use conditional rendering to prevent the flash
   return (
     <div
       ref={container}
@@ -222,15 +272,30 @@ export default function NavButtonContainer({
         width: "fit-content",
       }}
     >
-      {windowWidth >= breakpoint && isHome && <Nav navItems={navItems} />}
+      {/* Conditionally render based on proper state */}
+      {isHome && <Nav navItems={navItems} style={{
+        visibility: windowWidth >= breakpoint ? 'visible' : 'hidden',
+        display: windowWidth >= breakpoint ? 'flex' : 'none'
+      }} />}
+
       <OpenCart isStore={isStore} />
+
       <Menu
         isOpen={isMenuOpen}
         navItems={navItems}
         contactData={contactData}
         onItemClickAction={toggleMenu}
       />
-      <HeaderMenuButton onClick={toggleMenu} isMenuOpen={isMenuOpen} />
+
+      {/* Only show button when needed */}
+      <HeaderMenuButton
+        onClick={toggleMenu}
+        isMenuOpen={isMenuOpen}
+        style={{
+          visibility: (!isHome || windowWidth < breakpoint) ? 'visible' : 'hidden',
+          opacity: (!isHome || windowWidth < breakpoint) ? 1 : 0
+        }}
+      />
     </div>
   );
 }
