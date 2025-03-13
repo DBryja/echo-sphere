@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { getStripe } from "@app/lib/stripe";
 import { headers } from "next/headers";
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import {getPayload} from "payload";
 
 const stripe = getStripe();
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: { text: () => any }) {
   const body = await req.text();
-  const signature = headers().get("stripe-signature") as string;
+  const signature = (await (headers())).get("stripe-signature") as string;
 
   let event;
 
@@ -36,9 +36,7 @@ export async function POST(req: { text: () => any }) {
         expand: ["line_items", "shipping_details"],
       },
     );
-    // console.log(retrievedSession);
-
-    const payload = await getPayloadHMR({ config });
+    const payload = await getPayload({ config });
 
     // Create ShippingAddress record
     const shippingAddress = await payload.create({
@@ -70,8 +68,8 @@ export async function POST(req: { text: () => any }) {
     event.type === "checkout.session.expired" ||
     event.type === "checkout.session.async_payment_failed"
   ) {
+    const payload = await getPayload({ config });
     const session = event.data.object;
-    const payload = await getPayloadHMR({ config });
     await payload.update({
       collection: "orders",
       where: {

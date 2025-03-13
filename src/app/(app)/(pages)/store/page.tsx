@@ -1,11 +1,11 @@
 "use server";
 
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Product } from "@/payload-types";
 import ProductBox from "@components/ProductBox";
 export default async function Page() {
-  const payload = await getPayloadHMR({ config });
+  const payload = await getPayload({ config });
   // noinspection TypeScriptValidateTypes
   const query = await payload.find({
     collection: "products",

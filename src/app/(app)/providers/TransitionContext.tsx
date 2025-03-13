@@ -5,7 +5,6 @@ import React, {
   useState,
   useContext,
   useRef,
-  useEffect,
 } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -29,11 +28,20 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({
   const [direction, setDirection] = useState<"enter" | "exit" | "initial">(
     "initial",
   );
+  const [skipAnimation, setSkipAnimation] = useState(false);
 
   // Returns transition duration in Seconds
   const transitionDuration: number = 0.8;
   useGSAP(() => {
     if (!transitionBoxRef.current) return;
+
+    if (skipAnimation) {
+      if (direction === "exit") {
+        gsap.set(transitionBoxRef.current, { yPercent: -200 });
+      }
+      setSkipAnimation(false);
+      return;
+    }
 
     if (direction === "enter") {
       tl.current.set(transitionBoxRef.current, {
@@ -56,7 +64,7 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({
         `>0.4`,
       );
     }
-  }, [direction]);
+  }, [direction, skipAnimation]);
 
   const startTransition = () => {
     setDirection("enter");
@@ -66,11 +74,17 @@ export const TransitionProvider: React.FC<{ children: React.ReactNode }> = ({
     setDirection("exit");
   };
 
+  const skipToExit = () => {
+    setSkipAnimation(true);
+    setDirection("exit");
+  };
+
   return (
     <TransitionContext.Provider
       value={{
         startTransition,
         endTransition,
+        skipToExit,
         transitionBoxRef,
         transitionDuration,
       }}

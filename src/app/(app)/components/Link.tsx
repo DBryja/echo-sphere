@@ -29,7 +29,7 @@ export default function Link({
   ...props
 }: CustomLinkProps) {
   const router = useRouter();
-  const { startTransition, transitionDuration } = useTransition();
+  const { startTransition, transitionDuration, skipToExit } = useTransition();
   const pathname = usePathname();
   const { href } = { ...props };
   const arePathsEqual = comparePaths(pathname, href);
@@ -41,6 +41,7 @@ export default function Link({
         router.push(props.href.toString());
       }, transitionDuration * 1000);
     } else {
+      skipToExit();
       document.querySelector(".menu")?.classList.add("loading");
       router.push(props.href.toString());
     }

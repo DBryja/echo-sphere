@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Image from "@components/Image";
 import "./artist.scss";
 import { getImageUrl, getImgAlt } from "@app/utils";
@@ -14,6 +13,7 @@ import {
   fetchReleasesByArtistId,
 } from "@utils/data";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
+import getDevice from "@utils/get-device";
 
 interface ArtistProps {
   params: {
@@ -33,9 +33,7 @@ export default async function Artist({ params: { slug } }: ArtistProps) {
 
   const artists = artistsData.docs.filter((item) => item.id !== artist.id);
 
-  const device = headers().get("x-device-type") || "";
-  const isPhone = device === "phone";
-  console.log(device);
+  const {isPhone} = await getDevice();
   const splitName = artist.name.split(" ");
   const socialsList = [];
   //@ts-ignore // ignoring due to undefined coming from payload types, this is still checked in the function
@@ -107,8 +105,8 @@ export default async function Artist({ params: { slug } }: ArtistProps) {
           <Image
             src={getImageUrl(artist["img-profile"])}
             alt={getImgAlt(artist["img-banner"])}
-            width={device === "phone" ? 350 : 600}
-            height={device === "phone" ? 350 : 600}
+            width={isPhone? 350 : 600}
+            height={isPhone ? 350 : 600}
           />
         </div>
       </div>

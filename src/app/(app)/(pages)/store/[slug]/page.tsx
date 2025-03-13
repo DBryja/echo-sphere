@@ -1,6 +1,6 @@
 import React from "react";
 // import {Metadata} from 'next'
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import config from "@payload-config";
 import Image from "@components/Image";
 import type { Product } from "@/payload-types";
@@ -14,7 +14,7 @@ export default async function ProductPage({
 }: {
   params: { slug: string };
 }) {
-  const payload = await getPayloadHMR({ config });
+  const payload = await getPayload({ config });
   const item: Product = await payload.findByID({
     id: slug,
     collection: "products",

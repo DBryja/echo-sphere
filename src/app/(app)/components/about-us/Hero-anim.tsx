@@ -56,13 +56,13 @@ export default function HeroAnim() {
     )
       return;
 
-    const tlMaskAnimLength =  (window.innerHeight * 3.5).toString();
+    const tlMaskAnimLength =  () =>(window.innerHeight * 2).toString();
     const tlMaskAnim = gsap.timeline({
       scrollTrigger: {
         trigger: ".about-us__hero",
         pin: ".about-us__hero",
         start: "top top",
-        end: () => "+=" + tlMaskAnimLength,
+        end: () => "+=" + tlMaskAnimLength(),
         scrub: 1,
         // markers: true,
       },
@@ -83,12 +83,8 @@ export default function HeroAnim() {
         "--opacity": 0.95,
       })
       .to(bannerRef.current, {
-        "--mask-size": "1500vw",
+        "--mask-size": "1000vw",
         "--opacity": 0.65,
-      })
-      .to(bannerRef.current, {
-        "--mask-size": "3000vw",
-        "--opacity": 0.3,
       })
       .to(bannerRef.current, {
         "--mask-size": "4500vw",

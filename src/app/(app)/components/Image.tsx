@@ -32,8 +32,9 @@ const ImageWithFallback = ({
       .replace(/'/g, "&apos;")
     : "Image";
 
-  // SVG template with no newlines
-  const svgTemplate = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="yellow" /><stop offset="100%" stop-color="red" /></linearGradient></defs><rect width="${svgWidth}" height="${svgHeight}" fill="url(#g)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="12px" fill="#FFF">${safeAlt}</text></svg>`;
+  // SVG template with no newlinesecho
+  // const svgTemplate = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="yellow" /><stop offset="100%" stop-color="red" /></linearGradient></defs><rect width="${svgWidth}" height="${svgHeight}" fill="url(#g)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="12px" fill="#FFF">${safeAlt}</text></svg>`;
+  const svgTemplate = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="black" /><stop offset="100%" stop-color="white" /></linearGradient></defs><rect width="${svgWidth}" height="${svgHeight}" fill="url(#g)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="12px" fill="#FFF">${safeAlt}</text></svg>`;
 
   // Safely encode SVG to base64
   const encodeSvg = (svg: string) => {

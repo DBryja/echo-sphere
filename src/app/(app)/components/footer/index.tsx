@@ -2,8 +2,8 @@ import { fetchContactData, fetchNavItems } from "@utils/data";
 import "./footer.scss";
 import Logo from "@components/shared/logo/logo-props";
 import Link from "@components/Link";
-import { headers } from "next/headers";
 import Icon, { Socials } from "@components/shared/socialIcon";
+import getDevice from "@utils/get-device";
 
 export default async function Footer() {
   const [navItems, contactData] = await Promise.all([
@@ -17,8 +17,8 @@ export default async function Footer() {
     if (key && value)
       socialsList.push(<Icon href={value} social={key} key={key} />);
   }
-  const isPhone = headers().get("x-device-type") === "phone";
   const splittedAddress = address.split(", ");
+  const { isPhone } = await getDevice();
 
   return (
     <footer className={"footer"}>

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import {getPayload} from "payload";
 import config from "@payload-config";
 import { CartItem, TemplateItem, validateItem } from "@app/utils";
 import { getStripe } from "@app/lib/stripe"; //stripe singleton
@@ -30,7 +30,7 @@ export async function POST(req: {
   try {
     const { cartDetails } = await req.json();
     // <<< get product variants from database
-    const payload = await getPayloadHMR({ config });
+    const payload = await getPayload({ config });
     const payloadItems = await payload.find({
       collection: "products",
       where: {

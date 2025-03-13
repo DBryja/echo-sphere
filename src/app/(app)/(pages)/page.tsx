@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@components/Link"
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import ArtistFrame from "@components/home/ArtistFrame";
@@ -11,6 +11,8 @@ import "./Homepage.scss";
 import ReleaseRow from "@components/home/ReleaseRow";
 import EventRow from "src/app/(app)/components/events/EventRow";
 import HomeEventRow from "@components/events/HomeEventRow";
+import ScrollAnims from "@components/home/Scroll-anims";
+import HeroAnim from "@components/home/Hero-anim";
 
 export const revalidate = 86400;
 const ARTISTS_PER_PAGE = 3;
@@ -29,6 +31,8 @@ export default async function Home() {
             fill
             sizes={"100vw"}
             alt={"a photo of a woman on stage singing"}
+            loading={"eager"}
+            fetchPriority={"high"}
           />
         </div>
         <span className={"home__hero__title home__hero__title--t1"}>
@@ -43,10 +47,12 @@ export default async function Home() {
           voices to become music revolutionaries.
         </p>
         <div className={"home__hero__decor"}>
-          <span>MUSIC LABEL</span>
-          <span>RECORD STUDIO</span>
+          <h3>MUSIC LABEL</h3>
+          <h3>RECORD STUDIO</h3>
         </div>
+        <HeroAnim/>
       </section>
+      <ScrollAnims/>
       <section className="home__revolution">
         <h2 className={"home__revolution__title hide-on-md"}>
           <span>Together,</span>
@@ -54,7 +60,9 @@ export default async function Home() {
           <span>revolutionaries</span>
         </h2>
         <h2 className={"home__revolution__title hide-on-sm"}>
-          Together, we are music revolutionaries
+          <span>Together, we</span>
+          <span>are music</span>
+          <span>revolutionaries</span>
         </h2>
         <p className={"home__revolution__desc"}>
           In Echo Sphere, we support artists who define their generations and
@@ -183,7 +191,7 @@ export default async function Home() {
               <EventRow
                 key={event.id}
                 event={event}
-                className={`${isHidden ? "mobile-hidden" : ""} ${isLastVisible ? "last-visible" : ""}`}
+                className={`isHome ${isHidden ? "mobile-hidden" : ""} ${isLastVisible ? "last-visible" : ""}`}
               />
             );
           })}
@@ -234,15 +242,20 @@ export default async function Home() {
         </div>
       </section>
       <section className={"home__newsletter"}>
-        <h2>NEWSLETTER</h2>
+        <h2 className={"home__newsletter__title"}>NEWSLETTER</h2>
+        <p className={"home__newsletter__desc hide-on-md"}>
+          Don’t miss out! Receive emails about the latest releases, upcoming
+          tours and careers of our artists.
+        </p>
         <div className={"home__newsletter__form"}>
-          <p>
+          <p className={"hide-on-sm"}>
             Don’t miss out! Receive emails about the latest releases, upcoming
             tours and careers of our artists.
           </p>
           <form>
-            <input type={"email"} placeholder={"Enter your email"} />
-            <input type={"submit"} value={"Subscribe"} />
+            <input type={"email"} placeholder={"ENTER YOUR EMAIL"} />
+            <input type={"submit"} value={"JOIN TO ECHO NEWSLETTER"} className={"hide-on-md"}/>
+            <input type={"submit"} value={"SUBSCRIBE"} className="hide-on-sm"/>
           </form>
         </div>
       </section>

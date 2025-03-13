@@ -18,7 +18,7 @@ export default async function Artists() {
     fetchArtistsArchiveCopy(),
     fetchArtistsData(),
   ]);
-  const { device, isDesktop, isTablet, isPhone } = getDevice();
+  const { device, isDesktop, isTablet, isPhone } = await getDevice();
   const artists = artistsData.docs;
   const mobileSlides = artists.map((artist: Artist, i) => {
     return {

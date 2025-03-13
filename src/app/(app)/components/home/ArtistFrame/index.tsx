@@ -38,9 +38,9 @@ export default function AristFrame({
           <path
             d="M5.5 11.75L18 11.75M18 11.75L12 17.75M18 11.75L12 5.75"
             stroke="#F2F2F2"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </Link>
