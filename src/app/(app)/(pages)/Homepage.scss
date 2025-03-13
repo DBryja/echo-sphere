@@ -3,6 +3,12 @@
 @import "@globals/mixins";
 @import "@globals/typography";
 
+body:has(.home__hero){
+  .header__menu{
+    opacity: 0;
+  }
+}
+
 main:has(.home__hero){
   grid-auto-flow: column;
   --rowGap: #{$space-5};
@@ -55,9 +61,10 @@ main:has(.home__hero){
         background-image: linear-gradient(180deg, rgba($black, 0), rgba($black, 0.5));
       }
     }
-
     &__title {
       text-transform: uppercase;
+      position: relative;
+      overflow-y: hidden;
 
       &--t1 {
         grid-area: t1;
@@ -65,30 +72,30 @@ main:has(.home__hero){
         color: $white;
         align-self: end;
       }
-
       &--t2 {
         grid-area: t2;
         display: block;
         padding-right: $space-2;
       }
-
       &--t3 {
         grid-area: t3;
       }
-
       &--t2, &--t3 {
         @include typo-sub1;
         color: $red;
       }
     }
-
     &__desc {
       grid-area: desc;
       @include typo-sub4;
       color: $white;
       padding-bottom: $space-3;
+      .line{
+        position: relative;
+        overflow-y: hidden;
+        color: inherit;
+      }
     }
-
     &__decor {
       grid-area: decor;
       @include ignoreMarginWidth;
@@ -99,12 +106,28 @@ main:has(.home__hero){
       height: var(--decor-height);
       background-color: $black;
       box-shadow: 0 10px 16px 0 rgba($black, 0.3);
+      overflow: hidden;
 
-      span {
+
+      h3 {
         @include typo-sub3;
         color: $gray-400;
         transform: translateY(15%);
       }
+    }
+
+    &__title, &__desc, &__decor h3{
+      opacity: 0;
+    }
+    p, div, span, h1,h2,h3,h4{
+      &:has(.wordToAnim){
+        overflow-y: hidden;
+        position: relative;
+        opacity: 1;
+      }
+    }
+    .wordToAnim{
+      color: inherit;
     }
 
     @include breakpoint(md) {
@@ -114,7 +137,6 @@ main:has(.home__hero){
           font-size: 10rem;
           line-height: 80%;
         }
-
         &--t2, &--t3 {
           font-size: 12rem;
           line-height: 80%;
@@ -133,7 +155,7 @@ main:has(.home__hero){
         }
       }
       &__decor {
-        span {
+        h3 {
           font-size: 6rem;
         }
       }
@@ -171,7 +193,6 @@ main:has(.home__hero){
           text-wrap: nowrap;
           width: min-content;
         }
-
         &--t2 {
           font-size: 8rem;
           color: $white;
@@ -179,11 +200,10 @@ main:has(.home__hero){
           width: 100%;
           padding-left: $space-2;
         }
-
         &--t3 {
           font-size: 20rem;
           line-height: 55%;
-          padding-bottom: $space-6;
+          margin-bottom: $space-6;
         }
       }
       &__desc {
@@ -199,19 +219,16 @@ main:has(.home__hero){
       &__decor {
         width: calc(100% + 2 * $space-8);
         margin: 0 calc(-1 * $space-8);
-        overflow: hidden;
-        flex-direction: row-reverse;
 
-        span {
+        h3 {
           font-size: 10rem;
           text-wrap: nowrap;
 
           &:first-of-type {
-            transform: translate(10px, 30%);
-          }
-
-          &:last-of-type {
             transform: translate(-10px, 30%);
+          }
+          &:last-of-type {
+            transform: translate(10px, 30%);
           }
         }
       }
@@ -375,7 +392,7 @@ main:has(.home__hero){
         }
       }
     }
-    @include breakpoint(xl) {
+    @include breakpoint(lg) {
       position: relative;
       display: flex;
       flex-direction: column;
@@ -1006,6 +1023,7 @@ main:has(.home__hero){
     row-gap: $space-2;
     padding-bottom: 0 !important;
     &__title{
+      user-select: none;
       @include typo-sub1;
       text-align: center;
       margin-top: 120px;

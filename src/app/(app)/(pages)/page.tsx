@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@components/Link"
 import Image from "@components/Image";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import ArtistFrame from "@components/home/ArtistFrame";
@@ -12,6 +12,7 @@ import ReleaseRow from "@components/home/ReleaseRow";
 import EventRow from "src/app/(app)/components/events/EventRow";
 import HomeEventRow from "@components/events/HomeEventRow";
 import ScrollAnims from "@components/home/Scroll-anims";
+import HeroAnim from "@components/home/Hero-anim";
 
 export const revalidate = 86400;
 const ARTISTS_PER_PAGE = 3;
@@ -46,9 +47,10 @@ export default async function Home() {
           voices to become music revolutionaries.
         </p>
         <div className={"home__hero__decor"}>
-          <span>MUSIC LABEL</span>
-          <span>RECORD STUDIO</span>
+          <h3>MUSIC LABEL</h3>
+          <h3>RECORD STUDIO</h3>
         </div>
+        <HeroAnim/>
       </section>
       <ScrollAnims/>
       <section className="home__revolution">
@@ -189,7 +191,7 @@ export default async function Home() {
               <EventRow
                 key={event.id}
                 event={event}
-                className={`${isHidden ? "mobile-hidden" : ""} ${isLastVisible ? "last-visible" : ""}`}
+                className={`isHome ${isHidden ? "mobile-hidden" : ""} ${isLastVisible ? "last-visible" : ""}`}
               />
             );
           })}

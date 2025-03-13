@@ -11,7 +11,7 @@ export default function ScrollAnims(){
   const revContainerRef = useRef<HTMLDivElement | null>(null);
   const revTitlesRef = useRef<HTMLDivElement[] | null>(null);
   const revDescRef = useRef<HTMLDivElement | null>(null);
-  // Heading displacements
+  // Headings displacements
   const artistsHeadingRef = useRef<HTMLDivElement | null>(null);
   const releasesTitleRef = useRef<HTMLDivElement | null>(null);
   const concertsWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -87,7 +87,7 @@ export default function ScrollAnims(){
 
   }, [isDesktop])
 
-  // Artists section
+  // Headings displacements
   useEffect(() => {
     artistsHeadingRef.current = document.querySelector(".home__artists .artists-carousel__bar h3") as HTMLDivElement;
     releasesTitleRef.current = document.querySelector(".home__releases__title") as HTMLDivElement;
@@ -108,16 +108,19 @@ export default function ScrollAnims(){
       return;
     }
 
-    const createScrollTrigger = (trigger) => ({
+    const createScrollTrigger = (trigger : HTMLDivElement | string) => ({
       trigger,
       start: "top 70%",
       end: () => "+=" + window.innerHeight * 0.6,
       scrub: 1,
-      once: true,
+      // once: true,
     });
 
     // Funkcja do tworzenia animacji
-    const createAnimation = (element, animation, customTrigger = null) => {
+    const createAnimation = (
+      element:HTMLDivElement | string,
+      animation: gsap.AnimationVars,
+      customTrigger: HTMLDivElement | string | null = null) => {
       if (!element) return;
 
       gsap.from(element, {
@@ -127,8 +130,12 @@ export default function ScrollAnims(){
     };
 
     // Animacje dla poszczególnych elementów
-    createAnimation(artistsHeadingRef.current, { x: 200 });
-    createAnimation(releasesTitleRef.current, { y: 50 });
+    if(artistsHeadingRef.current) {
+      createAnimation(artistsHeadingRef.current, { x: 200 });
+    }
+    if(releasesTitleRef.current){
+      createAnimation(releasesTitleRef.current, { y: 50 });
+    }
 
     // Animacja dla koncertów
     if (concertsWrapperRef.current && concertsHeadingsRef.current) {
@@ -140,7 +147,9 @@ export default function ScrollAnims(){
       });
     }
 
-    createAnimation(newsletterRef.current, { x: 200 });
+    if(newsletterRef.current) {
+      createAnimation(newsletterRef.current, { x: 200 });
+    }
 
   }, [isDesktop]);
 
