@@ -26,6 +26,7 @@ import { ContactData } from "@/collections/siteData/ContactData";
 import { MenuItems } from "@/collections/siteData/MenuItems";
 import { ArtistsArchive } from "@/collections/pages/ArtistsArchive";
 import { AboutUs } from "@/collections/pages/AboutUs";
+import plugins from "@/plugins";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -72,6 +73,7 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    ...plugins,
     vercelBlobStorage({
       enabled: true,
       collections: {

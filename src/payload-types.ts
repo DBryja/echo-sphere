@@ -176,6 +176,14 @@ export interface Artist {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -301,6 +309,14 @@ export interface Product {
    * The total stock of all variants combined.
    */
   stock?: number | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -632,6 +648,13 @@ export interface ArtistsSelect<T extends boolean = true> {
       };
   events?: T;
   releases?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -718,6 +741,13 @@ export interface ProductsSelect<T extends boolean = true> {
       };
   tags?: T;
   stock?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

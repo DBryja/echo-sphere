@@ -1,7 +1,6 @@
 import { CollectionConfig } from "payload";
 import { v7 } from "uuid";
 const currencyRegex = /^\d+(\.\d{1,2})?$/;
-// const colorHexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 import colorField from "@/fields/ColorPickerInput/field";
 import { ProductCategory, ProductType } from "@/payload-types";
 
@@ -82,7 +81,7 @@ export const Products: CollectionConfig = {
             return true;
           },
 
-          validate: async (value, { siblingData, req: { payload } }) => {
+          validate: async (value: any, { siblingData, req: { payload } }: any) => {
             const typedSiblingData = siblingData as {
               categories?: string[] | undefined;
             };
@@ -150,12 +149,12 @@ export const Products: CollectionConfig = {
       name: "price",
       type: "number",
       required: true,
-      validate: (value) => {
+      // @ts-ignore
+      validate: (value: number) =>  {
         if (value < 0) return "Price must be a positive number.";
-        if (typeof value === "string")
-          if (!currencyRegex.test(value.toString())) {
-            return "Price must be a valid currency format with up to 2 decimal places.";
-          }
+        if (!currencyRegex.test(value.toString())) {
+          return "Price must be a valid currency format with up to 2 decimal places.";
+        }
         return true;
       },
       admin: {
