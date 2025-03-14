@@ -718,6 +718,9 @@ $maskUrl: "/img/about-us/mask.svg";
       position: absolute;
       width: 100%;
       aspect-ratio: 1.2;
+      img{
+        object-fit: cover;
+      }
     }
     &__headers{
       position: absolute;
@@ -828,6 +831,7 @@ $maskUrl: "/img/about-us/mask.svg";
         }
       }
       &__image{
+        aspect-ratio: unset;
         width: calc(100% - 2* $gutter);
         height: 100%;
         margin: 0 auto;

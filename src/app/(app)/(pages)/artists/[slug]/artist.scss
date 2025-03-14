@@ -188,9 +188,11 @@ body:has(.artist__wrapper) {
       display: flex;
       flex-direction: column;
       gap: $margin;
+      @include typo-body-small;
 
       @include breakpoint("md") {
         margin-top: calc($margin * 4);
+        @include typo-body;
       }
       @include breakpoint("xl") {
         margin-top: 0;
