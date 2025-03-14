@@ -1024,6 +1024,7 @@ main:has(.home__hero){
     padding-bottom: 0 !important;
     &__title{
       user-select: none;
+      pointer-events: none;
       @include typo-sub1;
       text-align: center;
       margin-top: 120px;

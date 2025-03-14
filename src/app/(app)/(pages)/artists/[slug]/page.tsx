@@ -14,14 +14,16 @@ import {
 } from "@utils/data";
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import getDevice from "@utils/get-device";
+import { generateMeta } from "@utils/meta";
 
 interface ArtistProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default async function Artist({ params: { slug } }: ArtistProps) {
+export default async function Artist({ params }: ArtistProps) {
+  const { slug } = await params;
   const [artist, artistsData] = await Promise.all([
     fetchArtistById(slug),
     fetchArtistsData(),
@@ -113,4 +115,11 @@ export default async function Artist({ params: { slug } }: ArtistProps) {
       <ArtistsCarousel artists={artists} />
     </>
   );
+}
+
+
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const { slug = '' } = await paramsPromise;
+  const post = await fetchArtistById(slug);
+  return generateMeta({ doc: post });
 }

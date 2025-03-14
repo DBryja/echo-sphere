@@ -1,0 +1,5 @@
+{
+  "dependencies": ["@payloadcms/*", "payload"],
+  "packages": ["**"],
+  "pinVersion": "^3.27.0"
+}
