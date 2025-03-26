@@ -42,11 +42,11 @@ export default function StudioAnim() {
 
   useGSAP(() => {
     if (!isDesktop) {
-      gsap.killTweensOf(wrapperRef.current);
-      gsap.killTweensOf(roomRef.current);
-      gsap.killTweensOf(workRef.current);
-      gsap.killTweensOf(peopleRef.current);
-      gsap.killTweensOf(imgRef.current);
+      wrapperRef.current?.setAttribute("style", "");
+      roomRef.current?.setAttribute("style", "");
+      workRef.current?.setAttribute("style", "");
+      peopleRef.current?.setAttribute("style", "");
+      imgRef.current?.setAttribute("style", "");
       return;
     }
     if (
@@ -65,7 +65,7 @@ export default function StudioAnim() {
       x: "-50%",
     };
     const tlStudioAnimLength = (window.innerHeight * 1.5).toString();
-    const tlStudioAnim = gsap.timeline({
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapperRef.current,
         start: "top top",
@@ -74,7 +74,7 @@ export default function StudioAnim() {
         scrub: 1,
       },
     });
-    tlStudioAnim.set(roomRef.current, {
+    tl.set(roomRef.current, {
       opacity: 0.5,
       top: "-80px",
       left: "50%",
@@ -83,7 +83,7 @@ export default function StudioAnim() {
       skewX: -10,
       transformOrigin: "top",
     });
-    tlStudioAnim.set(workRef.current, {
+    tl.set(workRef.current, {
       opacity: 0.5,
       bottom: "-80px",
       left: "50%",
@@ -92,7 +92,7 @@ export default function StudioAnim() {
       skewX: 10,
       transformOrigin: "bottom",
     });
-    tlStudioAnim.set(peopleRef.current, {
+    tl.set(peopleRef.current, {
       opacity: 1,
       ...center,
       scale: 0,
@@ -101,7 +101,7 @@ export default function StudioAnim() {
       skewX: 10,
       y: ()=> window.innerHeight * -0.15,
     });
-    tlStudioAnim.set(imgRef.current, {
+    tl.set(imgRef.current, {
       opacity: 1,
       top: "50%",
       left: "50%",
@@ -111,7 +111,7 @@ export default function StudioAnim() {
       transformOrigin: "center",
     });
     // prettier-ignore
-    tlStudioAnim
+    tl
       .to(roomRef.current, {
         opacity: 1,
         scaleY: 1,
@@ -146,7 +146,10 @@ export default function StudioAnim() {
         skewX: 0,
       }, "<")
       .to(peopleRef.current, {});
-  }, [isDesktop]);
+  }, {
+    revertOnUpdate: true,
+    dependencies: [isDesktop]
+  });
 
   return <></>;
 }

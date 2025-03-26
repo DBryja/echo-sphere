@@ -8,6 +8,7 @@ export default function HeroAnim() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const img1Ref = useRef<HTMLDivElement | null>(null);
   const img2Ref = useRef<HTMLDivElement | null>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
   const windowWidth = useWindowWidth();
   const isDesktop = windowWidth > 1024;
 
@@ -31,14 +32,14 @@ export default function HeroAnim() {
 
   useGSAP(() => {
     if (!isDesktop) {
-      gsap.killTweensOf(containerRef.current);
-      gsap.killTweensOf(img1Ref.current);
-      gsap.killTweensOf(img2Ref.current);
+      containerRef.current?.setAttribute("style", "");
+      img1Ref.current?.setAttribute("style", "");
+      img2Ref.current?.setAttribute("style", "");
       return;
     }
 
     if (!containerRef.current || !img1Ref.current || !img2Ref.current) return;
-    const tl = gsap.timeline({
+    tlRef.current = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top 70%",
@@ -47,11 +48,16 @@ export default function HeroAnim() {
         once: true,
       },
     });
-    // prettier-ignore
-    tl.from(img1Ref.current, { x: "20%", y: "20vh", rotate: "30deg", ease: "sine.in" });
-    // prettier-ignore
-    tl.from(img2Ref.current, { x: "-20%", y: "20vh", rotate: "-30deg", ease: "sine.in" }, "<");
-  }, [isDesktop, containerRef.current, img1Ref.current, img2Ref.current, windowWidth]);
+    tlRef.current.from(img1Ref.current,
+      { x: "20%", y: ()=>window.innerHeight*0.2, rotate: "30deg", ease: "sine.in" }
+    );
+    tlRef.current.from(img2Ref.current,
+      { x: "-20%", y: ()=>window.innerHeight*0.2, rotate: "-30deg", ease: "sine.in" },
+      "<");
+  }, {
+    revertOnUpdate: true,
+    dependencies: [isDesktop]
+  });
 
   return <></>;
 }

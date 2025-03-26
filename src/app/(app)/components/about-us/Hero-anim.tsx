@@ -41,10 +41,10 @@ export default function HeroAnim() {
   useGSAP(() => {
     // Clean up for mobile
     if (!isDesktop) {
-      gsap.killTweensOf(bannerRef.current);
-      gsap.killTweensOf(titleRef.current);
-      gsap.killTweensOf(extraRef.current);
-      gsap.killTweensOf(descRef.current);
+      bannerRef.current?.setAttribute("style", "");
+      titleRef.current?.setAttribute("style", "");
+      extraRef.current?.setAttribute("style", "");
+      descRef.current?.setAttribute("style", "");
       return;
     }
 
@@ -57,7 +57,7 @@ export default function HeroAnim() {
       return;
 
     const tlMaskAnimLength =  () =>(window.innerHeight * 2).toString();
-    const tlMaskAnim = gsap.timeline({
+    const tl  = gsap.timeline({
       scrollTrigger: {
         trigger: ".about-us__hero",
         pin: ".about-us__hero",
@@ -68,7 +68,7 @@ export default function HeroAnim() {
       },
     });
     // prettier-ignore
-    tlMaskAnim
+    tl
       .to(extraRef.current, {
         y: 300,
         scale: 0.5,
@@ -98,13 +98,16 @@ export default function HeroAnim() {
         stagger: 0.32,
       })
       .to(descRef.current, {})
-  }, [
+  }, {
+    revertOnUpdate: true,
+    dependencies: [
     bannerRef.current,
     titleRef.current,
     extraRef.current,
     descRef.current,
     isDesktop,
-  ]);
+    ]
+  });
 
   return <></>;
 }

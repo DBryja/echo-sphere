@@ -85,7 +85,10 @@ export default function ScrollAnims(){
     })
 
 
-  }, [isDesktop])
+  }, {
+      revertOnUpdate: true,
+      dependencies: [isDesktop]
+    })
 
   // Headings displacements
   useEffect(() => {
@@ -116,7 +119,6 @@ export default function ScrollAnims(){
       // once: true,
     });
 
-    // Funkcja do tworzenia animacji
     const createAnimation = (
       element:HTMLDivElement | string,
       animation: gsap.AnimationVars,
@@ -129,7 +131,7 @@ export default function ScrollAnims(){
       });
     };
 
-    // Animacje dla poszczególnych elementów
+
     if(artistsHeadingRef.current) {
       createAnimation(artistsHeadingRef.current, { x: 200 });
     }
@@ -137,7 +139,6 @@ export default function ScrollAnims(){
       createAnimation(releasesTitleRef.current, { y: 50 });
     }
 
-    // Animacja dla koncertów
     if (concertsWrapperRef.current && concertsHeadingsRef.current) {
       concertsHeadingsRef.current.forEach((el, i) => {
         createAnimation(el, {
@@ -151,7 +152,10 @@ export default function ScrollAnims(){
       createAnimation(newsletterRef.current, { x: 200 });
     }
 
-  }, [isDesktop]);
+  }, {
+    revertOnUpdate: true,
+    dependencies: [isDesktop]
+  });
 
   return <></>
 }

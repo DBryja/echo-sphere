@@ -3,12 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import SplitType from "split-type";
+import { useWindowWidth } from "@hooks/useWindowWidth";
 
 export default function HeroAnim(){
   const [wordsRef, setWordsRef] = useState<HTMLElement[] | null>(null);
   const titlesRef = useRef<HTMLElement[] | null>(null);
   const descLinesRef = useRef<HTMLElement[] | null>(null);
   const barTitlesRef = useRef<HTMLElement[] | null>(null);
+  const windowWidth = useWindowWidth();
+  const breakpoint = Math.floor(windowWidth/200);
 
   useEffect(() => {
     titlesRef.current = Array.from(document.querySelectorAll(".home__hero__title")) as HTMLElement[];
@@ -36,9 +39,10 @@ export default function HeroAnim(){
       delay: 0.1,
       ease: "power4.out",
     });
-
-
-  }, [wordsRef])
+  }, {
+    revertOnUpdate: true,
+    dependencies: [breakpoint]
+  })
 
 
   return <></>
