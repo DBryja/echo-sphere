@@ -7,6 +7,7 @@ import type {
 } from '@payloadcms/plugin-seo/types';
 import type { Artist, Media, Product } from "@/payload-types";
 import {getServerSideURL} from "@utils/meta";
+import type {Plugin} from "payload";
 
 const generateTitle: GenerateTitle<Artist | Product> = ({ doc, collectionSlug }) => {
   return doc?.name
