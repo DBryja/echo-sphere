@@ -29,36 +29,36 @@ const animateImage = (
 ) => {
   if (!imageElement) return;
 
-  let timeline = itemTimelines.get(itemName);
-  if (!timeline) {
-    timeline = gsap.timeline();
-    itemTimelines.set(itemName, timeline);
+  // Kill existing timeline for this item before creating a new one
+  let tl = itemTimelines.get(itemName);
+  if (tl){
+    if(direction === "in") tl.clear();
+  } else{
+    tl = gsap.timeline();
+    itemTimelines.set(itemName, tl);
   }
-  timeline = timeline!;
+
   if (direction === "in") {
-    timeline
-      .set(imageElement, { clipPath: "inset(100% 0 0 0)" })
+    tl
+      .set(imageElement, { clipPath: "inset(100% 0% 0% 0%)" })
       .to(imageElement, {
-        clipPath: "inset(0% 0 0 0)",
+        clipPath: "inset(0% 0% 0% 0%)",
         duration: 0.8,
         ease: "power2.out",
       });
   } else {
-    // Queue the 'out' animation to start after the 'in' animation completes
-    timeline.to(
-      imageElement,
-      {
-        clipPath: "inset(0 0 100% 0)",
-        duration: 0.8,
-        ease: "power2.in",
-        onComplete: () => {
-          timeline?.clear();
-        },
+    tl.to(imageElement, {
+      clipPath: "inset(0% 0% 100% 0%)",
+      duration: 0.8,
+      ease: "power2.in",
+      onComplete: () => {
+        // Remove the timeline from the map when complete
+        itemTimelines.delete(itemName);
       },
-      ">",
-    );
+    });
   }
 };
+
 
 export default function Menu({
   isOpen,
@@ -73,9 +73,7 @@ export default function Menu({
 }) {
   const { email, "phone-number": phoneNumber, address } = contactData;
   const containerRef = useRef<HTMLElement | null>(null);
-  const [itemZIndices, setItemZIndices] = useState<{ [key: string]: number }>(
-    {},
-  );
+  const [itemZIndices, setItemZIndices] = useState<{ [key: string]: number }>({},);
   const [lastHoveredItem, setLastHoveredItem] = useState<string | null>(null);
 
   const windowWidth = useWindowWidth();
@@ -249,6 +247,7 @@ export default function Menu({
         const imageElement = container.querySelector(
           `.menu__decor__item[data-item="${imageName}"]`,
         );
+
         animateImage(imageElement, "in", imageName);
         grantHighestZIndex(imageName);
       }
@@ -301,8 +300,6 @@ export default function Menu({
               alt={getAlt(item)}
               width={600}
               height={300}
-              loading={"eager"}
-              priority={true}
               style={{ zIndex: itemZIndices[item.name] || 1 }}
             />
           ))}
