@@ -6,6 +6,12 @@ import EventsCarousel from "@components/events/EventsCarousel";
 import Image from "next/image";
 import ScrollBanner from "@components/events/ScrollBanner";
 import EventRow from "@components/events/EventRow";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Events | Echo Sphere",
+  description: "Discover the latest events organized by Echo Sphere, including festivals, tours, and concerts that are sure to captivate you."
+};
 
 export const revalidate = 86400;
 

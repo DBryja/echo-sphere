@@ -5,6 +5,7 @@ import Carousel from "@components/releases/carousel";
 import Album from "@components/releases/Album";
 import "./releasesArchive.scss";
 import { Release } from "@/payload-types";
+import { Metadata } from "next";
 
 export interface ISlide {
   id: number;
@@ -12,6 +13,11 @@ export interface ISlide {
   title: string;
   links: Release["links"];
 }
+
+export const metadata: Metadata = {
+  title: "New Releases | Echo Sphere",
+  description: "Discover the latest albums from Echo Sphere artists, freshly released and ready for you to explore."
+};
 
 export const revalidate = 86400;
 export default async function Releases() {
