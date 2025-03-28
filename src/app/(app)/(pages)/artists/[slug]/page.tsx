@@ -15,6 +15,7 @@ import {
 import ArtistsCarousel from "@components/artists/ArtistsCarousel";
 import getDevice from "@utils/get-device";
 import { generateMeta } from "@utils/meta";
+import { Metadata } from "next";
 
 interface ArtistProps {
   params: Promise<{
@@ -118,7 +119,7 @@ export default async function Artist({ params }: ArtistProps) {
 }
 
 
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+export async function generateMetadata({ params: paramsPromise }: ArtistProps): Promise<Metadata> {
   const { slug = '' } = await paramsPromise;
   const post = await fetchArtistById(slug);
   return generateMeta({ doc: post });

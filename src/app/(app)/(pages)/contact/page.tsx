@@ -7,6 +7,11 @@ import Image from "@components/Image";
 import Input from "@components/shared/Input";
 import ArrowIcon from "@components/shared/ArrowIcon";
 import HideArrowAnim from "@components/shared/ArrowIcon/hideArrow-anim";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Echo Sphere",
+};
 
 const escapeContactData = (data: string | ContactDatum["socials"]) => {
   if (typeof data === "string") return data;

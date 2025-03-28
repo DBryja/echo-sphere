@@ -1,6 +1,7 @@
 import { Artist, Product } from "@/payload-types";
 import { getImageUrl } from "@utils/index";
 import { Metadata } from "next";
+import ogImage from "../../../../public/OgImage.png";
 
 export const getServerSideURL = (): string => {
   // Make sure LIVE_URL is defined and properly formatted
@@ -13,21 +14,22 @@ export const getServerSideURL = (): string => {
 }
 
 const defaultOpenGraph: Metadata['openGraph'] = {
-  type: 'website',
-  description: 'Echo Sphere is a music label ...',
-  siteName: 'Echo Sphere',
-  title: 'Echo Sphere',
-  images: [
-    {
-      url: '/img/home/hero.png', // Use relative path here
-    },
-  ],
+    title: "Echo Sphere - Music Revolutionaries",
+    description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
+    url: "https://www.echo-sphere-next.vercel.app",
+    siteName: "Echo Sphere",
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+        alt: "Echo Sphere - Music Revolutionaries"
+      }
+    ],
+    locale: "en_US",
+    type: "website"
 }
 
-// Set metadataBase separately from the defaultOpenGraph
-export const siteConfig = {
-  metadataBase: new URL(getServerSideURL())
-}
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
   return {
@@ -42,14 +44,13 @@ export const generateMeta = async (args: {
 }): Promise<Metadata> => {
   const {doc} = args;
 
-  const ogImage = getImageUrl(doc?.meta?.image);
+  const ogImage = getImageUrl(doc?.meta?.image!);
 
   const title = doc?.meta?.title
     ? doc?.meta?.title
     : 'Echo Sphere'
 
   return {
-    metadataBase: siteConfig.metadataBase, // Add this line
     description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || "",

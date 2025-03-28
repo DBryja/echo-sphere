@@ -9,6 +9,13 @@ import HideArrowAnim from "@components/shared/ArrowIcon/hideArrow-anim";
 
 export const revalidate = 86400;
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us | Echo Sphere",
+  description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
+};
+
 export default async function AboutUs() {
   const copyData = await fetchAboutUsCopy();
 

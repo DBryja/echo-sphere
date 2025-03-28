@@ -11,6 +11,12 @@ import HideArrowAnim from "@components/shared/ArrowIcon/hideArrow-anim";
 import AnimatedRow from "@components/artists/AnimatedRow";
 import getDevice from "@utils/get-device";
 import ArrowIcon from "@components/shared/ArrowIcon";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Our Artists | Echo Sphere",
+  description: "Our label is not just a business. It is a home for those who have been underrepresented, giving them the freedom to explore their talents and make their voice be heard. ",
+};
 
 export const revalidate = 86400;
 export default async function Artists() {
@@ -91,7 +97,7 @@ export default async function Artists() {
               </p>
             )}
             {isDesktop && (
-              <p className={"artists__copy__extra"}>{copyData.desc2}</p>
+              <p className={"artists__copy__extra"}>{copyData.desc3}</p>
             )}
             {isDesktop && (
               <div className={"artists__copy__arrow"}>
