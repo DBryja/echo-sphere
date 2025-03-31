@@ -1,0 +1,10 @@
+@import "@globals/variables";
+@import "@globals/mixins";
+
+.product-page{
+  display: grid;
+  grid-column: 1/-1;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+  padding-top: calc($headerTop * 2 + $buttonHeight);
+}

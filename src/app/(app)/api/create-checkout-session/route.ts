@@ -1,115 +1,105 @@
-import { NextResponse } from "next/server";
-import {getPayload} from "payload";
+import { NextRequest, NextResponse } from "next/server";
 import config from "@payload-config";
-import { CartItem, TemplateItem, validateItem } from "@app/utils";
+import { CartItem, ProductVariant, TemplateItem, validateItem, formatSize } from "@app/utils";
 import { getStripe } from "@app/lib/stripe"; //stripe singleton
+import {getPayload} from "payload";
+import { Product } from "@/payload-types";
 
 const stripe = getStripe();
-const formatSize = (size: string) => {
-  switch (size) {
-    case "sm":
-      return "Small";
-    case "md":
-      return "Medium";
-    case "lg":
-      return "Large";
-    case "xl":
-      return "Extra Large";
-    case "one-size":
-    case "os":
-      return "One Size";
-    default:
-      return null;
-  }
-};
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
     try {
-        const { cartDetails } = await req.json();
+        const { cartDetails } = (await req.json()) as {[key: string]: Product};
         // <<< get product variants from database
-        const payload = await getPayloadHMR({config});
-        const payloadItems = await payload.find({
-            collection: "products",
-            where: {
-                variants: {
-                    id: {
-                        in: Object.keys(cartDetails)
-                    }
-                }
-            },
-            pagination: false,
-        });
-        const variants = payloadItems.docs.flatMap((item) =>
-            item.variants.map((variant) => ({
-                ...variant,
-                price: item.price,
-                product_id: item.id,
-            }))
-        );
-        // get product variants from database >>>
-        // <<< Convert cart items to Stripe line items
-        const lineItems = Object.values(cartDetails).map((item) => {
-            const templateItem = variants.find((variant) => variant.id === item.id);
-            if (!validateItem(item, templateItem)) {
-                throw new Error("Invalid cart item");
-            }
-            console.log(item.price_data.product_data.images);
+      const payload = await getPayload({ config });
+      const payloadItems = (await payload.find({
+        collection: "products",
+        where: {
+          "variants.id": {
+            in: Object.keys(cartDetails)
+          }
+          },
+        pagination: false,
+      })).docs as Array<Product>;
+      if (!payloadItems) {
+        return NextResponse.json({ statusCode: 400, message: "Invalid cart items" }, { status: 400 });
+      }
 
-            return {
-            price_data: {
-                unit_amount: item.price,
-                currency: "usd",
-                product_data: {
-                    name: item.name,
-                    description: `Size: ${formatSize(item.size)}`,
-                    images: item.price_data.product_data.images,
-                    // images: [`https://picsum.photos/seed/${item.id}/100/100`] // temporary image
-                },
-            },
-            quantity: item.quantity,
-        }});
-        const totalAmount = lineItems.reduce((total, item) => total + item.price_data.unit_amount * item.quantity, 0);
+      // TemplateItem is a product variant extended with product data like price and product_id
+      const templateItems: TemplateItem[] = payloadItems.flatMap((item: Product) => {
+        return item.variants.map((variant: ProductVariant) => ({
+          ...variant,
+          price: item.price,
+          product_id: item.id,
+        }));
+      });
+      if(!templateItems || templateItems.length === 0) {
+        return NextResponse.json({ statusCode: 400, message: "No variants found" }, { status: 400 });
+      }
+      // get product variants from database >>>
 
-        // Create Checkout Sessions from body params
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: lineItems,
-            mode: 'payment',
-            success_url: `${req.headers.get('origin')}/store/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${req.headers.get('origin')}/store`,
-            phone_number_collection: {
-                enabled: true,
+      // <<< Convert cart items to Stripe line items
+      // There is no proper type of LineItems in stripe package this is based on its documentation: https://docs.stripe.com/api/checkout/sessions/create
+      const lineItems = Object.values(cartDetails).map((item: CartItem) => {
+        const templateItem = templateItems.find((variant: ProductVariant) => variant.id === item.id);
+        if (!templateItem || !validateItem(item, templateItem)) {
+          throw new Error(`Invalid cart item: ${item.id}`);
+        }
+
+        return {
+          price_data: {
+            unit_amount: item.price,
+            currency: "usd",
+            product_data: {
+              name: item.name,
+              description: `Size: ${formatSize(item.size)}`,
+              // @ts-ignore TS declarations are not complete so it ends on 'object' type
+              images: item.price_data?.product_data.images,
             },
-            billing_address_collection: 'required',
-            shipping_address_collection: {
-                allowed_countries: ['US'],
-            },
-            shipping_options: [
-                {
-                    shipping_rate_data: {
-                        type: 'fixed_amount',
-                        fixed_amount: {
-                            amount: totalAmount > 9999 ? 0 : 500,
-                            currency: 'usd',
-                        },
-                        display_name: 'Standard shipping',
-                        delivery_estimate: {
-                            minimum: {
-                                unit: 'business_day',
-                                value: 3,
-                            },
-                            maximum: {
-                                unit: 'business_day',
-                                value: 7,
-                            },
-                        },
-                    },
+          },
+          quantity: item.quantity,
+        };
+      });
+      const totalAmount = lineItems.reduce((total, item) => total + item.price_data.unit_amount * item.quantity, 0);
+      // Create Checkout Sessions from body params
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${req.headers.get('origin')}/store/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.get('origin')}/store`,
+        phone_number_collection: {
+          enabled: true,
+        },
+        billing_address_collection: 'required',
+        shipping_address_collection: {
+          allowed_countries: ['US'],
+        },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: {
+                amount: totalAmount > 9999 ? 0 : 500,
+                currency: 'usd',
+              },
+              display_name: 'Standard shipping',
+              delivery_estimate: {
+                minimum: {
+                  unit: 'business_day',
+                  value: 3,
                 },
-            ],
-            locale: "en",
-            expires_at: (Math.floor(Date.now()/1000) + 1800)
-        })
-            // .then((session) => {console.log(session)});
+                maximum: {
+                  unit: 'business_day',
+                  value: 7,
+                },
+              },
+            },
+          },
+        ],
+        locale: "en",
+        expires_at: (Math.floor(Date.now()/1000) + 1800)
+      })
 
     const order = await payload.create({
       collection: "orders",
@@ -132,13 +122,9 @@ export async function POST(req) {
         status: "pending",
       },
     });
-
-        // setTimeout(async () => {
-        //     await stripe.checkout.sessions.expire(session.id);
-        // }, 15*1000);
-        return NextResponse.json({ sessionId: session["id"], orderId: order.id });
+      return NextResponse.json({ sessionId: session["id"], orderId: order.id });
     } catch (err) {
-        console.log(err);
-        return NextResponse.json({ statusCode: 500, message: err.message }, { status: 500 });
+      const error = err as Error;
+      return NextResponse.json({ statusCode: 500, message: error.message ? error.message : "" }, { status: 500 });
     }
 }

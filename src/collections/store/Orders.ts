@@ -1,6 +1,7 @@
 import type {CollectionConfig} from 'payload'
 import type {Product} from "@/payload-types";
-const updateStock = async (payload, items: Array<{ product: { id: string }, sku: string, quantity: number }>, increment: boolean = false) => {
+import type {Payload} from "payload";
+const updateStock = async (payload: Payload, items: Array<{ product: { id: string }, sku: string, quantity: number }>, increment: boolean = false) => {
     // Group items by product ID
     const itemsByProduct = items.reduce((acc, item) => {
         if (!acc[item.product.id]) {
@@ -40,11 +41,11 @@ const updateStock = async (payload, items: Array<{ product: { id: string }, sku:
                 id: productId,
                 data: {
                     variants: updatedVariants,
-                }
+                },
+                depth: 0,
             });
 
             console.info(`${increment ? 'Restored' : 'Reserved'} stock for product ${productId}`);
-            console.info('Updated product:', JSON.stringify(result, null, 2));
             return result;
         } catch (error) {
             console.error(`Error updating stock for product ${productId}:`, error);

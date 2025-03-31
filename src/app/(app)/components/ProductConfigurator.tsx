@@ -1,11 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import AddToCart from "@/app/(app)/components/AddToCart";
-import type { Product as CartItem } from "use-shopping-cart/core";
 import type { Product } from "@/payload-types";
 
 interface ImageObject {
-    img: {
+  img: {
         url: string;
         alt: string;
     };
@@ -17,23 +16,19 @@ export default function ProductConfigurator({ product }: { product: Product }) {
         const inStockVariant = product.variants.find(v => v.stock > 0);
         return inStockVariant?.sku || product.variants[0].sku;
     });
-    const [originPath, setOriginPath] = useState<string>('');
-    useEffect(() => {
-        setOriginPath(window.location.origin);
-    }, []);
 
-    const getImageUrl = (images: ImageObject[]) => {
-        if (images && images.length > 0 && images[0].img && images[0].img.url) {
-            const imageUrl = images[0].img.url;
-            // If the URL is already absolute, return it as is
-            if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
-                return imageUrl;
-            }
-            // Otherwise, prepend the origin
-            return `${originPath}${imageUrl}`;
-        }
-        return '';// Return an empty string or a default image URL if no valid image is found
-    };
+  const getImageUrl = (images: ImageObject[]) => {
+    if (images && images.length > 0 && images[0].img && images[0].img.url) {
+      // If the URL is already absolute, check if we are in development mode
+      const imageUrl = images[0].img.url;
+      if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+        return imageUrl;
+      }
+      // Otherwise, prepend the origin
+      return `https://echo-sphere-next.vercel.app${imageUrl}`;
+    }
+    return ''; // Return an empty string or a default image URL if no valid image is found
+  };
 
     const selectedVariant = product.variants.find(v => v.sku === selectedSku) || product.variants[0];
 
@@ -58,21 +53,22 @@ export default function ProductConfigurator({ product }: { product: Product }) {
                 </label>
             ))}
             <AddToCart
-                product={{
-                    ...selectedVariant,
-                    name: product.name,
-                    price: product.price,
-                    currency: "usd",
-                    product_data: {
-                        image: product.images[0].img,
-                        id: product.id,
-                    },
-                    price_data: {
-                        product_data: {
-                            images: [getImageUrl(product.images)],
-                        },
-                    },
-                }}
+              disabled={selectedVariant.stock === 0}
+              product={{
+                ...selectedVariant,
+                name: product.name,
+                price: product.price,
+                currency: "usd",
+                product_data: {
+                  image: product.images![0].img,
+                  id: product.id,
+                },
+                price_data: {
+                  product_data: {
+                    images: [getImageUrl(product.images as ImageObject[])],
+                  },
+                },
+              }}
             />
         </>
     );
