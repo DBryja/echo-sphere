@@ -74,7 +74,7 @@ export default async function ProductPage({params}: ProductPageProps) {
                 />
               </Link>
             );
-          else return <></>;
+          else return null;
         })}
       </div>
       <div>{formatCurrencyString({ value: item.price })}</div>
@@ -87,8 +87,8 @@ export default async function ProductPage({params}: ProductPageProps) {
             related.item &&
             typeof related.item !== "string"
           )
-            return <ProductBox key={related.item.id + i} product={related.item} />;
-          else return <></>;
+            return <ProductBox key={related.item.id} product={related.item} />;
+          else return null;
         })}
       </div>
     </article>

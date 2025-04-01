@@ -13,7 +13,7 @@ import LenisGsap from "@providers/LenisGsap";
 import TransitionBox from "@components/pageTransition/TransitionBox";
 import TransitionHandler from "@components/pageTransition/TransitionHandler";
 import Footer from "@components/footer";
-import ogImage from "/public/OgImage.png";
+import { metadata as presetMeta } from "@utils/meta";
 
 const natsRegular = localFont({
   src: "../fonts/NATS-Regular.woff",
@@ -24,32 +24,7 @@ const kokoroRegular = localFont({
   variable: "--font-kokoro",
 });
 
-export const metadata: Metadata = {
-  title: "Echo Sphere - Music Revolutionaries",
-  description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
-  openGraph: {
-    title: "Echo Sphere - Music Revolutionaries",
-    description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
-    url: "https://www.echo-sphere-next.vercel.app",
-    siteName: "Echo Sphere",
-    images: [
-      {
-        url: ogImage.src,
-        width: ogImage.width,
-        height: ogImage.height,
-        alt: "Echo Sphere - Music Revolutionaries"
-      }
-    ],
-    locale: "en_US",
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Echo Sphere - Music Revolutionaries",
-    description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
-    images: [ogImage.src]
-  }
-};
+export const metadata: Metadata = presetMeta;
 
 interface LayoutProps {
   children: React.ReactNode;

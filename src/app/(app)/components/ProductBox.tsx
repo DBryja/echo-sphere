@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ProductBox({ product }: { product: ProductType }) {
   return (
-    <div>
+    <div className="product-box">
       <div>
         {product.images?.map(({ img }) => {
           if (!img) return null;
@@ -18,7 +18,7 @@ export default function ProductBox({ product }: { product: ProductType }) {
                 width={150}
                 height={150}
               />
-            );
+            )
           return (
             <Image
               key={img.id}
@@ -27,9 +27,8 @@ export default function ProductBox({ product }: { product: ProductType }) {
               width={150}
               height={150}
             />
-          );
+          )
         })}
-        ;
       </div>
       <Link href={`/store/${product.id}`}>
         Name:{product.name} -- ID:{product.id}
