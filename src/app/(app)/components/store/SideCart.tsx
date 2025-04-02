@@ -1,7 +1,7 @@
 "use client";
 import { CSSProperties, useEffect, useRef } from "react";
 import { useShoppingCart } from "use-shopping-cart";
-import CartButton from "@/app/(app)/components/CartButton";
+import CartButton from "@components/store/CartButton";
 import Image from "@components/Image";
 
 const styles = {

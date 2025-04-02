@@ -74,18 +74,19 @@ export type TemplateItem = {
   product_id: string;
 } & ProductVariant;
 
-export function formatCurrencyString({
-                                       value,
-                                       currency,
-                                     }: {
-  value: number;
-  currency?: string;
-}) {
-  const numberFormat = new Intl.NumberFormat("en-US", {
+export function formatCurrencyString(
+  amount: number,
+  currency: string,
+  showEmptyZeros: boolean = true
+): string {
+  let numberFormat = new Intl.NumberFormat(["en-US"], {
     style: "currency",
-    currency: currency ? currency : "USD",
+    currency: currency,
+    currencyDisplay: "symbol",
+    minimumFractionDigits: showEmptyZeros ? 2 : 0,
+    maximumFractionDigits: 2,
   });
-  return numberFormat.format(value / 100);
+  return numberFormat.format(amount / 100);
 }
 
 export const validateItem = (

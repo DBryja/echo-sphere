@@ -2,7 +2,7 @@ import "./header.scss";
 import Link from "@components/Link";
 import Logo from "@components/shared/logo/logo-css";
 import NavContainer from "@components/shared/nav-container";
-import SideCart from "@components/SideCart";
+import SideCart from "@components/store/SideCart";
 import { fetchContactData, fetchNavItems } from "@utils/data";
 import HideLogoAnim from "@components/shared/logo/hideLogo-anim";
 export default async function Header() {

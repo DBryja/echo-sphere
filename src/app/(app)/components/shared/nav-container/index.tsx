@@ -12,7 +12,7 @@ import variables from "@globals/_variables.module.scss";
 import Nav from "@components/shared/nav";
 import HeaderMenuButton from "@components/buttons/menu";
 import Menu from "@components/menu";
-import OpenCart from "@components/OpenCart";
+import OpenCart from "@components/store/OpenCart";
 import { ContactDatum, MenuItem } from "@/payload-types";
 import { sanitizeBreakpointVariable } from "@app/utils";
 

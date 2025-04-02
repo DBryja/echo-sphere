@@ -1,6 +1,6 @@
 "use client";
 import {  useState } from "react";
-import AddToCart from "@/app/(app)/components/AddToCart";
+import AddToCart from "@components/store/AddToCart";
 import type { Product } from "@/payload-types";
 
 interface ImageObject {

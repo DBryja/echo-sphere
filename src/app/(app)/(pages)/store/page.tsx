@@ -4,7 +4,7 @@ import "./Store.scss"
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Product } from "@/payload-types";
-import ProductBox from "@components/ProductBox";
+import ProductBox from "@components/store/ProductBox";
 import Image from "next/image";
 import Logo from "@components/shared/logo/logo-props";
 export default async function Page() {
@@ -42,13 +42,21 @@ export default async function Page() {
             <h3 className={"store-hero__desc"}>High-Quality Clothing, Real Music Support</h3>
           </div>
         </div>
-
       </section>
-      <ul>
-        {products.map((product) => (
-          <ProductBox key={product.id} product={product} />
-        ))}
-      </ul>
+      <section className={"store-items"}>
+        {/*<h3 className={"store-items__heading"}>/ALL</h3>*/}
+        <div className={"store-items__container"}>
+          {products.map((product, i) => {
+            return (
+              <ProductBox
+                key={i}
+                product={product}
+              />
+            );
+          })}
+          <h4 className={"store-items__decor"}>STREETWEAR</h4>
+        </div>
+      </section>
     </>
   );
 }

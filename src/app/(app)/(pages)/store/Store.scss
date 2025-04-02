@@ -3,14 +3,13 @@
 @import "@globals/mixins";
 
 main:has(.store-hero){
-  display: flex;
-  flex-direction: column;
   padding-top: calc($headerTop * 2 + $buttonHeight);
   @include breakpoint("md") {
     padding-top: calc($headerTop * 2);
   }
 }
 .store-hero{
+  grid-column: 1/-1;
   width: 100%;
   aspect-ratio: 1.86;
   margin: $space-4 0 $space-8 0;
@@ -119,5 +118,74 @@ main:has(.store-hero){
   }
   @include breakpoint(3xl){
     aspect-ratio: 5;
+  }
+}
+.store-items{
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  row-gap: $space-2;
+  &__heading{
+    @include typo-sub3;
+  }
+  &__container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $space-4;
+    column-gap: $space-2;
+  }
+  &__decor{
+    grid-column: 1/-1;
+    grid-row: 2;
+    @include typo-h3;
+    @include ignoreMarginWidth;
+    text-transform: uppercase;
+    color: $gray-200;
+    text-wrap: nowrap;
+    line-height: 80%;
+    text-align: center;
+  }
+
+  @include breakpoint(md){
+    &__container{
+      grid-template-columns: repeat(3, 1fr);
+    }
+    &__decor{
+      text-wrap: wrap;
+      word-break: break-word;
+      display: block;
+      max-width: 6ch;
+      text-align: left;
+      grid-column: span 2;
+      grid-row: span 1;
+      @include typo-h1;
+      font-size: 20rem;
+      line-height: 60%;
+      transform:translateX(-6%);
+      z-index: -1;
+    }
+  }
+  @include breakpoint(xl){
+    &__container{
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+      gap: $space-5;
+    }
+    &__decor{
+      position: absolute;
+      grid-column: span 1;
+      grid-row: span 1;
+      font-size: 15rem;
+      width: 6ch;
+    }
+  }
+  @include breakpoint(2xl){
+    &__container{
+      padding: 0 $space-8 $space-8 $space-8;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    &__decor{
+      font-size: 20rem;
+    }
   }
 }

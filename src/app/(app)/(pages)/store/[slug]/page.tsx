@@ -4,9 +4,9 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import Image from "@components/Image";
 import type { Product } from "@/payload-types";
-import ProductConfigurator from "@components/ProductConfigurator";
+import ProductConfigurator from "@components/store/ProductConfigurator";
 import Link from "next/link";
-import ProductBox from "@components/ProductBox";
+import Index from "@components/store/ProductBox";
 import { formatCurrencyString } from "@/app/(app)/utils";
 import "./ProductPage.scss"
 
@@ -77,17 +77,17 @@ export default async function ProductPage({params}: ProductPageProps) {
           else return null;
         })}
       </div>
-      <div>{formatCurrencyString({ value: item.price })}</div>
+      <div>{formatCurrencyString(item.price, "USD")}</div>
       <ProductConfigurator product={item} />
 
       <div>
-        {item.relatedProducts?.map((related, i) => {
+        {item.relatedProducts?.map((related) => {
           if (
             related.relationType === "recommended" &&
             related.item &&
             typeof related.item !== "string"
           )
-            return <ProductBox key={related.item.id} product={related.item} />;
+            return <Index key={related.item.id} product={related.item} />;
           else return null;
         })}
       </div>

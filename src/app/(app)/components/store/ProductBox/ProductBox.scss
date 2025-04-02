@@ -1,0 +1,72 @@
+@import "@globals/typography";
+@import "@globals/variables";
+@import "@globals/mixins";
+
+.product-box{
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+          "img img"
+          "info info"
+          "price colorways";
+  grid-template-rows: repeat(auto-fit, auto);
+  row-gap: 0;
+  &__img{
+    grid-area: img;
+    display: flex;
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__info{
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  &__categories{
+    @include typo-label;
+    font-size: 2rem;
+    color: $gray-400;
+    text-transform: uppercase;
+  }
+  &__name{
+    @include typo-btn-small;
+    font-weight: 400;
+    line-height: 100%;
+  }
+  &__sizes{
+    @include typo-label;
+    color: $gray-400;
+    text-transform: uppercase;
+    line-height: 80%;
+  }
+  &__price{
+    grid-area: price;
+    margin-top: $space-1;
+    @include typo-sub3;
+  }
+  &__colorways{
+    grid-area: colorways;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 24px;
+    align-self: center;
+    margin-top: $space-1;
+  }
+
+  @include breakpoint(lg){
+    &__name{
+      @include typo-btn;
+    }
+    &__price{
+      @include typo-sub2;
+    }
+  }
+}
