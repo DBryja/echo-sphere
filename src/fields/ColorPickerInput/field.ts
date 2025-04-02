@@ -26,7 +26,8 @@ const colorField: CustomField = {
       },
     },
   },
-  validate: (value) => {
+  validate: (value:(string|null|undefined)) => {
+    if(!value) return "No Color value provided.";
     if (!colorHexRegex.test(value)) return "Color must be a valid HEX value.";
     return true;
   },

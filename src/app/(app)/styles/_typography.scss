@@ -32,18 +32,18 @@ a {
 }
 @mixin typo-h1 {
   font-size: 20rem;
-  letter-spacing: -1.8px;
+  letter-spacing: -12px;
   line-height: 140%;
 }
 @mixin typo-h2 {
   font-size: 12rem;
-  letter-spacing: -1.8px;
+  letter-spacing: -8px;
   line-height: 140%;
 }
 @mixin typo-h3 {
   font-size: 8rem;
   line-height: 100%;
-  letter-spacing: -0.6px;
+  letter-spacing: -5px;
 }
 @mixin typo-sub1 {
   font-size: 6rem;

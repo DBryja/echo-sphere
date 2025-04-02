@@ -9,8 +9,7 @@ export const getServerSideURL = (): string => {
     return process.env.LIVE_URL;
   }
 
-  // Fallback for production or if LIVE_URL is not set
-  return process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com";
+  return process.env.NEXT_PUBLIC_SITE_URL || "https://echo-sphere-next.vercel.app";
 }
 
 const defaultOpenGraph: Metadata['openGraph'] = {
@@ -52,6 +51,7 @@ export const generateMeta = async (args: {
 
   return {
     description: doc?.meta?.description,
+    metadataBase: new URL(getServerSideURL()),
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || "",
       images: ogImage
@@ -62,3 +62,31 @@ export const generateMeta = async (args: {
     title
   }
 }
+
+export const metadata: Metadata = {
+  title: "Echo Sphere - Music Revolutionaries",
+  description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
+  metadataBase: new URL(getServerSideURL()),
+  openGraph: {
+    title: "Echo Sphere - Music Revolutionaries",
+    description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
+    url: "https://www.echo-sphere-next.vercel.app",
+    siteName: "Echo Sphere",
+    images: [
+      {
+        url: ogImage.src,
+        width: ogImage.width,
+        height: ogImage.height,
+        alt: "Echo Sphere - Music Revolutionaries"
+      }
+    ],
+    locale: "en_US",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Echo Sphere - Music Revolutionaries",
+    description: "We are a music label from Chicago, founded by former musicians who shared a vision to make music industry open to every creative soul.",
+    images: [ogImage.src]
+  }
+};

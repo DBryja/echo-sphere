@@ -4,16 +4,20 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import Image from "@components/Image";
 import type { Product } from "@/payload-types";
-import ProductConfigurator from "@components/ProductConfigurator";
+import ProductConfigurator from "@components/store/ProductConfigurator";
 import Link from "next/link";
-import ProductBox from "@components/ProductBox";
+import Index from "@components/store/ProductBox";
 import { formatCurrencyString } from "@/app/(app)/utils";
+import "./ProductPage.scss"
 
-export default async function ProductPage({
-  params: { slug },
-}: {
-  params: { slug: string };
-}) {
+interface ProductPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export default async function ProductPage({params}: ProductPageProps) {
+  const { slug } = await params;
   const payload = await getPayload({ config });
   const item: Product = await payload.findByID({
     id: slug,
@@ -21,9 +25,9 @@ export default async function ProductPage({
   });
 
   return (
-    <div style={{ width: "50%" }}>
-      <h1>Product Page</h1>
-      <h2>{item.name}</h2>
+    <article className={"product-page"}>
+      <h2>Product Page</h2>
+      <h1>{item.name}</h1>
       <p>{item.description}</p>
       {/*<p>{item.color}</p>*/}
       <div>
@@ -70,23 +74,23 @@ export default async function ProductPage({
                 />
               </Link>
             );
-          else return <></>;
+          else return null;
         })}
       </div>
-      <div>{formatCurrencyString({ value: item.price })}</div>
+      <div>{formatCurrencyString(item.price, "USD")}</div>
       <ProductConfigurator product={item} />
 
       <div>
-        {item.relatedProducts?.map((related, i) => {
+        {item.relatedProducts?.map((related) => {
           if (
             related.relationType === "recommended" &&
             related.item &&
             typeof related.item !== "string"
           )
-            return <ProductBox key={i} product={related.item} />;
-          else return <></>;
+            return <Index key={related.item.id} product={related.item} />;
+          else return null;
         })}
       </div>
-    </div>
+    </article>
   );
 }

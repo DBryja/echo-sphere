@@ -1,0 +1,191 @@
+@import "@globals/variables";
+@import "@globals/typography";
+@import "@globals/mixins";
+
+main:has(.store-hero){
+  padding-top: calc($headerTop * 2 + $buttonHeight);
+  @include breakpoint("md") {
+    padding-top: calc($headerTop * 2);
+  }
+}
+.store-hero{
+  grid-column: 1/-1;
+  width: 100%;
+  aspect-ratio: 1.86;
+  margin: $space-4 0 $space-8 0;
+  position: relative;
+  &:after{
+    @include separator;
+    top: calc(100% + $space-4);
+  }
+
+  &__container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+  }
+  &__square{
+    display: none;
+  }
+  &__banner{
+    width: 100%;
+    height: 100%;
+    @include ignoreMarginWidth;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 $margin;
+    &__bg{
+      z-index: -1;
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      object-position: 38%;
+      filter: brightness(0.9);
+    }
+  }
+  &__heading{
+    @include typo-sub1;
+    color: $red;
+  }
+  &__desc{
+    color: $white;
+    max-width: 18ch;
+    @include typo-sub4;
+    text-align: right;
+    font-weight: 400;
+  }
+
+  @include breakpoint(md){
+    aspect-ratio: 2.93;
+    &__banner{
+      justify-content: space-around;
+    }
+    &__heading{
+      @include typo-h2;
+      line-height: 80%;
+    }
+    &__desc{
+      @include typo-sub2;
+      line-height: 100%;
+    }
+  }
+  @include breakpoint(xl){
+    aspect-ratio: 4;
+    margin-top: $space-10;
+    &__container{
+      display: flex;
+      flex-direction: row;
+      column-gap: $space-3;
+    }
+    &__banner{
+      width: 100%;
+      margin: 0;
+      padding: 0 $space-3;
+    }
+    &__square{
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      aspect-ratio: 1;
+      padding: $space-8;
+      > svg{
+        width: 100%;
+        height: auto !important;
+      }
+      &__bg{
+        object-fit: fill;
+        z-index: -1;
+      }
+    }
+    &__banner{
+      height: 100%;
+      justify-content: center;
+      row-gap: $space-3;
+    }
+    &__heading{
+      @include typo-h1;
+      line-height: 70%;
+    }
+  }
+  @include breakpoint(2xl){
+    aspect-ratio: 4.5;
+  }
+  @include breakpoint(3xl){
+    aspect-ratio: 5;
+  }
+}
+.store-items{
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  row-gap: $space-2;
+  &__heading{
+    @include typo-sub3;
+  }
+  &__container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $space-4;
+    column-gap: $space-2;
+  }
+  &__decor{
+    grid-column: 1/-1;
+    grid-row: 2;
+    @include typo-h3;
+    @include ignoreMarginWidth;
+    text-transform: uppercase;
+    color: $gray-200;
+    text-wrap: nowrap;
+    line-height: 80%;
+    text-align: center;
+  }
+
+  @include breakpoint(md){
+    &__container{
+      grid-template-columns: repeat(3, 1fr);
+    }
+    &__decor{
+      text-wrap: wrap;
+      word-break: break-word;
+      display: block;
+      max-width: 6ch;
+      text-align: left;
+      grid-column: span 2;
+      grid-row: span 1;
+      @include typo-h1;
+      font-size: 20rem;
+      line-height: 60%;
+      transform:translateX(-6%);
+      z-index: -1;
+    }
+  }
+  @include breakpoint(xl){
+    &__container{
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+      gap: $space-5;
+    }
+    &__decor{
+      position: absolute;
+      grid-column: span 1;
+      grid-row: span 1;
+      font-size: 15rem;
+      width: 6ch;
+    }
+  }
+  @include breakpoint(2xl){
+    &__container{
+      padding: 0 $space-8 $space-8 $space-8;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    &__decor{
+      font-size: 20rem;
+    }
+  }
+}

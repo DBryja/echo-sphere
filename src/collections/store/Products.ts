@@ -70,16 +70,43 @@ export const Products: CollectionConfig = {
           name: "type",
           type: "relationship",
           relationTo: "product-types",
-          filterOptions: ({ siblingData }: { siblingData: any }) => {
-            if (siblingData.categories && siblingData.categories.length > 0) {
-              return {
-                "related-categories": {
-                  all: siblingData.categories,
-                },
-              };
-            }
-            return true;
-          },
+          // filterOptions: ({siblingData}:{siblingData: any}) => {
+          //   // console.info("SIBLING DATA:", siblingData);
+          //   const categories = siblingData.categories.map((cat: string | ProductCategory) => typeof cat === 'string' ? cat : cat.id);
+          //   console.info("CATEGORIES:", categories);
+          //   const filter = {
+          //     'related-categories': {
+          //       in: siblingData.categories
+          //     }
+          //   }
+          //   console.log("FILTER:", filter);
+          //   return filter;
+          //   // return {
+          //   //   or: [
+          //   //     categories.map((catId: string) => ({
+          //   //       'related-categories': {
+          //   //         contains: catId
+          //   //       }
+          //   //     }))
+          //   //   ]
+          //   // };
+          // },
+          // filterOptions: ({ siblingData,  }: { siblingData: any }) => {
+          //   if (siblingData.categories && Array.isArray(siblingData.categories) && siblingData.categories.length > 0) {
+          //     // Extract just the IDs if categories are objects
+          //     const categoryIds = siblingData.categories.map((cat: string | ProductCategory) =>
+          //       typeof cat === 'string' ? cat : cat.id
+          //     );
+          //
+          //     // Use the contains operator which works for arrays
+          //     return {
+          //       'related-categories': {
+          //         contains: categoryIds
+          //       }
+          //     };
+          //   }
+          //   return true;
+          // },
 
           validate: async (value: any, { siblingData, req: { payload } }: any) => {
             const typedSiblingData = siblingData as {
@@ -102,7 +129,6 @@ export const Products: CollectionConfig = {
                 });
 
                 const selectedCategories = categories;
-                // eslint-disable-next-line
                 const productTypeCategories = (
                   productType["related-categories"] || []
                 ).map((cat: ProductCategory | string) =>
@@ -116,7 +142,7 @@ export const Products: CollectionConfig = {
                   return "The selected type does not match the selected categories.";
               } catch (error) {
                 console.error("Error in productType validation: ", error);
-                return "An error occurred while validating the product type.";
+                return "An error occurred while validating the product type: " + error;
               }
             }
             return true;
@@ -159,7 +185,7 @@ export const Products: CollectionConfig = {
       },
       admin: {
         description:
-          "The price of the product in USD (automatically converted to cents).",
+        "The price on the read is in cents. When entering a new price or editing existing one please enter it in USD.",
       },
     },
     {
