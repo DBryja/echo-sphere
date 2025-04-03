@@ -1,5 +1,6 @@
 @import "@globals/variables";
 @import "@globals/mixins";
+@import "@globals/typography";
 
 .product-page{
   display: grid;
@@ -7,4 +8,48 @@
   grid-template-columns: 1fr;
   min-height: 100vh;
   padding-top: calc($headerTop * 2 + $buttonHeight);
+
+  &__info{
+    display: grid;
+    width: 100%;
+    grid-column: 1/-1;
+    grid-template-columns: 1fr;
+    grid-template-areas: "name name" "desc desc" "sizes sizes" "colors colors" "price buttons";
+    row-gap: $space-1;
+  }
+  &__name{
+    grid-area: name;
+    @include typo-sub3;
+    font-weight: 400;
+  }
+  &__desc{
+    grid-area: desc;
+    @include typo-body-small;
+  }
+  &__colors{
+    grid-area: colors;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: $space-4;
+    column-gap: $space-1;
+    &__label{
+      @include typo-label;
+      text-transform: uppercase;
+      margin-right: $space-2;
+    }
+
+  }
+  &__sizes{
+    grid-area: sizes;
+    margin: $space-1 0;
+  }
+  &__buttons{
+    grid-area: buttons;
+  }
+  &__price{
+    grid-area: price;
+    margin: $space-3 0;
+    @include typo-sub2;
+  }
 }

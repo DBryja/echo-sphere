@@ -3,7 +3,7 @@ import { Product as ProductType } from "@/payload-types";
 import Image from "@components/Image";
 import Link from "next/link";
 import { formatCurrencyString, getImageUrl, getImgAlt } from "@app/utils";
-import Index from "@components/store/ColorwayDot";
+import ColorwayDot from "@components/store/ColorwayDot";
 import "./ProductBox.scss"
 
 const seperateStrings = (arr: (string | null)[], separator:string = " / ") => {
@@ -52,8 +52,9 @@ export default function ProductBox({ product }: { product: ProductType }) {
             related.relationType !== "colorway" ||
             typeof related.item === "string"
           ) return null;
-          return <Index key={related.item.id} relatedItem={related.item}></Index>
+          return <ColorwayDot key={related.item.id} relatedItem={related.item}></ColorwayDot>
         })}
+        <ColorwayDot relatedItem={product}/>
       </div>
     </article>
   );

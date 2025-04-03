@@ -8,7 +8,7 @@ interface ColorwayDotProps {
 
 export default function ColorwayDot({ relatedItem: product }: ColorwayDotProps) {
  return (
-   <Link href={`/products/${product.id}`}
+   <Link href={`/store/${product.id}`}
          className={"colorwayDot"}
          aria-label={`Link to ${product.name} ${product.colorHEX ? "in color "+ product.colorHEX : ""}`}>
      <div className={"colorwayDot__dot"}

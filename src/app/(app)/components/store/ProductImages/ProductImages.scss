@@ -1,7 +1,10 @@
+@import "@globals/variables";
+
 .product-page {
   &__images {
     display: grid;
     gap: 1rem;
+    position: relative;
 
     &__main {
       border: 1px solid #eee;
@@ -18,10 +21,15 @@
 
     &__thumbnails {
       display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding: 0.5rem 0;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: $space-1;
+      position: absolute;
+      bottom: $space-1;
+      left: $space-1;
+      height: 100%;
       scrollbar-width: thin;
+      overflow-y: auto;
 
       &::-webkit-scrollbar {
         height: 6px;
@@ -35,9 +43,9 @@
 
     &__thumbnail {
       &-button {
-        width: 80px;
-        height: 80px;
-        border: 1px solid #eee;
+        width: $space-6;
+        height: $space-6;
+        border: 1px solid $gray-200;
         border-radius: 0.25rem;
         overflow: hidden;
         padding: 0;
@@ -46,7 +54,7 @@
         background: none;
 
         &--active {
-          border-color: #000;
+          border-color: $gray-400;
         }
       }
 

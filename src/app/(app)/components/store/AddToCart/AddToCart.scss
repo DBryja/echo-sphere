@@ -1,0 +1,36 @@
+@import "@globals/variables";
+@import "@globals/mixins";
+@import "@globals/colors.module";
+@import "@globals/typography";
+
+.addToCart{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: $space-1 $space-3;
+  background-color: $black;
+  color: $white;
+  outline: none;
+  border: none;
+  column-gap: $space-1;
+  border-radius: 4px;
+  height: fit-content;
+  justify-self: center;
+  align-self: center;
+
+  span{
+    @include typo-label;
+    font-size: 2rem;
+    font-family: $nats;
+    color: $white;
+    line-height: 80%;
+    text-transform: uppercase;
+  }
+  svg{
+    path{
+      color: $white;
+      fill: $white;
+    }
+  }
+}

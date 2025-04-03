@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import Image from "@components/Image";
+// import Image from "next/image";
 import "./ProductImages.scss";
 import { Media } from "@/payload-types";
 

@@ -1,14 +1,13 @@
 import React from "react";
-// import {Metadata} from 'next'
 import { getPayload } from "payload";
 import config from "@payload-config";
-import Image from "@components/Image";
 import type { Product } from "@/payload-types";
+import ProductImages from "@components/store/ProductImages";
 import ProductConfigurator from "@components/store/ProductConfigurator";
 import Link from "next/link";
-import Index from "@components/store/ProductBox";
 import { formatCurrencyString } from "@/app/(app)/utils";
 import "./ProductPage.scss"
+import ColorwayDot from "@components/store/ColorwayDot";
 
 interface ProductPageProps {
   params: Promise<{
@@ -25,72 +24,34 @@ export default async function ProductPage({params}: ProductPageProps) {
   });
 
   return (
+    <>
     <article className={"product-page"}>
-      <h2>Product Page</h2>
-      <h1>{item.name}</h1>
-      <p>{item.description}</p>
-      {/*<p>{item.color}</p>*/}
-      <div>
-        {item.images &&
-          item.images.map((image, i) => {
-            if (!image) return null;
-            if (typeof image.img === "string")
-              return (
-                <Image
-                  key={i}
-                  src={image.img}
-                  alt={item.name}
-                  width={300}
-                  height={300}
-                />
-              );
-            return (
-              <Image
-                key={i}
-                src={image.img?.url!}
-                alt={image.img?.alt!}
-                width={300}
-                height={300}
-              />
-            );
+      <Link href={"/store"} className={"product-page__back"}>
+        BACK TO STORE
+      </Link>
+      <ProductImages images={item.images} productName={item.name} />
+      <div className={"product-page__info"}>
+        <h1 className={"product-page__name"}>{item.name}</h1>
+        <p className={"product-page__desc"}>{item.description}</p>
+        <ProductConfigurator product={item} /> {/* <>.product-page__sizes, .product-page__buttons</> */}
+        <div className={"product-page__colors"}>
+          <span className={"product-page__colors__label"}>Color:</span>
+          {item.relatedProducts?.map((related)=>{
+            if (
+              !related.item ||
+              related.relationType !== "colorway" ||
+              typeof related.item === "string"
+            ) return null;
+            return <ColorwayDot key={related.item.id} relatedItem={related.item}></ColorwayDot>
           })}
+          <ColorwayDot relatedItem={item}/>
+        </div>
+        <h3 className={"product-page__price"}>{formatCurrencyString(item.price, "USD", false)}</h3>
       </div>
-      <div style={{ background: "lightslategray" }}>
-        {item.relatedProducts?.map((related, i) => {
-          if (
-            related.relationType === "colorway" &&
-            related.item &&
-            typeof related.item !== "string"
-          )
-            return (
-              <Link key={i} href={`/store/${related.item.id}`}>
-                <div
-                  style={{
-                    width: "25px",
-                    height: "25px",
-                    borderRadius: "50%",
-                    background: `#${related.colorHEX ? related.colorHEX : "FFFFFF"}`,
-                  }}
-                />
-              </Link>
-            );
-          else return null;
-        })}
+      <div className={"product-page__related"}>
       </div>
-      <div>{formatCurrencyString(item.price, "USD")}</div>
-      <ProductConfigurator product={item} />
-
-      <div>
-        {item.relatedProducts?.map((related) => {
-          if (
-            related.relationType === "recommended" &&
-            related.item &&
-            typeof related.item !== "string"
-          )
-            return <Index key={related.item.id} product={related.item} />;
-          else return null;
-        })}
-      </div>
+      <div className={"product-page__banner"}></div>
     </article>
-  );
+    </>
+  )
 }

@@ -1,8 +1,10 @@
+@import "@globals/colors.module";
 .colorwayDot{
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 16px;
+  aspect-ratio: 1;
   height: 100%;
 
   &__dot{
@@ -11,5 +13,6 @@
     border-radius: 50%;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2),
     0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid $gray-200;
   }
 }
