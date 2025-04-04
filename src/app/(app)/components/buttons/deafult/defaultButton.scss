@@ -28,6 +28,10 @@
       color: $black;
       background-color: $red;
     }
+    &:hover{
+      color: $black;
+      background-color: $gray-200;
+    }
   }
   &--white {
     color: $gray-600;

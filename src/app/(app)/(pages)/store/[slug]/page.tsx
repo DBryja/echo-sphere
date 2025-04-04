@@ -8,6 +8,8 @@ import Link from "next/link";
 import { formatCurrencyString } from "@/app/(app)/utils";
 import "./ProductPage.scss"
 import ColorwayDot from "@components/store/ColorwayDot";
+import ProductBox from "@components/store/ProductBox";
+import Button from "@components/buttons/deafult";
 
 interface ProductPageProps {
   params: Promise<{
@@ -22,6 +24,18 @@ export default async function ProductPage({params}: ProductPageProps) {
     id: slug,
     collection: "products",
   });
+  let uniqueRelatedProducts: Product["relatedProducts"] = [];
+  if (item.relatedProducts) {
+    uniqueRelatedProducts = item.relatedProducts?.filter((relation, index, self) => {
+      if (!relation.item) return false;
+      if (typeof relation.item === "string") {
+        return (self.findIndex(r => (typeof r.item === "string" ? r.item : r.item) === relation.item) === index);
+      } else {
+        // @ts-ignore
+        return (self.findIndex(r => (typeof r.item === "string" ? r.item : r.item?.id) === relation.item?.id) === index);
+      }
+    }).slice(0, 3);
+  }
 
   return (
     <>
@@ -44,11 +58,18 @@ export default async function ProductPage({params}: ProductPageProps) {
             ) return null;
             return <ColorwayDot key={related.item.id} relatedItem={related.item}></ColorwayDot>
           })}
-          <ColorwayDot relatedItem={item}/>
+          <ColorwayDot relatedItem={item} active/>
         </div>
         <h3 className={"product-page__price"}>{formatCurrencyString(item.price, "USD", false)}</h3>
       </div>
       <div className={"product-page__related"}>
+        <h4 className={"product-page__related__heading"}>You might also like</h4>
+        {uniqueRelatedProducts.map((relation)=><ProductBox key={relation.id} product={relation.item!} />)}
+        <Link href={"/store"} className={"product-page__related__btn"}>
+        <Button color={"black"}>
+          SEE MORE PRODUCTS
+        </Button>
+        </Link>
       </div>
       <div className={"product-page__banner"}></div>
     </article>

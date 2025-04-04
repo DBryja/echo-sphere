@@ -4,7 +4,13 @@ import Image from "@components/Image";
 import Link from "next/link";
 import { formatCurrencyString, getImageUrl, getImgAlt } from "@app/utils";
 import ColorwayDot from "@components/store/ColorwayDot";
+import { getPayload } from "payload";
+import config from "@payload-config";
 import "./ProductBox.scss"
+
+interface ProductBoxProps {
+  product: ProductType | string;
+}
 
 const seperateStrings = (arr: (string | null)[], separator:string = " / ") => {
   let str = "";
@@ -17,7 +23,16 @@ const seperateStrings = (arr: (string | null)[], separator:string = " / ") => {
   return str;
 }
 
-export default function ProductBox({ product }: { product: ProductType }) {
+export default async function ProductBox({ product }: ProductBoxProps) {
+  if (typeof product === "string"){
+    const payload = await getPayload({ config });
+    const item: ProductType = await payload.findByID({
+      id: product,
+      collection: "products",
+    });
+    if (!item) return null;
+    product = item;
+  }
   // const categories = product.categories.map((cat)=>typeof cat === "string"?cat:cat.name)
   const availableSizes = product.variants.map((variant)=>{
     if(variant.stock <= 0) return null;

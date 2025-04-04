@@ -52,4 +52,24 @@
     margin: $space-3 0;
     @include typo-sub2;
   }
+  &__related{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: $space-4;
+    column-gap: $space-3;
+    margin-top: $space-3;
+    padding-bottom: $space-3;
+    &__heading{
+      grid-column: 1/-1;
+      @include typo-sub3;
+      color: $red;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    &__btn{
+      grid-column: 1/-1;
+      align-self: center;
+      justify-self: center;
+    }
+  }
 }
