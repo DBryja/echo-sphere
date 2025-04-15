@@ -10,6 +10,8 @@ import "./ProductPage.scss"
 import ColorwayDot from "@components/store/ColorwayDot";
 import ProductBox from "@components/store/ProductBox";
 import Button from "@components/buttons/deafult";
+import Logo from "@components/shared/logo/logo-props";
+import Image from "next/image";
 
 interface ProductPageProps {
   params: Promise<{
@@ -64,14 +66,24 @@ export default async function ProductPage({params}: ProductPageProps) {
       </div>
       <div className={"product-page__related"}>
         <h4 className={"product-page__related__heading"}>You might also like</h4>
-        {uniqueRelatedProducts.map((relation)=><ProductBox key={relation.id} product={relation.item!} />)}
+        {uniqueRelatedProducts.map((relation
+        )=><ProductBox key={relation.id} product={relation.item!} minified />)}
         <Link href={"/store"} className={"product-page__related__btn"}>
         <Button color={"black"}>
           SEE MORE PRODUCTS
         </Button>
         </Link>
       </div>
-      <div className={"product-page__banner"}></div>
+      <div className={"product-page__banner"}>
+        <div className={"product-page__banner__bg"}>
+          <Image src={"/img/store/footer-bg.jpg"} alt={"Hoodies on a clothes rack"} fill className={"product-page__banner__bg__img"}/>
+        </div>
+        <h2 className={"product-page__banner__heading"}>High-Quality Clothing, Real Music Support</h2>
+        <Logo textColor={"white"} iconColor={"red"}/>
+        <p className={"product-page__banner__desc"}>
+          Our clothing line is crafted with a focus on quality, ensuring lasting durability. By choosing our products, you are investing in premium apparel while supporting young musicians in pursuing their dreams. Profits from every purchase go directly towards their music careers.
+        </p>
+      </div>
     </article>
     </>
   )

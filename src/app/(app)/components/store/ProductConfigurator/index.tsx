@@ -50,7 +50,7 @@ export default function ProductConfigurator({ product }: { product: Product }) {
               value={variant.sku}
               disabled={variant.stock < 1}
               checked={selectedSku === variant.sku}
-              onChange={(e) => handleVariantChange(variant.sku, e)}
+              onChange={() => handleVariantChange(variant.sku)}
             />
             <span>
             {variant.size === "os" ? "One Size" : variant.size}

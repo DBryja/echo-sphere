@@ -10,6 +10,7 @@ import "./ProductBox.scss"
 
 interface ProductBoxProps {
   product: ProductType | string;
+  minified?: boolean;
 }
 
 const seperateStrings = (arr: (string | null)[], separator:string = " / ") => {
@@ -23,7 +24,7 @@ const seperateStrings = (arr: (string | null)[], separator:string = " / ") => {
   return str;
 }
 
-export default async function ProductBox({ product }: ProductBoxProps) {
+export default async function ProductBox({ product, minified }: ProductBoxProps) {
   if (typeof product === "string"){
     const payload = await getPayload({ config });
     const item: ProductType = await payload.findByID({
@@ -55,12 +56,12 @@ export default async function ProductBox({ product }: ProductBoxProps) {
       <Link href={`/store/${product.id}`} className={"product-box__info"}>
         {/*<p className={"product-box__categories"}>{seperateStrings(categories)}</p>*/}
         <h4 className={"product-box__name"}>{product.name}</h4>
-        <p className={"product-box__sizes"}>{seperateStrings(availableSizes, "/")}</p>
+        {!minified && <p className={"product-box__sizes"}>{seperateStrings(availableSizes, "/")}</p>}
       </Link>
       <p className={"product-box__price"}>
           {product.price && formatCurrencyString(product.price, "USD", false)}
         </p>
-      <div className="product-box__colorways">
+      {!minified && <div className="product-box__colorways">
         {product.relatedProducts?.map((related)=>{
           if (
             !related.item ||
@@ -71,6 +72,7 @@ export default async function ProductBox({ product }: ProductBoxProps) {
         })}
         <ColorwayDot relatedItem={product}/>
       </div>
+      }
     </article>
   );
 }
