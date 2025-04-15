@@ -121,6 +121,7 @@ main:has(.store-hero){
   }
 }
 .store-items{
+  padding: 0 0 $space-4 0;
   grid-column: 1/-1;
   display: flex;
   flex-direction: column;
@@ -181,7 +182,9 @@ main:has(.store-hero){
   }
   @include breakpoint(2xl){
     &__container{
-      padding: 0 $space-8 $space-8 $space-8;
+      padding: 0 0 $space-8 0;
+      max-width: 1500px;
+      margin: 0 auto;
       grid-template-columns: repeat(4, 1fr);
     }
     &__decor{

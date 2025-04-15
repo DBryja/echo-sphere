@@ -59,6 +59,7 @@
     height: 24px;
     align-self: center;
     margin-top: $space-1;
+    column-gap: $space-1;
   }
 
   @include breakpoint(lg){

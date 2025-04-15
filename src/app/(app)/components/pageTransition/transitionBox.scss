@@ -1,6 +1,10 @@
 @import "@globals/colors.module";
 @import "@globals/variables";
-
+body:has(.product-page, .store-items){
+  .transitionBox {
+    display: none;
+  }
+}
 .transitionBox {
   position: fixed;
   top: 100%;

@@ -9,7 +9,9 @@ const styles = {
     position: "fixed",
     right: "0",
     top: 0,
-    width: "450px",
+    minWidth: "300px",
+    width: "100%",
+    maxWidth: "600px",
     height: "100%",
     backgroundColor: "white",
     boxShadow: "0 0 10px rgba(0,0,0,0.1)",
@@ -67,8 +69,8 @@ export default function SideCart() {
                   src={item.product_data.image.url}
                   //@ts-ignore
                   alt={item.product_data.image.alt}
-                  width={150}
-                  height={150}
+                  width={80}
+                  height={80}
                   style={{ objectFit: "cover" }}
                 />
                 <div>
