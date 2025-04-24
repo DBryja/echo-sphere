@@ -3,7 +3,7 @@
 @import "@globals/typography";
 body:has(.cart--open){
   overflow-y: hidden;
-  height: 100vh;
+  //height: 100vh;
 }
 .cart{
   position: fixed;
@@ -24,16 +24,6 @@ body:has(.cart--open){
     grid-template-columns: 1fr;
     grid-template-rows: 64px 1fr auto auto auto;
     align-items: center;
-  }
-  &:before{
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: -5%;
-    bottom: -5%;
-    left: 0;
-    right: 0;
-    background-color: $black;
   }
   &--open{
     transform: translateX(0);
@@ -226,6 +216,41 @@ body:has(.cart--open){
         height: 1px;
         width: 100%;
         margin: 0;
+      }
+    }
+  }
+
+  @include breakpoint(md){
+    left: unset;
+    width: 100%;
+    max-width: 550px;
+    &__container{
+      padding: $space-5 $margin;
+      grid-template-rows: 96px 1fr auto auto auto;
+    }
+    &__head{
+      &__title{
+        @include typo-sub1;
+      }
+      &__close{
+        svg{
+          width: 36px;
+          height: 36px;
+        }
+      }
+    }
+    &__item{
+      &__name{
+        @include typo-sub3;
+      }
+      &__price{
+        display: grid;
+        grid-template-columns: 120px auto;
+        column-gap: $space-5;
+        justify-content: left;
+        p{
+          @include typo-sub2;
+        }
       }
     }
   }

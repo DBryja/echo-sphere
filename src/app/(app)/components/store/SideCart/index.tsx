@@ -9,6 +9,8 @@ import colors from "@globals/_colors.module.scss";
 import { formatCurrencyString, getImageUrl, getImgAlt } from "@app/utils";
 import { Media } from "@/payload-types";
 
+
+// TODO: Move the components to their own files
 export default function SideCart() {
   const cartRef = useRef<HTMLDivElement | null>(null);
   const [checkedDisclaimer, setCheckedDisclaimer] = useState(false);
