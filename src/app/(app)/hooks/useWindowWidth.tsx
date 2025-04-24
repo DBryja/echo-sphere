@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const subscribers = new Set<(width: number) => void>();
 let windowWidth = 0;
@@ -48,6 +49,7 @@ function updateWindowWidth() {
  */
 export function useWindowWidth() {
   const [width, setWidth] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,6 +71,10 @@ export function useWindowWidth() {
       };
     }
   }, []);
+
+  useEffect(() => {
+    updateFooterMargin(width);
+  }, [pathname, width]);
 
   return width;
 }

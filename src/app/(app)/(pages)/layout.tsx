@@ -14,6 +14,7 @@ import TransitionBox from "@components/pageTransition/TransitionBox";
 import TransitionHandler from "@components/pageTransition/TransitionHandler";
 import Footer from "@components/footer";
 import { metadata as presetMeta } from "@utils/meta";
+import SideCart from "@components/store/SideCart";
 
 const natsRegular = localFont({
   src: "../fonts/NATS-Regular.woff",
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: LayoutProps) {
           <TransitionBox />
           <TransitionHandler />
           <Cart>
+            <SideCart />
             <Header />
             <LenisGsap>
               <main>{children}</main>

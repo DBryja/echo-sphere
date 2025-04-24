@@ -48,5 +48,3 @@ export default function OpenCart({ isStore }: { isStore: boolean }) {
     </button>
   );
 }
-
-//TODO: change menu to square

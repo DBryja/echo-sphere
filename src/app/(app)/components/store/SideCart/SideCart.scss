@@ -1,0 +1,232 @@
+@import "@globals/variables";
+@import "@globals/mixins";
+@import "@globals/typography";
+body:has(.cart--open){
+  overflow-y: hidden;
+  height: 100vh;
+}
+.cart{
+  position: fixed;
+  inset: 0;
+  overflow-y: scroll;
+  background-color: $black;
+  z-index: 1000;
+  //transform: translateX(0);
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in-out;
+
+  &__container{
+    position: absolute;
+    inset: 0;
+    min-height: 100vh;
+    display: grid;
+    padding: $space-3 $margin $space-3 $margin;
+    grid-template-columns: 1fr;
+    grid-template-rows: 64px 1fr auto auto auto;
+    align-items: center;
+  }
+  &:before{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -5%;
+    bottom: -5%;
+    left: 0;
+    right: 0;
+    background-color: $black;
+  }
+  &--open{
+    transform: translateX(0);
+  }
+  &__head{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-self: start;
+    width: 100%;
+
+    &__title{
+      @include typo-sub3;
+      color: $red;
+    }
+    &__close{
+      border: none;
+      background: none;
+      outline: none;
+      cursor: pointer;
+      color: $red;
+    }
+  }
+  &__list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+  }
+  &__total{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: $space-3;
+    padding-bottom: $space-2;
+    margin-top: $space-3;
+    margin-bottom: $space-2;
+    border-bottom: 1px solid $gray-400;
+    &__label{
+      @include typo-sub3;
+      text-transform: uppercase;
+      color: $white;
+      grid-column: 1/-1;
+    }
+    &__shipping{
+      @include typo-body-small;
+      color: $gray-400;
+    }
+    &__price{
+      @include typo-sub2;
+      color: $red;
+    }
+  }
+  &__checkout{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &__disclaimer{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: $space-2;
+      p{
+        @include typo-body-small;
+        color: $white;
+      span{color: $red};
+      }
+      input{
+        display: block;
+        width: 32px;
+        height: 32px;
+        align-self: center;
+      }
+    }
+    &__buttons{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-self: end;
+      margin: $space-2 0;
+      row-gap: $space-2;
+    }
+    &__goTo, &__continue{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      @include typo-label;
+      font-family: $nats;
+      text-transform: uppercase;
+      padding: $space-1 $space-4;
+      font-size: 2rem;
+      border-radius: 4px;
+      color: $black;
+      background-color: $white;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    }
+    &__goTo[disabled]{
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    &__continue{
+      color: $white;
+      background-color: black;
+    }
+  }
+  &__item{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: "img content delete" "img price delete";
+    justify-content: space-between;
+    column-gap: $space-2;
+    margin-bottom: $space-2;
+    &__content{
+      grid-area: content;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    &__name, &__size{
+      @include typo-label;
+      font-size: 2rem;
+      color: $white;
+      text-transform: uppercase;
+    }
+    &__image{
+      grid-area: img;
+      width: 100px;
+      aspect-ratio: 1;
+      position: relative;
+      img{
+        object-fit: cover;
+      }
+    }
+    &__delete{
+      grid-area: delete;
+    }
+    &__price{
+      grid-area: price;
+      display: flex;
+      flex-direction: row;
+      margin-top: auto;
+      align-items: center;
+      justify-content: space-between;
+      p{
+        @include typo-sub3;
+        color: $white;
+      }
+    }
+    &__buttons{
+      width: 100px;
+      padding: 6px 10px;
+      border: 1px solid $white;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button{
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer;
+      }
+      span, button{
+        @include typo-btn-small;
+        color: $white;
+      }
+    }
+    &__delete{
+      display: block;
+      height: fit-content;
+      width: fit-content;
+      border: none;
+      outline: none;
+      background: none;
+    }
+    &:not(:first-of-type){
+      padding-top: $space-2;
+      position: relative;
+      &:before{
+        display: block;
+        content: "";
+        position: absolute;
+        top: 0;
+        background: $gray-200;
+        height: 1px;
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}

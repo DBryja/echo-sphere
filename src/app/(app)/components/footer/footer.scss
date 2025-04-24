@@ -141,6 +141,9 @@ body:has(.footer) {
       text-transform: uppercase;
       color: $gray-600;
       position: relative;
+      display: block;
+      height: fit-content;
+      width: fit-content;
       @include hoverable {
         &:hover {
           color: $red;
@@ -151,6 +154,7 @@ body:has(.footer) {
         display: block;
         position: absolute;
         width: 100%;
+        bottom: 0;
         height: 2px;
         background-color: $gray-400;
       }

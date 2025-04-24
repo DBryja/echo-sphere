@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 
-//TODO: Add items validation
-export default function CartButton() {
+export default function CartButton({className, disabled}: {className?: string, disabled?: boolean}) {
   const [status, setStatus] = useState("idle");
   const { cartDetails, cartCount, redirectToCheckout } = useShoppingCart();
 
@@ -49,15 +48,8 @@ export default function CartButton() {
   }
 
   return (
-    <>
-      <span>
-        Disclaimer: This shop is currently in preview. No actual billing or
-        transactions will take place. Please avoid entering real personal or
-        payment information.
-      </span>
-      <button onClick={handleClick} disabled={status === "loading"}>
-        {status === "loading" ? "Loading..." : "Checkout"}
+      <button className={className} onClick={handleClick} disabled={disabled || status === "loading"}>
+        {status === "loading" ? "Loading..." : "Go To Checkout"}
       </button>
-    </>
   );
 }
